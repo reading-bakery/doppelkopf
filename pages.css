@@ -73,8 +73,10 @@ footer {
 }
 
 .rule-card:hover {
-    transform: translateX(10px);
-    background: rgba(255, 255, 255, 0.1);
+    transform: translateX(0px);
+    background: rgba(112, 111, 111, 0.1);
+    border: solid 1px; 
+    border-color: darkslategrey;
 }
 
 .rule-icon {
@@ -120,7 +122,7 @@ a {
 }
 
 svg {
-    color: rgb(90, 161, 90);
+    color: black;
 }
 
 h1 {
@@ -140,10 +142,15 @@ h2 {
     font-weight: normal;
 }
 
+.trump-list,
 p {
     font-size: 1.3rem;
     color: black;
     font-family: "Playfair", serif;
+    hyphens: auto;
+    -webkit-hyphens: auto; /* Für Safari */
+    text-align: justify;   /* Optional: Blocksatz verstärkt den Effekt */
+    word-wrap: break-word;
 }
 
 .top-button {
