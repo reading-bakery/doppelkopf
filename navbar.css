@@ -1,0 +1,166 @@
+.navbar {
+    background-color: #262e28;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 10px;
+    border-radius: 8px;
+    margin: 20px 5px 0 5px;
+    height: 50px;
+    transition: height 0.1s ease-in-out;
+    font-family: "Bebas Neue", sans-serif;
+}
+
+.hidden-iframe {
+    display: none;
+}
+
+#close-icon {
+    display: none; /* Startzustand ausgeblendet */
+}
+
+
+.nav-links {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.nav-links li {
+    position: relative; 
+    padding: 0 20px;
+    font-size: 16pt;
+    text-align: left;
+    white-space: nowrap;
+    font-family: "Protest Strike", sans-serif;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: rgb(113, 122, 124);
+    font-weight: 400;
+}
+
+.nav-links a:hover {
+    text-decoration: none;
+    color: rgb(155, 122, 138);
+    font-weight: bold;
+}
+
+.navbar-expanded {
+    height: 150px;
+}
+
+.toggle-button {
+    cursor: pointer;
+    display: none;
+    float: right;
+    margin-left: auto;
+}
+
+.logohome {
+    color: rgb(113, 122, 124);
+    text-decoration: none;
+    font-family: "Rubik Mono One", monospace;
+    font-weight: normal;
+    font-size: 27pt; 
+    display: flex; 
+}
+
+.logohome:hover {
+    text-decoration: none;
+    color: rgb(155, 122, 138);
+    font-weight: bold;
+}
+
+.navbar-fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    border-radius: 0; /* optional: abgerundet entfernen */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* Schatteneffekt */
+}
+
+@media (max-width: 1366px) {
+.logohome {
+        font-size: 18pt; 
+    }
+}
+
+
+@media (max-width: 740px) {
+
+.navbar {
+    margin: 10px 5px 0 5px;
+    padding: 1vh;
+    height: 50px;
+}
+
+.navbar.expanded {
+    height: auto; 
+    transition: height 0.1s ease-in-out;
+}
+
+   
+.nav-links {
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding-left: 50px;
+    width: 100%;
+    font-family: "Amatic SC", serif;
+}
+
+.nav-links li {
+    padding: 0;
+    font-size: 13pt;
+    margin: 0;
+}
+
+           
+.toggle-button {
+    display: flex;
+    color: rgb(113, 122, 124);
+}
+
+
+.toggle-button:hover {
+    color: rgb(155, 122, 138);
+    font-weight: bold;
+}
+
+.nav-links.active {
+    display: flex;
+}
+
+
+.logohome {
+    color: rgb(113, 122, 124);
+    text-decoration: none;
+    font-weight: normal;
+    font-size: 16pt; 
+    display: flex;
+    height: auto;
+}
+
+.nav-links a:hover {
+    text-decoration: none;
+    color: rgb(155, 122, 138);
+    font-weight: bold;
+}
+
+.logohome:hover {
+    text-decoration: none;
+    color: rgb(155, 122, 138);
+    font-weight: 400;
+}
+}
+
+
+
