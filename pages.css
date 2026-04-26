@@ -41,6 +41,7 @@ header {
     font-family: "Rubik Mono One", monospace;
 }
 
+.imprint,
 footer {
     background-color: #262e28;
     padding: 0.1rem;
@@ -75,7 +76,6 @@ footer {
 .rule-card:hover {
     transform: scale(1.05);
     background: rgba(112, 111, 111, 0.1);
-    border: solid 1px; 
     border-color: darkslategrey;
 }
 
@@ -149,28 +149,6 @@ p {
     word-wrap: break-word;
 }
 
-.top-button {
-        display: flex;
-    }
-
-#backToTop {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    display: none;
-    padding: 10px;
-    background-color: whitesmoke;
-    color: black;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    height: auto; 
-}
-
-#backToTop:hover {
-    background-color: #b41111;
-    color: white;
-}
 
 #close-icon {
 display: none; /* Startzustand ausgeblendet */
@@ -218,8 +196,8 @@ display: none; /* Startzustand ausgeblendet */
     right: 25px;
     top: 50%;
     transform: translateY(-20%);
-    background: rgb(133, 128, 128);
-    color: darkslategrey;
+    background: rgba(0, 0, 0, 0.6); /* Dunklerer Hintergrund für Lesbarkeit */
+    color: whitesmoke;
     padding: 4px 10px;
     border-radius: 5px;
     font-size: 0.55rem;
@@ -246,7 +224,7 @@ display: none; /* Startzustand ausgeblendet */
 }
 
 .rules-container {
-padding: 1rem;
+    padding: 1rem;
 }
 
 h1 {
@@ -258,8 +236,8 @@ h2 {
 }
 
 .scroll-nav {
-    right: 10px; /* Näher am Rand */
-    gap: 15px;
+    right: 7px; /* Näher am Rand */
+    gap: 12px;
 }
 
 .nav-dot {
@@ -270,12 +248,18 @@ h2 {
 /* Titel-Popup auf Handy lieber ausblenden oder vereinfachen, 
     da kein Platz für Hover ist */
 .nav-dot::after {
-    display: none;
+    display: block; /* Wieder einschalten */
+    opacity: 0; /* Erstmal unsichtbar */
+    right: 20px; /* Links neben dem Punkt */
+    font-size: 0.5rem; /* Sehr kleine Schrift für Mobile */
+    background: rgba(0, 0, 0, 0.6); /* Dunklerer Hintergrund für Lesbarkeit */
+    color: whitesmoke;
+    padding: 2px 6px;
+    transition: opacity 0.3s ease;
 }
 
-
 .rule-card:hover {
-    transform: scale(1.03);
+    transform: none;
 }
 
 }
