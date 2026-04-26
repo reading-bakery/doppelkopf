@@ -1,10 +1,9 @@
-/* --- SCHRIFTARTEN  --- */
+/* --- SCHRIFTARTEN --- */
 .rubik-mono-one-regular {
   font-family: "Rubik Mono One", monospace;
   font-weight: 400;
   font-style: normal;
 }
-
 
 .playfair-regular {
   font-family: "Playfair", serif;
@@ -18,7 +17,6 @@
   font-style: normal;
 }
 
-
 * {
     box-sizing: border-box;
 }
@@ -29,6 +27,11 @@ body {
     background-color: #798675;
     color: #ffffff;
     line-height: 1.6;
+    
+    /* NEU: Flexbox für das Layout */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; 
 }
 
 header {
@@ -43,12 +46,16 @@ footer {
     padding: 0.8rem;
     text-align: center;
     cursor: text;
+    /* Optional: stellt sicher, dass der Footer nicht schrumpft */
+    flex-shrink: 0; 
 }
 
 .main-container {
     padding: 2rem;
     max-width: 1200px;
     margin: auto;
+    flex: 1; 
+    width: 100%;
 }
 
 .grid {
@@ -89,7 +96,7 @@ h1 {
 h2 {
     margin: 0.5rem 0;
     font-size: 2rem;
-    color: rgb(95, 128, 95);
+    color: rgb(99, 99, 100);
     font-family: "Protest Strike", sans-serif;
 }
 
@@ -100,8 +107,8 @@ p {
 }
 
 .top-button {
-    display: flex;
-}
+        display: flex;
+    }
 
 #backToTop {
     position: fixed;
@@ -118,7 +125,7 @@ p {
 }
 
 #backToTop:hover {
-    background-color: rgb(248, 1, 1);
+    background-color: #b41111;
     color: white;
 }
 
@@ -127,7 +134,7 @@ display: none; /* Startzustand ausgeblendet */
 }
 
 
-@media (max-width: 600px) {
+@media (max-width: 740px) {
     .grid {
     grid-template-columns: 1fr;
     }
@@ -138,5 +145,11 @@ display: none; /* Startzustand ausgeblendet */
 
     h1 {
         font-size: 3rem;
+    }
+}
+
+@media (min-width: 1400px) {
+    h1 {
+      font-size: 7rem;
     }
 }
