@@ -48,6 +48,7 @@ footer {
     text-align: center;
     cursor: text;
     flex-shrink: 0; 
+    color: rgb(113, 122, 124);
 }
 
 .rules-container {
