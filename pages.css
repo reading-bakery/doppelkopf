@@ -73,7 +73,7 @@ footer {
 }
 
 .rule-card:hover {
-    transform: translateX(0px);
+    transform: scale(1.05);
     background: rgba(112, 111, 111, 0.1);
     border: solid 1px; 
     border-color: darkslategrey;
@@ -81,7 +81,6 @@ footer {
 
 .rule-icon {
     margin-right: 25px;
-    color: #13c913; /* Dein grüner Vorsprung-Farbton */
 }
 
 .rule-content h3 {
@@ -101,7 +100,6 @@ footer {
 .trump-list li::before {
     content: "♦";
     margin-right: 10px;
-    color: #FF4500; /* Dein Rückstand-Farbton */
 }
 
 .special-grid {
@@ -112,8 +110,6 @@ footer {
     margin-top: 10px;
 }
 
-.highlight { border-left-color: #13c913; }
-.special { border-left-color: #FF4500; }
 
 
 a {
@@ -181,7 +177,68 @@ display: none; /* Startzustand ausgeblendet */
 }
 
 
+.scroll-nav {
+    position: fixed;
+    right: 15px;
+    top: 55%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    z-index: 1000;
+    opacity: 0; /* Erstmal unsichtbar */
+    pointer-events: none; /* Klicks blockieren, wenn unsichtbar */
+    transition: opacity 0.5s ease, visibility 0.5s;
+    visibility: hidden;
+}
 
+.scroll-nav.visible {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+/* Die Punkte */
+.nav-dot {
+    width: 14px;
+    height: 14px;
+    background: rgba(113, 122, 124, 0.5);
+    border-radius: 50%;
+    position: relative;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    text-decoration: none;
+    border: 2px solid #717a7c;
+}
+
+/* Hover-Effekt: Zeige den Titel an */
+.nav-dot::after {
+    content: attr(data-title);
+    position: absolute;
+    right: 25px;
+    top: 50%;
+    transform: translateY(-20%);
+    background: rgb(133, 128, 128);
+    color: darkslategrey;
+    padding: 4px 10px;
+    border-radius: 5px;
+    font-size: 0.55rem;
+    font-family: 'Rubik Mono One', sans-serif;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.nav-dot:hover::after {
+    opacity: 1;
+}
+
+/* Aktiver Zustand (beim Scrollen) */
+.nav-dot.active {
+    background: #262e28; /* Dein grüner Vorsprung-Ton */
+    transform: scale(1.4);
+}
 
 @media (max-width: 740px) {
 .grid {
@@ -199,6 +256,28 @@ h1 {
 h2 {
     font-size: 1.5rem;
 }
+
+.scroll-nav {
+    right: 10px; /* Näher am Rand */
+    gap: 15px;
+}
+
+.nav-dot {
+    width: 10px;
+    height: 10px;
+}
+
+/* Titel-Popup auf Handy lieber ausblenden oder vereinfachen, 
+    da kein Platz für Hover ist */
+.nav-dot::after {
+    display: none;
+}
+
+
+.rule-card:hover {
+    transform: scale(1.03);
+}
+
 }
 
 @media (min-width: 1400px) {
