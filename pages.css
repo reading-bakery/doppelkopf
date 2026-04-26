@@ -43,18 +43,16 @@ header {
 
 footer {
     background-color: #262e28;
-    padding: 0.8rem;
+    padding: 0.1rem;
     text-align: center;
     cursor: text;
     flex-shrink: 0; 
 }
 
-.main-container {
-    padding: 2rem;
-    max-width: 1200px;
-    margin: auto;
-    flex: 1; 
-    width: 100%;
+.rules-container {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 0 15px;
 }
 
 .grid {
@@ -63,19 +61,58 @@ footer {
     gap: 1rem;
 }
 
-.card {
-    background-color: #262e28;
-    padding: 1rem;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.3);
-    cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
+.rule-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-left: 5px solid #717a7c;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    margin-bottom: 25px;
+    transition: transform 0.3s ease;
 }
 
-.card:hover {
-    transform: scale(1.02);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+.rule-card:hover {
+    transform: translateX(10px);
+    background: rgba(255, 255, 255, 0.1);
 }
+
+.rule-icon {
+    margin-right: 25px;
+    color: #13c913; /* Dein grüner Vorsprung-Farbton */
+}
+
+.rule-content h3 {
+    font-family: 'Protest Strike', sans-serif;
+    margin-top: 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: black;
+}
+
+
+.trump-list {
+    list-style: none;
+    padding: 0;
+}
+
+.trump-list li::before {
+    content: "♦";
+    margin-right: 10px;
+    color: #FF4500; /* Dein Rückstand-Farbton */
+}
+
+.special-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 10px;
+    font-size: 0.9em;
+    margin-top: 10px;
+}
+
+.highlight { border-left-color: #13c913; }
+.special { border-left-color: #FF4500; }
+
 
 a {
     text-decoration: none;
@@ -89,19 +126,23 @@ svg {
 h1 {
     margin: 0.5rem 0;
     font-size: 5rem;
-    color: rgb(113, 122, 124);
+    color: rgb(4, 19, 6);
+    text-align: center;
+    font-family: "Rubik Mono One", monospace;
 }
 
 h2 {
     margin: 0.5rem 0;
     font-size: 2rem;
-    color: rgb(99, 99, 100);
+    color: rgb(47, 49, 48);
     font-family: "Protest Strike", sans-serif;
+    text-align: center;
+    font-weight: normal;
 }
 
 p {
     font-size: 1.3rem;
-    color: rgb(161, 155, 155);
+    color: black;
     font-family: "Playfair", serif;
 }
 
@@ -133,22 +174,28 @@ display: none; /* Startzustand ausgeblendet */
 }
 
 
+
+
 @media (max-width: 740px) {
-    .grid {
+.grid {
     grid-template-columns: 1fr;
-    }
+}
 
-    .main-container {
-    padding: 1rem;
-    }
+.rules-container {
+padding: 1rem;
+}
 
-    h1 {
-        font-size: 3rem;
-    }
+h1 {
+    font-size: 3rem;
+}
+
+h2 {
+    font-size: 1.5rem;
+}
 }
 
 @media (min-width: 1400px) {
-    h1 {
-      font-size: 7rem;
-    }
+h1 {
+    font-size: 7rem;
+}
 }

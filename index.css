@@ -43,7 +43,7 @@ header {
 
 footer {
     background-color: #262e28;
-    padding: 0.8rem;
+    padding: 0.1rem;
     text-align: center;
     cursor: text;
     flex-shrink: 0; 
@@ -126,10 +126,6 @@ p {
 #backToTop:hover {
     background-color: #b41111;
     color: white;
-}
-
-#close-icon {
-display: none; /* Startzustand ausgeblendet */
 }
 
 

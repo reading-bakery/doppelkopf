@@ -20,6 +20,8 @@
     <script src="toggle.js" defer></script>
     <script src="navbar.js" defer></script>
 
+    <script src="https://unpkg.com/lucide@latest"></script>
+
 
 </head>
 <body>
@@ -59,6 +61,56 @@
   
     <div class="rules-container">
 
+    <section class="rule-card">
+        <div class="rule-icon">
+            <i data-lucide="layers"></i>
+        </div>
+        <div class="rule-content">
+            <h3>Das Werkzeug</h3>
+            <p>Wir spielen mit einem <strong>doppelten Blatt</strong> (9 bis Ass). Insgesamt 40 Karten. Wer die zwei <strong>Kreuz-Damen</strong> hat, bildet das Re-Team. Alle anderen sind Kontra.</p>
+        </div>
+    </section>
+
+    <section class="rule-card highlight">
+        <div class="rule-icon">
+            <i data-lucide="trending-up"></i>
+        </div>
+        <div class="rule-content">
+            <h3>Die Trumpf-Power</h3>
+            <p>In der Standard-Hierarchie gilt:</p>
+            <ul class="trump-list">
+                <li><strong>Herz-Zehn</strong> (Dulle) – Die höchste Karte!</li>
+                <li><strong>Damen</strong> (Kreuz, Pik, Herz, Karo)</li>
+                <li><strong>Buben</strong> (Kreuz, Pik, Herz, Karo)</li>
+                <li><strong>Karo-Karten</strong> (Ass bis Neun)</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="rule-card">
+        <div class="rule-icon">
+            <i data-lucide="target"></i>
+        </div>
+        <div class="rule-content">
+            <h3>Mission: 121</h3>
+            <p>Es gibt insgesamt 240 Punkte. Das Re-Team gewinnt ab <strong>121 Punkten</strong>. Das Kontra-Team braucht nur <strong>120 Punkte</strong> zum Sieg.</p>
+        </div>
+    </section>
+
+    <section class="rule-card special">
+        <div class="rule-icon">
+            <i data-lucide="zap"></i>
+        </div>
+        <div class="rule-content">
+            <h3>Specials & Extra-Punkte</h3>
+            <div class="special-grid">
+                <span><strong>Fuchs:</strong> Karo-Ass im Stich der Gegner gefangen (+1)</span>
+                <span><strong>Karlchen:</strong> Letzter Stich mit dem Kreuz-Buben (+1)</span>
+                <span><strong>Doppelkopf:</strong> Ein Stich mit 40+ Punkten (+1)</span>
+            </div>
+        </div>
+    </section>
+
 
     <div class="top-button">
         <div class="top-button">
@@ -68,6 +120,21 @@
                 </svg>
             </button>
         </div>
+    </div>
+
+    <div class="top-button">
+        <div class="top-button">
+            <button id="backToTop" aria-label="Nach oben">
+                <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="black" class="bi bi-arrow-bar-up" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M8 10a.5.5 0 0 0 .5-.5V3.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 3.707V9.5a.5.5 0 0 0 .5.5m-7 2.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13a.5.5 0 0 1-.5-.5"/>
+                </svg>
+            </button>
+        </div>
+
+    <script>
+    lucide.createIcons();
+    </script>
+
     </div>
 
     </div>
