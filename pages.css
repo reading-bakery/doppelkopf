@@ -236,6 +236,10 @@ h2 {
     font-size: 1.2rem;
 }
 
+p {
+  font-size: 10pt;
+}
+
 .scroll-nav {
     right: 7px; /* Näher am Rand */
     gap: 12px;
