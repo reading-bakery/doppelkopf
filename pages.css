@@ -238,6 +238,7 @@ h2 {
 
 p {
   font-size: 10pt;
+  inline-height: 0.75px;
 }
 
 .scroll-nav {
