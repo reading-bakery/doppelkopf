@@ -101,6 +101,12 @@ h2 svg.lucide {
     }
 }
 
+@media (max-width: 10240px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+}
+
 @media (min-width: 1400px) {
     h1 {
         font-size: 7rem;
