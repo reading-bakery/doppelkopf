@@ -33,13 +33,19 @@ header {
     gap: 1rem;
 }
 
+.card h2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .card {
     background-color: var(--background-elements);
     padding: 1rem;
     border-radius: var(--border-radius);
     box-shadow: var(--shadow-card);
     cursor: pointer;
-    transition: transform 0.03s ease;
+    transition: transform 0.2s ease;
 }
 
 .card:hover {
@@ -68,33 +74,34 @@ h2 {
     text-align: var(--heading-footer-align);
 }
 
-h2 [data-lucide], 
+h2[data-lucide], 
 h2 svg.lucide {
+    display: inline-block;
     width: 50px;
     height: 50px;
     stroke: var(--color-section);
-    stroke-width: 1.5px; /* Dicke der Linien */
-    fill: none;       /* Lucide Icons sind meist nur Linien */
+    stroke-width: 1.5px;
+    fill: none;
     vertical-align: middle;
-    margin-right: 5px;
+    margin-right: 15px;
 }
 
 @media (max-width: 740px) {
-.grid {
-    grid-template-columns: 1fr;
-}
+    .grid {
+        grid-template-columns: 1fr;
+    }
 
-.main-container {
-    padding: 1rem;
-}
+    .main-container {
+        padding: 1rem;
+    }
 
-h1 {
-    font-size: 3rem;
-}
+    h1 {
+        font-size: 3rem;
+    }
 }
 
 @media (min-width: 1400px) {
-h1 {
-    font-size: 7rem;
-}
+    h1 {
+        font-size: 7rem;
+    }
 }

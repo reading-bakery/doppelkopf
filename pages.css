@@ -229,11 +229,16 @@ display: none; /* Startzustand ausgeblendet */
 }
 
 h1 {
-    font-size: 3rem;
+    font-size: 2.2rem;
 }
 
 h2 {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
+}
+
+p {
+  font-size: 11.5pt;
+  line-height: 1.4;
 }
 
 .scroll-nav {
