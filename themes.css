@@ -9,6 +9,7 @@
     --color-subtitle: rgb(15, 15, 15);
     --color-section: rgb(150, 150, 150);
     --color-text: #000000;
+    --color-pretext: #363131;
     --color-img-elements: rgb(4, 19, 6);
     --color-icons-rules: rgb(0, 0, 0);
 
@@ -29,13 +30,13 @@
 
 
     /* Typographie */
-    --text-line-height: 1.6;
+    --text-line-height: 1.4;
     --heading-footer-align: center;      
     --text-align-default: left;   
 
     /* Abstände (Spacing) */
-    --spacing-title: 40px;
-    --spacing-subtitle: 15px;
+    --spacing-title: 5rem;
+    --spacing-subtitle: 0rem;
 
 
     /* Schatten */
@@ -43,4 +44,7 @@
 
     /* Border-Radius */
     --border-radius: 10px;
+
+    /* Transitionen */
+    --transition-duration: 0.3s ease;
 }

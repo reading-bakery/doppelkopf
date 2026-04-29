@@ -12,7 +12,7 @@
     background-color: var(--background-backtop);
     color: var(--color-backtop);
     border: none;
-    border-radius: 8px;
+    border-radius: 25px;
     cursor: pointer;
     height: auto; 
 }

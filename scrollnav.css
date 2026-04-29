@@ -1,0 +1,92 @@
+.scroll-nav {
+    position: fixed;
+    right: 15px;
+    top: 55%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    z-index: 1000;
+    opacity: 0; /* Erstmal unsichtbar */
+    pointer-events: none; /* Klicks blockieren, wenn unsichtbar */
+    transition: opacity 0.5s ease, visibility 0.5s;
+    visibility: hidden;
+}
+
+.scroll-nav.visible {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+/* Die Punkte */
+.nav-dot {
+    width: 14px;
+    height: 14px;
+    background: rgba(113, 122, 124, 0.5);
+    border-radius: 50%;
+    position: relative;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    text-decoration: none;
+    border: 2px solid #717a7c;
+}
+
+/* Hover-Effekt: Zeige den Titel an */
+.nav-dot::after {
+    content: attr(data-title);
+    position: absolute;
+    right: 25px;
+    top: 50%;
+    transform: translateY(-20%);
+    background: rgba(0, 0, 0, 0.6); /* Dunklerer Hintergrund für Lesbarkeit */
+    color: whitesmoke;
+    padding: 4px 10px;
+    border-radius: 5px;
+    font-size: 0.55rem;
+    font-family: 'Rubik Mono One', sans-serif;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.nav-dot:hover::after {
+    opacity: 1;
+}
+
+/* Aktiver Zustand (beim Scrollen) */
+.nav-dot.active {
+    background: #262e28; /* Dein grüner Vorsprung-Ton */
+    transform: scale(1.4);
+}
+
+@media (max-width: 740px) {
+.scroll-nav {
+    right: 7px; /* Näher am Rand */
+    gap: 12px;
+}
+
+.nav-dot {
+    width: 10px;
+    height: 10px;
+}
+
+/* Titel-Popup auf Handy lieber ausblenden oder vereinfachen, 
+    da kein Platz für Hover ist */
+.nav-dot::after {
+    display: block; /* Wieder einschalten */
+    opacity: 0; /* Erstmal unsichtbar */
+    right: 20px; /* Links neben dem Punkt */
+    font-size: 0.5rem; /* Sehr kleine Schrift für Mobile */
+    background: rgba(0, 0, 0, 0.6); /* Dunklerer Hintergrund für Lesbarkeit */
+    color: whitesmoke;
+    padding: 2px 6px;
+    transition: opacity 0.3s ease;
+}
+
+.rule-card:hover {
+    transform: none;
+}
+
+}
