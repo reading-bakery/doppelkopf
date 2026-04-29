@@ -97,11 +97,18 @@ h2 svg.lucide {
     }
 
     h1 {
-        font-size: 3rem;
+        font-size: 10vw; /* 'vw' steht für Viewport Width. Die Schrift passt sich der Breite an! */
+        word-break: break-all; /* Zur Sicherheit, falls ein Wort zu lang ist */
+        margin: 0.2rem 0;
+    }
+
+    header {
+        width: 100%;
+        overflow: hidden; /* Verhindert, dass etwas raussteht */
     }
 }
 
-@media (max-width: 10240px) {
+@media (max-width: 820px) {
     .grid {
         grid-template-columns: 1fr;
     }
