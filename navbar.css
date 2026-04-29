@@ -1,14 +1,14 @@
 .navbar {
-    background-color: #262e28;
+    background-color: var(--background-elements);
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: var(--heading-footer-align);
     padding: 10px 10px;
     border-radius: 8px;
     margin: 20px 5px 0 5px;
     height: 50px;
     transition: height 0.1s ease-in-out;
-    font-family: "Bebas Neue", sans-serif;
+    font-family: var(--font-navbar);
 }
 
 .hidden-iframe {
@@ -23,31 +23,30 @@
 .nav-links {
     display: flex;
     justify-content: flex-start;
-    align-items: center;
+    align-items: var(--heading-footer-align);
     list-style: none;
     padding: 0;
     margin: 0;
 }
-
+    
 .nav-links li {
     position: relative; 
     padding: 0 20px;
     font-size: 16pt;
     text-align: left;
     white-space: nowrap;
-    font-family: "Protest Strike", sans-serif;
+    font-family: var(--font-navbar);
 }
 
 .nav-links a {
     text-decoration: none;
-    color: rgb(113, 122, 124);
+    color: var(--color-doppelkopf);
     font-weight: 400;
 }
 
 .nav-links a:hover {
     text-decoration: none;
-    color: rgb(155, 122, 138);
-    font-weight: bold;
+    color: #f18383;
 }
 
 .navbar-expanded {
@@ -62,18 +61,17 @@
 }
 
 .logohome {
-    color: var(--color-doppelkopf);
     text-decoration: none;
-    font-family: "Rubik Mono One", monospace;
+    font-family: var(--font-navbar);
     font-weight: normal;
-    font-size: 27pt; 
+    font-size: 30pt; 
     display: flex; 
+    color: var(--color-doppelkopf);
 }
 
 .logohome:hover {
     text-decoration: none;
-    color: rgb(155, 122, 138);
-    font-weight: bold;
+    color: #f18383;
 }
 
 .navbar-fixed {
@@ -114,7 +112,6 @@
     justify-content: flex-start;
     padding-left: 50px;
     width: 100%;
-    font-family: "Amatic SC", serif;
 }
 
 .nav-links li {

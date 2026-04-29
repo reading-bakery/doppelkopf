@@ -57,7 +57,7 @@
 
 /* Aktiver Zustand (beim Scrollen) */
 .nav-dot.active {
-    background: #262e28; /* Dein grüner Vorsprung-Ton */
+    background: black;
     transform: scale(1.4);
 }
 
