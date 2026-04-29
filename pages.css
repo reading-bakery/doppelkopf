@@ -144,8 +144,9 @@ p {
     font-size: 1.3rem;
     color: black;
     font-family: "Playfair", serif;
-    hyphens: auto;
-    -webkit-hyphens: auto; /* Für Safari */
+    -webkit-hyphens: auto;    /* Für Safari */
+    -ms-hyphens: auto;         /* Für ältere Edge/Internet Explorer */
+    hyphens: auto;             /* Standard für Chrome, Firefox etc. */
     text-align: justify;   /* Optional: Blocksatz verstärkt den Effekt */
     word-wrap: break-word;
 }
