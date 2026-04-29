@@ -1,0 +1,15 @@
+footer {
+    background-color: var(--background-elements);
+    padding: 0.1rem;
+    cursor: text;
+    flex-shrink: 0; 
+    text-align: var(--heading-footer-align);
+    flex-shrink: 0; 
+}
+
+.imprint {
+    color: var(--color-doppelkopf);
+    font-family: var(--font-text);
+    font-size: var(--size-text);
+}
+

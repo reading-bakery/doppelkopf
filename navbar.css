@@ -62,7 +62,7 @@
 }
 
 .logohome {
-    color: rgb(113, 122, 124);
+    color: var(--color-doppelkopf);
     text-decoration: none;
     font-family: "Rubik Mono One", monospace;
     font-weight: normal;

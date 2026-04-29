@@ -11,8 +11,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Protest+Strike&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Playfair:ital,opsz,wght@0,5..1200,300..900;1,5..1200,300..900&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="index.css">  
+  
+    <link rel="stylesheet" href="themes.css">  
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="topbutton.css">
+    <link rel="stylesheet" href="footer.css">
 
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script src="setup.js" defer></script>
     <script src="up.js" defer></script>
 
 </head>
@@ -29,11 +36,9 @@
       <div class="card" id="newgame">
         <a href="newgame.html">
             <h2>
-                <svg xmlns="http://www.w3.org/2000/svg" height="34px" viewBox="0 -960 960 960" width="34px" fill="rgb(99, 99, 100)"><path d="m608-368 46-166-142-98-46 166 142 98ZM160-207l-33-16q-31-13-42-44.5t3-62.5l72-156v279Zm160 87q-33 0-56.5-24T240-201v-239l107 294q3 7 5 13.5t7 12.5h-39Zm206-5q-31 11-62-3t-42-45L245-662q-11-31 3-61.5t45-41.5l301-110q31-11 61.5 3t41.5 45l178 489q11 31-3 61.5T827-235L526-125Zm-28-75 302-110-179-490-301 110 178 490Zm62-300Z"/>
-                </svg>
+                <i data-lucide="layers-plus"></i>
                 Neues Spiel
             </h2>
-            <p>Die Dulle sticht!</p>
         </a>
       </div>
 
@@ -41,11 +46,9 @@
       <div class="card">
         <a href="rules.html">
             <h2>
-                <svg xmlns="http://www.w3.org/2000/svg" height="34px" viewBox="0 -960 960 960" width="34px" fill="rgb(99, 99, 100)"><path d="M476-280q21 0 35.5-14.5T526-330q0-21-14.5-35.5T476-380q-21 0-35.5 14.5T426-330q0 21 14.5 35.5T476-280Zm-36-154h74q0-17 1.5-29t6.5-23q5-11 12.5-20.5T556-530q35-35 49.5-58.5T620-642q0-53-36-85.5T487-760q-55 0-93.5 27T340-658l66 26q7-27 28-43.5t49-16.5q27 0 45 14.5t18 38.5q0 17-11 36t-37 42q-17 14-27.5 27.5T453-505q-7 15-10 31.5t-3 39.5Zm40 394L360-160H200q-33 0-56.5-23.5T120-240v-560q0-33 23.5-56.5T200-880h560q33 0 56.5 23.5T840-800v560q0 33-23.5 56.5T760-160H600L480-40ZM200-240h192l88 88 88-88h192v-560H200v560Zm280-280Z"/>
-                </svg>
+                <i data-lucide="message-circle-question-mark"></i>
                 Regeln
             </h2>
-            <p>Wie geht Doppelkopf überhaupt?!</p>
         </a>
       </div>
 
@@ -53,11 +56,9 @@
       <div class="card">
         <a href="best.html">
             <h2>
-                <svg xmlns="http://www.w3.org/2000/svg" height="34px" viewBox="0 -960 960 960" width="34px" fill="rgb(99, 99, 100)"><path d="M607.5-212.5Q660-265 660-340t-52.5-127.5Q555-520 480-520t-127.5 52.5Q300-415 300-340t52.5 127.5Q405-160 480-160t127.5-52.5ZM363-572q20-11 42.5-17.5T451-598L350-800H250l113 228Zm234 0 114-228H610l-85 170 19 38q14 4 27 8.5t26 11.5ZM256-208q-17-29-26.5-62.5T220-340q0-36 9.5-69.5T256-472q-42 14-69 49.5T160-340q0 47 27 82.5t69 49.5Zm448 0q42-14 69-49.5t27-82.5q0-47-27-82.5T704-472q17 29 26.5 62.5T740-340q0 36-9.5 69.5T704-208ZM403.5-91.5Q367-103 336-123q-9 2-18 2.5t-19 .5q-91 0-155-64T80-339q0-87 58-149t143-69L120-880h280l80 160 80-160h280L680-559q85 8 142.5 70T880-340q0 92-64 156t-156 64q-9 0-18.5-.5T623-123q-31 20-67 31.5T480-80q-40 0-76.5-11.5ZM480-340ZM363-572 250-800l113 228Zm234 0 114-228-114 228ZM406-230l28-91-74-53h91l29-96 29 96h91l-74 53 28 91-74-56-74 56Z"/>
-                </svg>
+                <i data-lucide="trophy"></i>
                 Bestenliste
             </h2>
-            <p>Die besten Spieler aller Zeiten</p>
         </a>
       </div>      
 
@@ -65,22 +66,13 @@
 
     </div>
 
-    <div class="top-button">
-        <div class="top-button">
-            <button id="backToTop" aria-label="Nach oben">
-                <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="black" class="bi bi-arrow-bar-up" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M8 10a.5.5 0 0 0 .5-.5V3.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 3.707V9.5a.5.5 0 0 0 .5.5m-7 2.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13a.5.5 0 0 1-.5-.5"/>
-                </svg>
-            </button>
-        </div>
-    </div>
+<div id="topbutton-placeholder"></div>
+
 
 </div>
 
+<div id="footer-placeholder"></div>
 
-  <footer>
-    <p>&copy; 2026 Katharina | Impressum</p>
-  </footer>
 
 </body>
 </html>

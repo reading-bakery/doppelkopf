@@ -1,52 +1,22 @@
-/* --- SCHRIFTARTEN --- */
-.rubik-mono-one-regular {
-  font-family: "Rubik Mono One", monospace;
-  font-weight: 400;
-  font-style: normal;
-}
-
-.playfair-regular {
-  font-family: "Playfair", serif;
-  font-weight: 400;
-  font-style: normal;
-}
-
-.protest-strike-regular {
-  font-family: "Protest Strike", sans-serif;
-  font-weight: 400;
-  font-style: normal;
-}
-
 * {
     box-sizing: border-box;
 }
 
 body {
     margin: 0;
-    font-family: "Dosis", sans-serif;
-    background-color: #798675;
-    color: #ffffff;
-    line-height: 1.6;
+    background-color: var(--background-body);
+    line-height: var(--text-line-height);
     
-    /* NEU: Flexbox für das Layout */
     display: flex;
     flex-direction: column;
     min-height: 100vh; 
 }
 
 header {
-    background-color: #262e28;
-    text-align: center;
+    background-color: var(--background-elements);
+    text-align: var(--heading-footer-align);
     cursor: none;
-    font-family: "Rubik Mono One", monospace;
-}
-
-footer {
-    background-color: #262e28;
-    padding: 0.1rem;
-    text-align: center;
-    cursor: text;
-    flex-shrink: 0; 
+    font-family: var(--font-doppelkopf);
 }
 
 .main-container {
@@ -64,22 +34,20 @@ footer {
 }
 
 .card {
-    background-color: #262e28;
+    background-color: var(--background-elements);
     padding: 1rem;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-card);
     cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
+    transition: transform 0.03s ease;
 }
 
 .card:hover {
     transform: scale(1.02);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
 }
 
 a {
     text-decoration: none;
-    color: whitesmoke;
 }
 
 svg {
@@ -88,63 +56,45 @@ svg {
 
 h1 {
     margin: 0.5rem 0;
-    font-size: 5rem;
-    color: rgb(113, 122, 124);
+    font-size: var(--size-doppelkopf);
+    color: var(--color-doppelkopf);
 }
 
 h2 {
     margin: 0.5rem 0;
-    font-size: 2rem;
-    color: rgb(99, 99, 100);
-    font-family: "Protest Strike", sans-serif;
+    font-size: var(--size-subtitle);
+    color: var(--color-section);
+    font-family: var(--font-subtitle);
+    text-align: var(--heading-footer-align);
 }
 
-p {
-    font-size: 1.3rem;
-    color: rgb(161, 155, 155);
-    font-family: "Playfair", serif;
+h2 [data-lucide], 
+h2 svg.lucide {
+    width: 50px;
+    height: 50px;
+    stroke: var(--color-section);
+    stroke-width: 1.5px; /* Dicke der Linien */
+    fill: none;       /* Lucide Icons sind meist nur Linien */
+    vertical-align: middle;
+    margin-right: 5px;
 }
-
-.top-button {
-        display: flex;
-    }
-
-#backToTop {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    display: none;
-    padding: 10px;
-    background-color: whitesmoke;
-    color: black;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    height: auto; 
-}
-
-#backToTop:hover {
-    background-color: #b41111;
-    color: white;
-}
-
 
 @media (max-width: 740px) {
-    .grid {
+.grid {
     grid-template-columns: 1fr;
-    }
+}
 
-    .main-container {
+.main-container {
     padding: 1rem;
-    }
+}
 
-    h1 {
-        font-size: 3rem;
-    }
+h1 {
+    font-size: 3rem;
+}
 }
 
 @media (min-width: 1400px) {
-    h1 {
-      font-size: 7rem;
-    }
+h1 {
+    font-size: 7rem;
+}
 }
