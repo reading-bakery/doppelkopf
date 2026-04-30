@@ -48,17 +48,20 @@
         </div>
         <div class="rule-content">
             <h3>Was ist Doppelkopf?</h3>
-            <p> <i>Doppelkopf</i> ist ein absoluter Kartenspiel-Klassiker, der durch seine zahlreichen Twists und taktische Tiefe eine Menge Nervenkitzel verspricht!</p>
+            <p><i>Doppelkopf</i> ist ein absoluter Kartenspiel-Klassiker, der durch seine zahlreichen Twists und taktische Tiefe eine Menge Nervenkitzel verspricht!</p>
         </div>
     </section>
+
+
 
     <section class="rule-card" id="karten">
         <div class="rule-icon">
             <i data-lucide="layers"></i>
         </div>
         <div class="rule-content">
-            <h3>Karten & Punktwertung</h3>
-            <p>Gespielt wird mit insgesamt 48 Karten. Es gibt von jeder Karte genau zwei Exemplare. Die Karten sind in vier Farben unterteilt und haben die folgende Reihenfolge (vom höchsten zum niedrigsten Wert).</p>
+            <h3>Karten & Punktewertung</h3>
+            <p>Gespielt wird mit insgesamt 48 Karten. Es gibt von jeder Karte genau zwei Exemplare. Die Karten sind in vier Farben unterteilt und haben die folgende Reihenfolge (vom höchsten zum niedrigsten Wert). <b>Insgesamt gibt es 240 Punkte im Spiel.</b>
+            </p>
         </div>
 
         <div class="deck-visuals">
@@ -84,7 +87,7 @@
         </div>
 
         <div class="scoring-block">
-                <span class="line-label">Punktewertung</span>
+                <span class="line-label-1">Punktewertung</span>
                 <div class="scoring-grid">
                     <!-- Kachel für Ass -->
                     <div class="scoring-tile" data-card-tile="a">
@@ -128,16 +131,49 @@
 
 
 
-    <section class="rule-card" id="teams">
+
+ <section class="rule-card" id="karten">
         <div class="rule-icon">
             <i data-lucide="users"></i>
         </div>
         <div class="rule-content">
-            <h3>Spieler / Teams</h3>
-            <p>Gespielt wird <i>Doppelkopf</i> immer mit 4 Spielern, die in der Regel in zwei Teams gegeneinander spielen.</p>             
-                
-                
-             
+            <h3>Teams / Spieler</h3>
+        </div>
+
+        <div class="rule-content">
+            <p>
+                Gespielt wird immer mit <span class="highlight-badge">4 Spielern</span>. 
+                Wer zusammen gehört, bleibt bis zum Ausspielen der ersten <span>♣</span>-Damen geheim.
+            </p>
+
+            <div class="team-visualizer">
+                <!-- Re-Team -->
+                <div class="team-box re-team">
+                    <span class="team-label">RE-TEAM</span>
+                    <div class="team-members">
+                        <div class="player-slot"><span class="card-mini">♣D</span></div>
+                        <div class="player-slot"><span class="card-mini">♣D</span></div>
+                    </div>
+                    <p class="team-desc">Besitzer der Kreuz-Damen</p>
+                </div>
+
+                <div class="vs-divider">VS</div>
+
+                <!-- Kontra-Team -->
+                <div class="team-box kontra-team">
+                    <span class="team-label">KONTRA-TEAM</span>
+                    <div class="team-members">
+                        <div class="player-slot">?</div>
+                        <div class="player-slot">?</div>
+                    </div>
+                    <p class="team-desc">Die anderen beiden Spieler</p>
+                </div>
+            </div>
+
+            <div class="solo-info">
+                <i data-lucide="star" class="solo-icon"></i>
+                <span>Ein <strong>1 gegen 3 (Solo)</strong> ist ebenfalls möglich.</span>
+            </div>
         </div>
     </section>
 

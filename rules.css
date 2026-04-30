@@ -117,7 +117,17 @@ display: none; /* Startzustand ausgeblendet */
     margin-bottom: 10px;
     color: var(--color-title);
     opacity: 0.8;
-    margin-top: 15px;
+    margin-top: 10px;
+}
+.line-label-1 {
+    display: block;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+    color: var(--color-title);
+    opacity: 0.8;
+    margin-top: 40px;
 }
 
 /* Die einzelnen kleinen Karten-Symbole */
@@ -184,7 +194,7 @@ display: none; /* Startzustand ausgeblendet */
 
 /* Wenn 0 Punkte, dann neutraler oder in deiner Rückstandfarbe */
 [data-card-tile="9"] .tile-point-value {
-    color: #7c2e76; 
+    color: #4f0197; 
 }
 
 .tile-point-label {
@@ -193,6 +203,113 @@ display: none; /* Startzustand ausgeblendet */
     opacity: 0.6;
     letter-spacing: 1px;
     margin-top: 4px;
+}
+
+/* Container für die Team-Grafik */
+.team-visualizer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin: 25px 0;
+    width: 100%;
+}
+
+.team-box {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--border-radius);
+    padding: 15px;
+    text-align: var(--heading-footer-align);
+    transition: var(--transition-duration);
+}
+
+.team-label {
+    display: block;
+    font-size: 1.1rem;
+    letter-spacing: 1.5px;
+    margin-bottom: 15px;
+    font-weight: 800;
+}
+
+/* Farben für die Teams */
+.re-team .team-label { color: #4f0197; } /* Dein Highlight-Blau */
+.kontra-team .team-label { color: #6b2810; } /* Dein Rückstand-Orange */
+
+.team-members {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.player-slot {
+    width: 45px;
+    height: 45px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: var(--heading-footer-align);
+    justify-content: center;
+    border: 2px dashed #6b2810;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.re-team .player-slot {
+    background: white;
+    color: #333;
+    border-style: solid;
+    border-color: #4f0197;
+}
+
+.card-mini {
+    font-size: 1.2rem;
+    font-weight: 900;
+}
+
+.vs-divider {
+    font-weight: 900;
+    font-style: italic;
+    opacity: 0.3;
+    font-size: 1.2rem;
+}
+
+.team-desc {
+    font-size: 1.1rem !important;
+    opacity: 0.7;
+    margin: 0 !important;
+    text-align: var(--heading-footer-align);
+}
+
+/* Solo Hinweis */
+.solo-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(59, 119, 133, 0.1);
+    padding: 12px;
+    border-radius: var(--border-radius);
+    font-size: 0.9rem;
+}
+
+.solo-icon {
+    color: #ffd700; /* Gold für Solo */
+    width: 18px;
+}
+
+/* Responsive Anpassung */
+@media (max-width: 600px) {
+    .team-visualizer {
+        flex-direction: column;
+    }
+    .vs-divider {
+        margin: 5px 0;
+    }
+    .team-box {
+        width: 100%;
+    }
 }
 
 
@@ -260,7 +377,13 @@ p {
     margin-left: 0;    /* Startet ganz links */
 }
 
+.line-label {
+    margin-top: 2px;
+}
 
+.line-label-1 {
+    margin-top: 15px;
+}
 
 }
 
