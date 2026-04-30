@@ -373,6 +373,127 @@ display: none; /* Startzustand ausgeblendet */
     font-size: 1.7rem;
 }
 
+/* Phasen-Container */
+.game-phase {
+    position: relative;
+    padding: 20px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.game-phase:last-child {
+    border-bottom: none;
+}
+
+.phase-badge {
+    display: inline-block;
+    background: rgba(59, 119, 133, 0.2);
+    color: #3b7785;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+/* Austeilen Schritte */
+.phase-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.phase-step {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 15px;
+    border-radius: 8px;
+    display: flex;
+    gap: 12px;
+}
+
+.step-number {
+    flex: 0 0 24px;
+    height: 24px;
+    background: #3b7785;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+/* Ansagen Boxen */
+.call-container {
+    display: flex;
+    gap: 15px;
+    margin: 15px 0;
+}
+
+.call-box {
+    flex: 1;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.call-box.re { border-left: 4px solid #3b7785; background: rgba(59, 119, 133, 0.05); }
+.call-box.kontra { border-left: 4px solid #FF4500; background: rgba(255, 69, 0, 0.05); }
+
+.call-title {
+    display: block;
+    font-size: 1.2rem;
+    font-weight: 900;
+    margin-bottom: 5px;
+}
+
+.call-info {
+    font-size: 0.7rem;
+    opacity: 0.6;
+    text-transform: uppercase;
+}
+
+/* Stich-Mechaniken */
+.mechanic-info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.mechanic-card {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 12px 15px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+}
+
+.mechanic-card i {
+    width: 20px;
+    color: #3b7785;
+}
+
+.timing-note {
+    font-size: 0.75rem !important;
+    font-style: italic;
+    opacity: 0.6;
+}
+
+/* Mobile Anpassung */
+@media (max-width: 600px) {
+    .phase-grid {
+        grid-template-columns: 1fr;
+    }
+    .call-container {
+        flex-direction: column;
+    }
+}
 
 /* Responsive Anpassung */
 @media (max-width: 740px) {
