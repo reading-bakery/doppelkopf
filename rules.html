@@ -43,21 +43,53 @@
 
 
     <section class="rule-card" id="doppelkopf">
-        <div class="rule-icon">
-            <i data-lucide="help-circle"></i>
-        </div>
         <div class="rule-content">
             <h3>Was ist Doppelkopf?</h3>
             <p><i>Doppelkopf</i> ist ein absoluter Kartenspiel-Klassiker, der durch seine zahlreichen Twists und taktische Tiefe eine Menge Nervenkitzel verspricht!</p>
         </div>
     </section>
 
+    <section class="rule-card" id="teams">
+        <div class="rule-content">
+            <h3>Teams / Spieler</h3>
 
+            <p>
+                Gespielt wird immer mit <span class="highlight-badge">4 Spielern</span>. 
+                Wer zusammen gehört, bleibt bis zum Ausspielen der ersten <span>♣</span>-Damen geheim.
+            </p>
+
+            <div class="team-visualizer">
+                <!-- Re-Team -->
+                <div class="team-box re-team">
+                    <span class="team-label">RE-TEAM</span>
+                    <div class="team-members">
+                        <div class="player-slot"><span class="card-mini">♣D</span></div>
+                        <div class="player-slot"><span class="card-mini">♣D</span></div>
+                    </div>
+                    <p class="team-desc">Besitzer der Kreuz-Damen</p>
+                </div>
+
+                <div class="vs-divider">VS</div>
+
+                <!-- Kontra-Team -->
+                <div class="team-box kontra-team">
+                    <span class="team-label">KONTRA-TEAM</span>
+                    <div class="team-members">
+                        <div class="player-slot">?</div>
+                        <div class="player-slot">?</div>
+                    </div>
+                    <p class="team-desc">Die anderen beiden Spieler</p>
+                </div>
+            </div>
+
+            <div class="solo-info">
+                <i data-lucide="star" class="solo-icon"></i>
+                <span>Ein <strong>1 gegen 3 (Solo)</strong> ist ebenfalls möglich.</span>
+            </div>
+        </div>
+    </section>
 
     <section class="rule-card" id="karten">
-        <div class="rule-icon">
-            <i data-lucide="layers"></i>
-        </div>
         <div class="rule-content">
             <h3>Karten & Punktewertung</h3>
             <p>Gespielt wird mit insgesamt 48 Karten. Es gibt von jeder Karte genau zwei Exemplare. Die Karten sind in vier Farben unterteilt und haben die folgende Reihenfolge (vom höchsten zum niedrigsten Wert). <b>Insgesamt gibt es 240 Punkte im Spiel.</b>
@@ -129,58 +161,59 @@
         </div>
     </section>
 
-
-
-
- <section class="rule-card" id="karten">
-        <div class="rule-icon">
-            <i data-lucide="users"></i>
-        </div>
+    <section class="rule-card" id="trumpf">
         <div class="rule-content">
-            <h3>Teams / Spieler</h3>
-        </div>
-
-        <div class="rule-content">
-            <p>
-                Gespielt wird immer mit <span class="highlight-badge">4 Spielern</span>. 
-                Wer zusammen gehört, bleibt bis zum Ausspielen der ersten <span>♣</span>-Damen geheim.
+            <h3>Trumpf & Fehlfarben</h3>
+            <p>Die Rangfolge im <i>Doppelkopf</i> ist speziell. Trümpfe stechen alle anderen Karten (Fehlfarben).
             </p>
+           
 
-            <div class="team-visualizer">
-                <!-- Re-Team -->
-                <div class="team-box re-team">
-                    <span class="team-label">RE-TEAM</span>
-                    <div class="team-members">
-                        <div class="player-slot"><span class="card-mini">♣D</span></div>
-                        <div class="player-slot"><span class="card-mini">♣D</span></div>
+            <!-- Ständige Trümpfe -->
+            <div class="trump-block">
+                <span class="line-label">Ständige Trümpfe (Stärkste zuerst)</span>
+                <div class="trump-row-visual">
+                    <div class="trump-group">
+                        <span class="group-label">Damen<br>(♣, ♠, ♥, ♦)</span>
+                        <div class="rank-item" data-card="d">D</div>
                     </div>
-                    <p class="team-desc">Besitzer der Kreuz-Damen</p>
-                </div>
-
-                <div class="vs-divider">VS</div>
-
-                <!-- Kontra-Team -->
-                <div class="team-box kontra-team">
-                    <span class="team-label">KONTRA-TEAM</span>
-                    <div class="team-members">
-                        <div class="player-slot">?</div>
-                        <div class="player-slot">?</div>
+                    <div class="rank-item-divider">/</div>
+                    <div class="trump-group">
+                        <span class="group-label">Buben<br>(♣, ♠, ♥, ♦)</span>
+                        <div class="rank-item" data-card="b">B</div>
                     </div>
-                    <p class="team-desc">Die anderen beiden Spieler</p>
                 </div>
             </div>
 
-            <div class="solo-info">
-                <i data-lucide="star" class="solo-icon"></i>
-                <span>Ein <strong>1 gegen 3 (Solo)</strong> ist ebenfalls möglich.</span>
+            <!-- Karo-Trümpfe & Herz 10 -->
+            <div class="suit-trump-info">
+                <div class="info-badge special-card">
+                    <span class="card-mini">♥10</span> 
+                    <span class="badge-text">Dulle (Höchster Trumpf)</span>
+                </div>
+                <div class="info-badge diamond-trump">
+                    <span class="suit-item suit-diamond">♦</span> 
+                    <span class="badge-text">Karo-Farbe ist Trumpf (A, 10, K, 9)</span>
+                </div>
+            </div>
+
+            <!-- Fehlfarben -->
+            <div class="scoring-block">
+                <div class="line-label-1">Fehlfarben</div>
+                <p>Karten, die nicht Trumpf sind. Hier gilt die Standard-Reihenfolge: A, 10, K, 9.</p>
+                <div class="suit-grid-horizontal">
+                    <div class="suit-box"><span class="suit-item suit-cross">♣</span></div>
+                    <div class="suit-box"><span class="suit-item suit-spade">♠</span></div>
+                    <div class="suit-box"><span class="suit-item suit-heart">♥</span></div>
+                </div>
             </div>
         </div>
     </section>
 
+
+
+
+
     <section class="rule-card" id="spielbeginn">
-        <div class="rule-icon">
-            <i data-lucide="play"></i>
-        </div>
         <div class="rule-content">
             <h3>Der Spielbeginn</h3>
             <p>Jede Person erhält 12 Spielkarten, welche reihum vom Kartengeber jeweils in Dreierschritten an die anderen Mitspieler verteilt werden.
@@ -193,9 +226,6 @@
     </section>
 
     <section class="rule-card" id="spielverlauf">
-        <div class="rule-icon">
-            <i data-lucide="route"></i>
-        </div>
         <div class="rule-content">
             <h3>Der Spielverlauf</h3>
             <p>Hier kommt dein Text hin...</p>
