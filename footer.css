@@ -11,5 +11,6 @@ footer {
     color: var(--color-doppelkopf);
     font-family: var(--font-text);
     font-size: var(--size-text);
+    text-align: var(--heading-footer-align);
 }
 
