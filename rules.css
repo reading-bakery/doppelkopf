@@ -31,16 +31,11 @@ body {
     opacity: 0.7; /* Optional: Inaktive Karten etwas blasser */
 }
 
-.rule-card:hover {
-    transform: scale(1.02);
-    background: rgba(85, 24, 24, 0.1);
-    border-color:#3b7785;
-}
 
 .rule-card.active-section {
     opacity: 1;
-    transform: scale(1.02); /* Leichtes Vergrößern */
-    border-left-color: #3b7785; /* Farbe passend zum Hover/Thema */
+    transform: scale(1.01); /* Leichtes Vergrößern */
+    border-left-color: #3b7785;
     background: rgba(59, 119, 133, 0.1); /* Dezenter Hintergrund-Schimmer */
     box-shadow: 0 10px 20px rgba(0,0,0,0.15);
 }
@@ -85,9 +80,7 @@ p {
 }
 
 
-#close-icon {
-display: none; /* Startzustand ausgeblendet */
-}
+
 
 /* --- Spezifisches Styling für die Karten-Sektion --- */
 
