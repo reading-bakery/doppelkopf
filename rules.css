@@ -644,7 +644,7 @@ p {
     
 .rank-item {
     width: 55px; /* Karten werden etwas schmaler */
-    height: 76px;
+    height: 80px;
     font-size: 1.85rem; /* Schrift etwas kleiner, damit "10" reinpasst */
     margin-right: 4px;
     border-radius: 6px;
