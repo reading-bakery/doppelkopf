@@ -96,12 +96,12 @@
 .navbar {
     margin: 10px 5px 0 5px;
     padding: 1vh;
-    height: 50px;
+    height: auto;
 }
 
 .navbar.expanded {
     height: auto; 
-    transition: height 0.1s ease-in-out;
+    transition: var(--transiton-duration);
 }
 
    
