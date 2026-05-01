@@ -51,11 +51,9 @@
     /* Transitionen */
     --transition-duration: 0.3s ease;
     
-			--bg-color: #0f172a;
-            --container-bg: #1e293b;
-            --accent-color: #38bdf8;
-            --text-main: #f8fafc;
-            --text-dim: #94a3b8;
-            --row-hover: #334155;
-            --border-color: rgba(255, 255, 255, 0.1);
+	--primary-green: #469b7d; /* Das Grün aus dem Header */
+            --header-text: #ffffff;
+            --row-bg-even: #f2f2f2;   /* Hellgrau für jede zweite Zeile */
+            --text-dark: #333333;
+            --border-color: #e0e0e0;
 }
