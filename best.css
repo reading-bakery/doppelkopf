@@ -53,4 +53,26 @@ p {
     line-height: var(--text-line-height);
 }
 
+/* Responsive Anpassung */
+@media (max-width: 740px) {
+.grid {
+    grid-template-columns: 1fr;
+}
 
+.best-container {
+    padding: 1rem;
+}
+
+h1 {
+    font-size: 2.2rem;
+}
+
+h2 {
+    font-size: 1.2rem;
+}
+
+p {
+  font-size: 12.5pt;
+  line-height: 1.4;
+}
+}
