@@ -687,9 +687,9 @@ p {
     background: rgba(20, 1, 18, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: var(--border-radius);
-    padding: 30px;
+    padding: 15px;
     transition: var(--transition-duration);
-    height: 15px;
+    height: 20px;
 }
 
 .solo-icon {
