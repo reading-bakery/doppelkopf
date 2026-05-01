@@ -643,8 +643,8 @@ p {
 }
     
 .rank-item {
-    width: 50px; /* Karten werden etwas schmaler */
-    height: 72px;
+    width: 55px; /* Karten werden etwas schmaler */
+    height: 76px;
     font-size: 1.85rem; /* Schrift etwas kleiner, damit "10" reinpasst */
     margin-right: 4px;
     border-radius: 6px;
@@ -678,6 +678,24 @@ p {
 .phase-grid {
     grid-template-columns: 1fr;
 }
+
+.solo-info {
+    display: flex;
+    align-items: var(--heading-footer-align);
+    gap: 10px;
+    font-size: var(--size-text);
+    background: rgba(20, 1, 18, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--border-radius);
+    padding: 30px;
+    transition: var(--transition-duration);
+    height: 15px;
+}
+
+.solo-icon {
+    width: 18px;
+}
+
 
 }
 
