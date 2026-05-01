@@ -55,7 +55,7 @@
 
             <p>
                 Gespielt wird immer mit <span class="highlight-badge">4 Spielern</span>. 
-                Wer zusammen gehört, bleibt bis zum Ausspielen der ersten <span>♣</span>-Damen geheim.
+                Wer zusammen gehört, bleibt bis zum Ausspielen der <span>♣</span>-Damen in der allerersten Runde geheim. 
             </p>
 
             <div class="team-visualizer">
@@ -85,6 +85,69 @@
             <div class="solo-info">
                 <i data-lucide="star" class="solo-icon"></i>
                 <span>Ein <strong>1 gegen 3 (Solo)</strong> ist ebenfalls möglich.</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="rule-card" id="spielverlauf">
+        <div class="rule-content">
+            <h3>Spielverlauf</h3>
+
+            <!-- Phase 1: Austeilen -->
+            <div class="game-phase">
+                <div class="phase-badge">Phase 1: Austeilen</div>
+                <div class="phase-grid">
+                    <div class="phase-step">
+                        <div class="step-number">1</div>
+                        <p>Jeder Spieler erhält <strong>12 Karten</strong> in 3er-Paketen vom Kartengeber.</p>
+                            
+                            
+                    
+                    </div>
+                    <div class="phase-step">
+                        <div class="step-number">2</div>
+                        <p>Spieler prüfen ihre Blätter auf <strong>Vorbehalte</strong>.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 2: Ansagen -->
+            <div class="game-phase highlight-phase">
+                <div class="phase-badge">Phase 2: Ansagen</div>
+                <p class="small-desc">Spielen können »Re!« oder »Kontra!« sagen, wenn sie glauben, zu gewinnen.</p>
+                <div class="call-container">
+                    <div class="call-box re">
+                        <span class="call-title">»Re!«</span>
+                        <span class="call-info">sagt Team Kreuz-Dame</span>
+                    </div>
+                    <div class="call-box kontra">
+                        <span class="call-title">»Kontra!«</span>
+                        <span class="call-info">sagt Gegner-Team</span>
+                    </div>
+                </div>
+                <p class="timing-note">Muss meist bis zur 11. Restkarte (bei 4 Karten auf der Hand) erfolgen.</p>
+            </div>
+
+            <!-- Phase 3: Stich spielen -->
+            <div class="game-phase">
+                <div class="phase-badge">Phase 3: Stich spielen</div>
+                <p>Der Spieler links vom Kartengeber beginnt und legt eine Karte in die Mitte.</p>
+                <p>Es muss die <strong>erste ausgespielte Farbe</strong> bedient werden, die zuerst ausgespielt wurde.</p>
+                <p>Wer nicht bedienen kann, darf trumofen oder eine andere Karte spielen.</p>
+                <p>Der Spieler, der die höchste Karte spielt, gewinnt den Stich und beginnt die nächste Runde.</p>
+                <p>Das Spiel endet, wenn alle 12 Stiche gemacht wurden und kein Spieler mehr Karten auf der Hand hat.</p>
+            
+
+                <div class="mechanic-info">
+                    <div class="mechanic-card">
+                        <i data-lucide="info"></i>
+                        <span><strong>Bedienpflicht:</strong> Die erste ausgespielte Farbe muss von allen bedient werden.</span>
+                    </div>
+                    <div class="mechanic-card">
+                        <i data-lucide="gavel"></i>
+                        <span><strong>Stechpflicht:</strong> Trümpfe stechen Fehlfarben. Der höchste Trumpf (oder die höchste Fehlfarbe) gewinnt.</span>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -209,68 +272,7 @@
         </div>
     </section>
 
-    <section class="rule-card" id="spielverlauf">
-        <div class="rule-content">
-            <h3>Spielverlauf</h3>
 
-            <!-- Phase 1: Austeilen -->
-            <div class="game-phase">
-                <div class="phase-badge">Phase 1: Austeilen</div>
-                <div class="phase-grid">
-                    <div class="phase-step">
-                        <div class="step-number">1</div>
-                        <p>Jeder Spieler erhält <strong>12 Karten</strong> in 3er-Paketen vom Kartengeber.</p>
-                            
-                            
-                    
-                    </div>
-                    <div class="phase-step">
-                        <div class="step-number">2</div>
-                        <p>Spieler prüfen ihre Blätter auf <strong>Vorbehalte</strong>.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Phase 2: Ansagen -->
-            <div class="game-phase highlight-phase">
-                <div class="phase-badge">Phase 2: Ansagen</div>
-                <p class="small-desc">Spielen können »Re!« oder »Kontra!« sagen, wenn sie glauben, zu gewinnen.</p>
-                <div class="call-container">
-                    <div class="call-box re">
-                        <span class="call-title">»Re!«</span>
-                        <span class="call-info">sagt Team Kreuz-Dame</span>
-                    </div>
-                    <div class="call-box kontra">
-                        <span class="call-title">»Kontra!«</span>
-                        <span class="call-info">sagt Gegner-Team</span>
-                    </div>
-                </div>
-                <p class="timing-note">Muss meist bis zur 11. Restkarte (bei 4 Karten auf der Hand) erfolgen.</p>
-            </div>
-
-            <!-- Phase 3: Stich spielen -->
-            <div class="game-phase">
-                <div class="phase-badge">Phase 3: Stich spielen</div>
-                <p>Der Spieler links vom Kartengeber beginnt und legt eine Karte in die Mitte.</p>
-                <p>Es muss die <strong>erste ausgespielte Farbe</strong> bedient werden, die zuerst ausgespielt wurde.</p>
-                <p>Wer nicht bedienen kann, darf trumofen oder eine andere Karte spielen.</p>
-                <p>Der Spieler, der die höchste Karte spielt, gewinnt den Stich und beginnt die nächste Runde.</p>
-                <p>Das Spiel endet, wenn alle 12 Stiche gemacht wurden und kein Spieler mehr Karten auf der Hand hat.</p>
-            
-
-                <div class="mechanic-info">
-                    <div class="mechanic-card">
-                        <i data-lucide="info"></i>
-                        <span><strong>Bedienpflicht:</strong> Die erste ausgespielte Farbe muss von allen bedient werden.</span>
-                    </div>
-                    <div class="mechanic-card">
-                        <i data-lucide="gavel"></i>
-                        <span><strong>Stechpflicht:</strong> Trümpfe stechen Fehlfarben. Der höchste Trumpf (oder die höchste Fehlfarbe) gewinnt.</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
     <section class="rule-card" id="spielende">
         <div class="rule-content">
