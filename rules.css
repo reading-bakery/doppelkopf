@@ -198,7 +198,7 @@ p {
 /* Container für die Team-Grafik */
 .team-visualizer {
     display: flex;
-    align-items: center;
+    align-items: var(--heading-footer-align);
     justify-content: space-between;
     gap: 10px;
     margin: 25px 0;
@@ -225,8 +225,8 @@ p {
 }
 
 /* Farben für die Teams */
-.re-team .team-label { color: #4f0197; } /* Dein Highlight-Blau */
-.kontra-team .team-label { color: #6b2810; } /* Dein Rückstand-Orange */
+.re-team .team-label { color: var(--color-re); } /* Dein Highlight-Blau */
+.kontra-team .team-label { color: var(--color-contra); } /* Dein Rückstand-Orange */
 
 .team-members {
     display: flex;
@@ -243,17 +243,16 @@ p {
     display: flex;
     align-items: var(--heading-footer-align);
     justify-content: center;
-    border: 2px dashed #6b2810;
+    border: 2px dashed var(--color-contra);
     font-weight: bold;
     font-size: 1.5rem;
     background: rgb(194, 186, 186);
 }
 
 .re-team .player-slot {
-
     color: #333;
     border-style: solid;
-    border-color: #4f0197;
+    border-color: var(--color-re);
 }
 
 
@@ -264,22 +263,32 @@ p {
     font-size: 1.2rem;
 }
 
+
 .team-desc {
-    font-size: 1.1rem;
+    font-size: var(--size-text-small);
     opacity: 0.7;
     margin: 0 !important;
     text-align: var(--heading-footer-align);
 }
 
+.small-text {
+    font-size: var(--size-text-small);
+    opacity: 0.7;
+    margin: 0 !important;
+}
+
 /* Solo Hinweis */
 .solo-info {
     display: flex;
-    align-items: center;
+    align-items: var(--heading-footer-align);
     gap: 10px;
-    background: rgba(59, 119, 133, 0.1);
-    padding: 12px;
-    border-radius: var(--border-radius);
     font-size: var(--size-text);
+    background: rgba(20, 1, 18, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--border-radius);
+    padding: 25px;
+    transition: var(--transition-duration);
+    height: 15px;
 }
 
 .solo-icon {
@@ -370,7 +379,8 @@ p {
 .game-phase {
     position: relative;
     padding: 20px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: 1px dotted darkgrey;
+    font-size: var(--size-pretext);
 }
 
 .game-phase:last-child {
@@ -379,11 +389,10 @@ p {
 
 .phase-badge {
     display: inline-block;
-    background: rgba(59, 119, 133, 0.2);
-    color: #3b7785;
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--color-pretext);
     padding: 4px 10px;
     border-radius: 4px;
-    font-size: 0.7rem;
     font-weight: 800;
     text-transform: uppercase;
     margin-bottom: 10px;
@@ -405,11 +414,20 @@ p {
     gap: 12px;
 }
 
+.phase-step-exception {
+    background: rgba(20, 1, 18, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    border-radius: 8px;
+    display: flex;
+    gap: 12px;
+}
+
 .step-number {
     flex: 0 0 24px;
     height: 24px;
-    background: #3b7785;
-    color: white;
+    background: var(--color-contra);
+    color: whitesmoke;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -583,15 +601,7 @@ p {
 }
 
 
-/* Mobile Anpassung */
-@media (max-width: 600px) {
-    .phase-grid {
-        grid-template-columns: 1fr;
-    }
-    .call-container {
-        flex-direction: column;
-    }
-}
+
 
 /* Responsive Anpassung */
 @media (max-width: 740px) {
@@ -602,15 +612,15 @@ p {
     margin: 5px 0;
 }
 .team-box {
-    width: 100%;
+    width: 90%;
 }
 
 .trump-row-visual {
         justify-content: space-around;
     }
-    .info-badge {
-        width: 100%;
-    }
+.info-badge {
+    width: 100%;
+}
 
 .grid {
     grid-template-columns: 1fr;
@@ -628,6 +638,7 @@ h2 {
     font-size: 1.2rem;
 }
 
+.small-text, 
 .team-desc,
 p {
   font-size: 11.5pt;
@@ -686,6 +697,13 @@ p {
 
 .group-label {
     text-align: var(--heading-footer-align);
+}
+
+.phase-grid {
+    grid-template-columns: 1fr;
+}
+.call-container {
+    flex-direction: column;
 }
 }
 

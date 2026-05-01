@@ -12,6 +12,8 @@
     --color-pretext: #363131;
     --color-img-elements: rgb(4, 19, 6);
     --color-icons-rules: rgb(0, 0, 0);
+    --color-contra: #6b2810; 
+    --color-re: #4f0197;
 
     /* Schriftarten */
     --font-doppelkopf: 'Rubik Mono One', sans-serif;
@@ -27,6 +29,7 @@
     --size-text: 1.3rem;
     --size-img-elements: 1.5rem;
     --size-icons-rules: 1.3rem;
+    --size-text-small:  1.1rem;
 
 
     /* Typographie */

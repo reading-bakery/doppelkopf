@@ -50,7 +50,7 @@
     <section class="rule-card" id="teams">
         <div class="rule-content">
             <h3>Teams / Spieler</h3>
-            <p>Gespielt wird immer mit 4 Spielern. Wer zusammen gehört, bleibt bis zum Ausspielen der ♣-Damen in der allerersten Runde geheim.</p> 
+            <p>Gespielt wird immer mit 4 Spielern. Wer mit wem ein Team bildet, bleibt bis zum Ausspielen der ♣-Damen in der allerersten Runde geheim.</p> 
             
 
             <div class="team-visualizer">
@@ -61,7 +61,7 @@
                         <div class="player-slot"><span class="card-mini">♣D</span></div>
                         <div class="player-slot"><span class="card-mini">♣D</span></div>
                     </div>
-                    <p class="team-desc">Besitzer der Kreuz-Damen</p>
+                    <p class="team-desc">Besitzer der Kreuz-Damen / Solo-Spieler</p>
                 </div>
 
                 <div class="vs-divider">VS</div>
@@ -73,13 +73,13 @@
                         <div class="player-slot">?</div>
                         <div class="player-slot">?</div>
                     </div>
-                    <p class="team-desc">Die anderen beiden Spieler</p>
+                    <p class="team-desc">Die anderen Spieler</p>
                 </div>
             </div>
 
             <div class="solo-info">
                 <i data-lucide="star" class="solo-icon"></i>
-                <span>Ein <strong>1 gegen 3 (Solo)</strong> ist ebenfalls möglich.</span>
+                <p>Ein <strong>1 gegen 3 Spiel</strong> ist ebenfalls möglich. Dazu mehr weiter unten.</p>
             </div>
         </div>
     </section>
@@ -88,41 +88,29 @@
         <div class="rule-content">
             <h3>Spielverlauf</h3>
 
-            <!-- Phase 0: Teamfindung -->
-            <div class="game-phase">
-                <div class="phase-badge">Phase 0: Teamfindung</div>
-                <div class="phase-grid">
-                    <div class="phase-step">
-                        <div class="step-number">1</div>
-                        <p>Jeder Spieler erhält <strong>12 Karten</strong> in 3er-Paketen vom Kartengeber.</p>
-                    </div>
-                    <div class="phase-step">
-                        <div class="step-number">2</div>
-                        <p>Spieler prüfen ihre Blätter auf <strong>Vorbehalte</strong>.</p>
-                    </div>
-                </div>
-            </div>
-
-
             <!-- Phase 1: Austeilen -->
             <div class="game-phase">
                 <div class="phase-badge">Phase 1: Austeilen</div>
                 <div class="phase-grid">
                     <div class="phase-step">
                         <div class="step-number">1</div>
-                        <p>Jeder Spieler erhält <strong>12 Karten</strong> in 3er-Paketen vom Kartengeber.</p>
+                        <p class="small-text">Jeder Spieler erhält <strong>12 Karten</strong> in 3er-Paketen vom Kartengeber.</p>
                     </div>
-                    <div class="phase-step">
+                    <div class="phase-step-exception">
                         <div class="step-number">2</div>
-                        <p>Spieler prüfen ihre Blätter auf <strong>Vorbehalte</strong>.</p>
+                        <p class="small-text"><strong>Einmalig:</strong> Jetzt wird entschieden, wer die ♣-Damen hat und somit ein Team bildet.</p>
+                    </div>
+                    <div class="phase-step-exception">
+                        <div class="step-number">3</div>
+                        <p class="small-text"><strong>Einmalig:</strong> Spieler können einen <strong>Vorbehalt</strong> anzeigen und so signalisieren, dass sie gegen die anderen 3 Spieler (1 gegen 3) spielen wollen. Falls niemand einen Vorbehalt anzeigen will, sagt man »gesund«.</p>
                     </div>
                 </div>
             </div>
 
             <!-- Phase 2: Ansagen -->
-            <div class="game-phase highlight-phase">
+            <div class="game-phase">
                 <div class="phase-badge">Phase 2: Ansagen</div>
-                <p class="small-desc">Spielen können »Re!« oder »Kontra!« sagen, wenn sie glauben, zu gewinnen.</p>
+                <p>Spielen können »Re!« oder »Kontra!« sagen, wenn sie glauben, zu gewinnen.</p>
                 <div class="call-container">
                     <div class="call-box re">
                         <span class="call-title">»Re!«</span>
