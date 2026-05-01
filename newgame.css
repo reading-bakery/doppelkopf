@@ -1,1 +1,54 @@
-!
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background-color: var(--background-body);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; 
+}
+
+.game-container {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 0 15px;
+}
+
+h1 {
+    margin-top: var(--spacing-title);
+    margin-bottom: 0.5rem; 
+    font-size: var(--size-title);
+    color: var(--color-title);
+    text-align: var(--heading-footer-align);
+    font-family: var(--font-title);
+}
+
+h2 {
+    margin-top: var(--spacing-subtitle);
+    font-size: var(--size-subtitle);
+    color: var(--color-pretext);
+    font-family: var(--font-subtitle);
+    text-align: var( --heading-footer-align);
+}
+
+h3 {
+    font-family: var(--font-subtitle);
+    margin-top: 0;
+    text-transform: uppercase;
+    color: var(--color-text);
+}
+
+
+p {
+    font-size: var(--size-text);
+    color: var(--color-text);
+    font-family: var(--font-text);
+    -webkit-hyphens: auto;    /* Für Safari */
+    -ms-hyphens: auto;         /* Für ältere Edge/Internet Explorer */
+    hyphens: auto;             /* Standard für Chrome, Firefox etc. */
+    text-align: justify;   /* Optional: Blocksatz verstärkt den Effekt */
+    word-wrap: break-word;
+    line-height: var(--text-line-height);
+}
