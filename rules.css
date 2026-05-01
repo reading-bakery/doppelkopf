@@ -128,7 +128,7 @@ p {
     width: 55px;
     height: 80px;
     background: whitesmoke;
-    border-radius: 4px;
+    border-radius: var(--border-radius);
     margin-right: 18px;
     color: #333; /* Dunkle Schrift auf weißen Karten */
     font-weight: bolder;
@@ -149,26 +149,35 @@ p {
 }
 
 
+
 .scoring-grid {
     display: grid;
-    /* Erzeugt automatisch so viele Spalten wie Platz ist */
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-    gap: 10px;
+    /* Reduziere den minmax-Wert von 100px auf etwa 60px bis 70px */
+    grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
+    /* Der gap-Wert steuert direkt den sichtbaren Abstand */
+    gap: 10px; 
+    justify-items: start; /* Richtet die Kacheln innerhalb der schmaleren Spalten aus */
 }
 
 .scoring-tile {
-    background: rgba(255, 255, 255, 0.08);
+    background: whitesmoke;
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: var(--border-radius);
-    padding: 15px 10px;
-    text-align: var(--heading-footer-align);
+    padding: 15px 5px;     /* Innenabstand etwas reduziert */
+    text-align: center;    /* Immer zentriert für Karten-Optik */
     transition: var(--transition-duration);
+    width: 60px;           /* Breite leicht erhöht für bessere Lesbarkeit */
+    height: 80px;          /* Höhe proportional angepasst */
+    box-shadow: var(--shadow-card);
+    display: flex;         /* Flexbox für vertikale Zentrierung im Inneren */
+    flex-direction: column;
+    justify-content: center;
 }
 
 
 .tile-card-symbol {
     display: block;
-    font-size: 1.2rem;
+    font-size: 1.9rem;
     font-weight: normal;
     margin-bottom: 5px;
     color: var(--color-text);
@@ -177,7 +186,37 @@ p {
 
 .tile-point-value {
     display: block;
-    font-size: 1.8rem;
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: #124b12; /* Nutzt dein Grün für Punkte */
+}
+
+/* Wenn 0 Punkte, dann neutraler oder in deiner Rückstandfarbe */
+[data-card-tile="9"] .tile-point-value {
+    color: #4f0197; 
+}
+
+.tile-point-label {
+    display: block;
+    font-size: 0.65rem;
+    opacity: 0.6;
+    letter-spacing: 1px;
+    margin-top: 4px;
+}
+
+
+.tile-card-symbol {
+    display: block;
+    font-size: 1.9rem;
+    font-weight: normal;
+    margin-bottom: 5px;
+    color: var(--color-text);
+    font-family: var(--font-subtitle);
+}
+
+.tile-point-value {
+    display: block;
+    font-size: 1.3rem;
     font-weight: 800;
     color: #124b12; /* Nutzt dein Grün für Punkte */
 }
@@ -436,59 +475,6 @@ p {
     font-weight: bold;
 }
 
-/* Ansagen Boxen */
-.call-container {
-    display: flex;
-    gap: 15px;
-    margin: 15px 0;
-}
-
-.call-box {
-    flex: 1;
-    padding: 15px;
-    border-radius: 8px;
-    text-align: center;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.call-box.re { border-left: 4px solid #3b7785; background: rgba(59, 119, 133, 0.05); }
-.call-box.kontra { border-left: 4px solid #FF4500; background: rgba(255, 69, 0, 0.05); }
-
-.call-title {
-    display: block;
-    font-size: 1.2rem;
-    font-weight: 900;
-    margin-bottom: 5px;
-}
-
-.call-info {
-    font-size: 0.7rem;
-    opacity: 0.6;
-    text-transform: uppercase;
-}
-
-/* Stich-Mechaniken */
-.mechanic-info {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-top: 15px;
-}
-
-.mechanic-card {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    background: rgba(255, 255, 255, 0.05);
-    padding: 12px 15px;
-    border-radius: 8px;
-    font-size: 0.9rem;
-}
-
-.mechanic-card i {
-    width: 20px;
-    color: #3b7785;
-}
 
 .timing-note {
     font-size: 0.75rem !important;
@@ -702,9 +688,7 @@ p {
 .phase-grid {
     grid-template-columns: 1fr;
 }
-.call-container {
-    flex-direction: column;
-}
+
 }
 
 @media (min-width: 1400px) {

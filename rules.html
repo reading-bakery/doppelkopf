@@ -88,61 +88,62 @@
         <div class="rule-content">
             <h3>Spielverlauf</h3>
 
-            <!-- Phase 1: Austeilen -->
+            <!-- Phase 1: Austeilen-->
             <div class="game-phase">
                 <div class="phase-badge">Phase 1: Austeilen</div>
                 <div class="phase-grid">
                     <div class="phase-step">
                         <div class="step-number">1</div>
-                        <p class="small-text">Jeder Spieler erhält <strong>12 Karten</strong> in 3er-Paketen vom Kartengeber.</p>
+                        <p class="small-text">Jeder Spieler erhält <strong>12 Karten</strong> in 3er-Paketen vom Kartengeber und sortiert sie.</p>
                     </div>
+
                     <div class="phase-step-exception">
                         <div class="step-number">2</div>
-                        <p class="small-text"><strong>Einmalig:</strong> Jetzt wird entschieden, wer die ♣-Damen hat und somit ein Team bildet.</p>
-                    </div>
-                    <div class="phase-step-exception">
-                        <div class="step-number">3</div>
-                        <p class="small-text"><strong>Einmalig:</strong> Spieler können einen <strong>Vorbehalt</strong> anzeigen und so signalisieren, dass sie gegen die anderen 3 Spieler (1 gegen 3) spielen wollen. Falls niemand einen Vorbehalt anzeigen will, sagt man »gesund«.</p>
+                        <p class="small-text"><strong>Einmalig:</strong> Der Kartengeber fragt reihum, ob jemand einen Vorbehalt (z.B. Solo oder Hochzeit) hat. Bei einem <strong>Vorbehalt</strong> spielt 1 Spieler gegen die anderen 3 Spieler. Falls niemand einen Vorbahalt hat, sagt man »gesund« und eine normale Spielrunde beginnt.</p>
                     </div>
                 </div>
             </div>
 
-            <!-- Phase 2: Ansagen -->
-            <div class="game-phase">
-                <div class="phase-badge">Phase 2: Ansagen</div>
-                <p>Spielen können »Re!« oder »Kontra!« sagen, wenn sie glauben, zu gewinnen.</p>
-                <div class="call-container">
-                    <div class="call-box re">
-                        <span class="call-title">»Re!«</span>
-                        <span class="call-info">sagt Team Kreuz-Dame</span>
-                    </div>
-                    <div class="call-box kontra">
-                        <span class="call-title">»Kontra!«</span>
-                        <span class="call-info">sagt Gegner-Team</span>
-                    </div>
-                </div>
-                <p class="timing-note">Muss meist bis zur 11. Restkarte (bei 4 Karten auf der Hand) erfolgen.</p>
-            </div>
 
-            <!-- Phase 3: Stich spielen -->
+            <!-- Phase 2: Stich spielen -->
             <div class="game-phase">
-                <div class="phase-badge">Phase 3: Stich spielen</div>
-                <p>Der Spieler links vom Kartengeber beginnt und legt eine Karte in die Mitte.</p>
-                <p>Es muss die <strong>erste ausgespielte Farbe</strong> bedient werden, die zuerst ausgespielt wurde.</p>
-                <p>Wer nicht bedienen kann, darf trumofen oder eine andere Karte spielen.</p>
-                <p>Der Spieler, der die höchste Karte spielt, gewinnt den Stich und beginnt die nächste Runde.</p>
-                <p>Das Spiel endet, wenn alle 12 Stiche gemacht wurden und kein Spieler mehr Karten auf der Hand hat.</p>
-            
+                <div class="phase-badge">Phase 2: Stich spielen & Ansagen</div>
+                    <div class="phase-grid">
+                        <div class="phase-step">
+                            <div class="step-number">1</div>
+                            <p class="small-text">Der Spieler links vom Kartengeber beginnt und legt eine Karte in die Mitte.</p>
+                        </div>
 
-                <div class="mechanic-info">
-                    <div class="mechanic-card">
-                        <i data-lucide="info"></i>
-                        <span><strong>Bedienpflicht:</strong> Die erste ausgespielte Farbe muss von allen bedient werden.</span>
-                    </div>
-                    <div class="mechanic-card">
-                        <i data-lucide="gavel"></i>
-                        <span><strong>Stechpflicht:</strong> Trümpfe stechen Fehlfarben. Der höchste Trumpf (oder die höchste Fehlfarbe) gewinnt.</span>
-                    </div>
+                        <div class="phase-step">
+                            <div class="step-number">2</div>
+                            <p class="small-text"><strong>Bedienpflicht:</strong> Die erste ausgespielte Farbe muss von allen anderen Spielern bedient werden. Wer nicht bedienen kann, darf trumpfen oder eine Fehlfarbe spielen.</p>
+                        </div>
+
+                        <div class="phase-step">
+                            <div class="step-number">3</div>
+                            <p class="small-text"><strong>Stechpflicht:</strong> Der Spieler, der die höchste Karte spielt, gewinnt den Stich und die nächste Runde beginnt.</p>
+                        </div>
+
+                        <div class="phase-step">
+                            <div class="step-number">4</div>
+                            <p class="small-text">Der Stichgewinnder darf als erstes eine neue Karte in die Mitte legen und so eine neue Runde starten.</p>
+                        </div>
+
+
+                        <div class="phase-step">
+                            <div class="step-number">5</div>
+                            <p class="small-text">Die Runde endet, wenn alle 12 Stiche gemacht wurden und kein Spieler mehr Karten auf der der Hand hat.</p>
+                        </div>
+
+                        <div class="phase-step">
+                            <div class="step-number">6</div>
+                            <p class="small-text">Neues Blatt ausgeben: Die Rolle des Kartengebers wechselt im Uhrzeigersinn. So wird sichergestellt, dass jeder Spieler einmal der Kartengeber ist.</p>
+                        </div>
+
+                        <div class="phase-step-exception">
+                            <div class="step-number">7</div>
+                            <p class="small-text">Eine <strong>Ansage</strong> muss erfolgen, bevor man seine erste Karte zum zweiten Stich ausspielt (man hat also noch 11 Karten auf der Hand), indem sie ihren Teams entspechend »Re!« oder »Kontra!« sagen, wenn sie glauben, ein gutes Blatt auf der Hand zu haben und das eigene Team stärken wollen. Durch die Ansage verdoppelt sich der Wert des Spiels.</p>
+                    </div>   
                 </div>
             </div>
         </div>
@@ -156,17 +157,7 @@
         </div>
 
         <div class="deck-visuals">
-            <!-- Visuelle Darstellung der Kartenrangfolge -->
-            <div class="card-rank-line">
-                <span class="line-label">Rangfolge</span>
-                <span class="rank-item" data-card="a">A</span>
-                <span class="rank-item" data-card="10">10</span>
-                <span class="rank-item" data-card="k">K</span>
-                <span class="rank-item" data-card="d">D</span>
-                <span class="rank-item" data-card="b">B</span>
-                <span class="rank-item" data-card="9">9</span>
-            </div>
-            
+                        
             <!-- Visuelle Darstellung der Farben -->
             <div class="suit-line">
                 <span class="line-label">Farben</span>
@@ -178,7 +169,7 @@
         </div>
 
         <div class="scoring-block">
-                <span class="line-label-1">Punktewertung</span>
+                <span class="line-label-1">Rangfolge & Punktewertung</span>
                 <div class="scoring-grid">
                     <!-- Kachel für Ass -->
                     <div class="scoring-tile" data-card-tile="a">
