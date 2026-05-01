@@ -152,75 +152,61 @@
     <section class="rule-card" id="karten">
         <div class="rule-content">
             <h3>Karten & Punktewertung</h3>
-            <p>Gespielt wird mit insgesamt 48 Karten. Es gibt von jeder Karte genau zwei Exemplare. Die Karten sind in vier Farben unterteilt und haben die folgende Reihenfolge (vom höchsten zum niedrigsten Wert). <b>Insgesamt gibt es 240 Punkte im Spiel.</b>
+            <p>
+                Gespielt wird mit insgesamt 48 Karten. Von jeder Karte gibt es genau zwei Exemplare. 
+                Die Karten sind in vier Farben unterteilt. <b>Insgesamt gibt es 240 Punkte im Spiel.</b>
             </p>
         </div>
 
-        <div class="deck-visuals">
-                        
-            <!-- Visuelle Darstellung der Farben -->
-            <div class="suit-line">
-                <span class="line-label">Farben</span>
-                <span class="rank-item suit-cross" title="Kreuz">♣</span>
-                <span class="rank-item suit-spade" title="Pik">♠</span>
-                <span class="rank-item suit-heart" title="Herz">♥</span>
-                <span class="rank-item suit-diamond" title="Karo">♦</span>
+        <!-- 1. Bereich: Farben & Rangfolge und Punktewertung -->
+        <div class="scoring-block">
+            <span class="line-label">Farben</span>
+            <div class="suit-grid-horizontal">
+                <div class="rank-item"><span class="suit-item suit-cross">♣</span></div>
+                <div class="rank-item"><span class="suit-item suit-spade">♠</span></div>
+                <div class="rank-item"><span class="suit-item suit-heart">♥</span></div>
+                <div class="rank-item"><span class="suit-item suit-diamond">♦</span></div>
+            </div>
+
+            <span class="line-label">Rangfolge und Punktewertung</span>
+            <div class="scoring-grid">
+                <div class="scoring-tile" data-card-tile="a">
+                    <span class="tile-card-symbol">A</span>
+                    <span class="tile-point-value">11</span>
+                    <span class="tile-point-label">PUNKTE</span>
+                </div>
+                <div class="scoring-tile" data-card-tile="10">
+                    <span class="tile-card-symbol">10</span>
+                    <span class="tile-point-value">10</span>
+                    <span class="tile-point-label">PUNKTE</span>
+                </div>
+                <div class="scoring-tile" data-card-tile="k">
+                    <span class="tile-card-symbol">K</span>
+                    <span class="tile-point-value">4</span>
+                    <span class="tile-point-label">PUNKTE</span>
+                </div>
+                <div class="scoring-tile" data-card-tile="d">
+                    <span class="tile-card-symbol">D</span>
+                    <span class="tile-point-value">3</span>
+                    <span class="tile-point-label">PUNKTE</span>
+                </div>
+                <div class="scoring-tile" data-card-tile="b">
+                    <span class="tile-card-symbol">B</span>
+                    <span class="tile-point-value">2</span>
+                    <span class="tile-point-label">PUNKTE</span>
+                </div>
+                <div class="scoring-tile" data-card-tile="9">
+                    <span class="tile-card-symbol">9</span>
+                    <span class="tile-point-value">0</span>
+                    <span class="tile-point-label">PUNKTE</span>
+                </div>
             </div>
         </div>
 
-        <div class="scoring-block">
-                <span class="line-label-1">Rangfolge & Punktewertung</span>
-                <div class="scoring-grid">
-                    <!-- Kachel für Ass -->
-                    <div class="scoring-tile" data-card-tile="a">
-                        <span class="tile-card-symbol">A</span>
-                        <span class="tile-point-value">11</span>
-                        <span class="tile-point-label">PUNKTE</span>
-                    </div>
-                    <!-- Kachel für Zehn -->
-                    <div class="scoring-tile" data-card-tile="10">
-                        <span class="tile-card-symbol">10</span>
-                        <span class="tile-point-value">10</span>
-                        <span class="tile-point-label">PUNKTE</span>
-                    </div>
-                    <!-- Kachel für König -->
-                    <div class="scoring-tile" data-card-tile="k">
-                        <span class="tile-card-symbol">K</span>
-                        <span class="tile-point-value">4</span>
-                        <span class="tile-point-label">PUNKTE</span>
-                    </div>
-                    <!-- Kachel für Dame -->
-                    <div class="scoring-tile" data-card-tile="d">
-                        <span class="tile-card-symbol">D</span>
-                        <span class="tile-point-value">3</span>
-                        <span class="tile-point-label">PUNKTE</span>
-                    </div>
-                    <!-- Kachel für Bube -->
-                    <div class="scoring-tile" data-card-tile="b">
-                        <span class="tile-card-symbol">B</span>
-                        <span class="tile-point-value">2</span>
-                        <span class="tile-point-label">PUNKTE</span>
-                    </div>
-                    <!-- Kachel für Neun -->
-                    <div class="scoring-tile" data-card-tile="9">
-                        <span class="tile-card-symbol">9</span>
-                        <span class="tile-point-value">0</span>
-                        <span class="tile-point-label">PUNKTE</span>
-                    </div>
-                </div>
-        </div>
-    </section>
-
-    <section class="rule-card" id="trumpf">
-        <div class="rule-content">
-            <h3>Trumpf & Fehlfarben</h3>
-            <p>Die Rangfolge im <i>Doppelkopf</i> ist speziell. Trümpfe stechen alle anderen Karten (Fehlfarben).
-            </p>
-           
-
-            <!-- Ständige Trümpfe -->
+        <!-- 2. Bereich: Trümpfe -->
+        <div class="deck-visuals">
             <div class="trump-block">
-                <span class="line-label">Ständige Trümpfe (Stärkste zuerst)</span>
+                <span class="line-label-1">Trümpfe (stärkste zuerst)</span>
                 <div class="trump-row-visual">
                     <div class="trump-group">
                         <span class="group-label">Damen<br>(♣, ♠, ♥, ♦)</span>
@@ -232,33 +218,31 @@
                         <div class="rank-item" data-card="b">B</div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Karo-Trümpfe & Herz 10 -->
-            <div class="suit-trump-info">
-                <div class="info-badge special-card">
-                    <span class="card-mini">♥10</span> 
-                    <span class="badge-text">Dulle (Höchster Trumpf)</span>
-                </div>
-                <div class="info-badge diamond-trump">
-                    <span class="suit-item suit-diamond">♦</span> 
-                    <span class="badge-text">Karo-Farbe ist Trumpf (A, 10, K, 9)</span>
-                </div>
-            </div>
-
-            <!-- Fehlfarben -->
-            <div class="scoring-block">
-                <div class="line-label-1">Fehlfarben</div>
-                <p>Karten, die nicht Trumpf sind. Hier gilt die Standard-Reihenfolge: A, 10, K, 9.</p>
-                <div class="suit-grid-horizontal">
-                    <div class="suit-box"><span class="suit-item suit-cross">♣</span></div>
-                    <div class="suit-box"><span class="suit-item suit-spade">♠</span></div>
-                    <div class="suit-box"><span class="suit-item suit-heart">♥</span></div>
+                <div class="suit-trump-info">
+                    <div class="info-badge special-card">
+                        <span class="card-mini">♥10</span> 
+                        <span class="badge-text">Dulle (höchster Trumpf)</span>
+                    </div>
+                    <div class="info-badge diamond-trump">
+                        <span class="suit-item suit-diamond">♦</span> 
+                        <span class="badge-text">Karo ist Trumpf (A, 10, K, 9)</span>
+                    </div>
                 </div>
             </div>
         </div>
-    </section>
 
+        <!-- 3. Bereich: Fehlkarten -->
+        <div class="scoring-block">
+            <div class="line-label-1">Fehlkarten</div>
+            <p class="small-text">Karten, die keine Trümpfe sind. Hier gilt die Rangfolge: A > 10 > K > 9.</p>
+            <div class="suit-grid-horizontal">
+                <div class="rank-item"><span class="suit-item suit-cross">♣</span></div>
+                <div class="rank-item"><span class="suit-item suit-spade">♠</span></div>
+                <div class="rank-item"><span class="suit-item suit-heart">♥</span></div>
+            </div>
+        </div>
+    </section>
 
 
     <section class="rule-card" id="spielende">

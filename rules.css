@@ -399,19 +399,9 @@ p {
     margin-top: 10px;
 }
 
-.suit-box {
-    background: rgba(255, 255, 255, 0.05);
-    width: 50px;
-    height: 50px;
-    display: flex;
-    align-items: var(--heading-footer-align);
-    justify-content: center;
-    border-radius: var(--border-radius);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-}
 
 .suit-item {
-    font-size: 1.7rem;
+    font-size: 1.9rem;
 }
 
 /* Phasen-Container */
