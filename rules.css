@@ -687,13 +687,13 @@ p {
     background: rgba(20, 1, 18, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: var(--border-radius);
-    padding: 15px;
+    padding: 20px;
     transition: var(--transition-duration);
-    height: 20px;
+    height: auto;
 }
 
 .solo-icon {
-    width: 18px;
+    width: 28px;
 }
 
 
