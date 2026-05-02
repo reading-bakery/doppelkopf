@@ -167,7 +167,7 @@ p {
     text-align: center;    /* Immer zentriert für Karten-Optik */
     transition: var(--transition-duration);
     width: 60px;           /* Breite leicht erhöht für bessere Lesbarkeit */
-    height: 80px;          /* Höhe proportional angepasst */
+    height: 85px;          /* Höhe proportional angepasst */
     box-shadow: var(--shadow-card);
     display: flex;         /* Flexbox für vertikale Zentrierung im Inneren */
     flex-direction: column;
