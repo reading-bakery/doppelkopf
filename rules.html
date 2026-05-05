@@ -159,16 +159,19 @@
         </div>
 
         <!-- 1. Bereich: Farben & Rangfolge und Punktewertung -->
-        <div class="scoring-block">
-            <span class="line-label">Farben</span>
+        <div class="game-phase-2">
+            <div class="phase-badge-2">Farben</div>
+
             <div class="suit-grid-horizontal">
                 <div class="rank-item"><span class="suit-item suit-cross">♣</span></div>
                 <div class="rank-item"><span class="suit-item suit-spade">♠</span></div>
                 <div class="rank-item"><span class="suit-item suit-heart">♥</span></div>
                 <div class="rank-item"><span class="suit-item suit-diamond">♦</span></div>
             </div>
+        </div>
 
-            <span class="line-label">Rangfolge und Punktewertung</span>
+        <div class="game-phase-2">
+            <div class="phase-badge-2">Rangfolge & Punktewertung</div>
             <div class="scoring-grid">
                 <div class="scoring-tile" data-card-tile="a">
                     <span class="tile-card-symbol">A</span>
@@ -202,12 +205,22 @@
                 </div>
             </div>
         </div>
+        
 
         <!-- 2. Bereich: Trümpfe -->
-        <div class="deck-visuals">
-            <div class="trump-block">
-                <span class="line-label-1">Trümpfe (stärkste zuerst)</span>
-                <div class="trump-row-visual">
+        <div class="game-phase-2">
+            <div class="phase-badge-2">Trümpfe</div>
+                <div class="suit-trump-info">
+                    <div class="info-badge special-card">
+                       <span class="suit-item suit-diamond">♥10</span>  
+                        <p class="badge-text">Dulle (höchster Trumpf)</p>
+                    </div>
+                    <div class="info-badge diamond-trump">
+                        <span class="suit-item suit-diamond">♦</span> 
+                        <p class="badge-text">Karo ist Trumpf (A, 10, K, 9)</p>
+                    </div>
+            
+                <div class="info-badge speciaö">
                     <div class="trump-group">
                         <span class="group-label">Damen<br>(♣, ♠, ♥, ♦)</span>
                         <div class="rank-item" data-card="d">D</div>
@@ -219,22 +232,13 @@
                     </div>
                 </div>
 
-                <div class="suit-trump-info">
-                    <div class="info-badge special-card">
-                        <span class="card-mini">♥10</span> 
-                        <span class="badge-text">Dulle (höchster Trumpf)</span>
-                    </div>
-                    <div class="info-badge diamond-trump">
-                        <span class="suit-item suit-diamond">♦</span> 
-                        <span class="badge-text">Karo ist Trumpf (A, 10, K, 9)</span>
-                    </div>
-                </div>
+                
             </div>
         </div>
 
         <!-- 3. Bereich: Fehlkarten -->
-        <div class="scoring-block">
-            <div class="line-label-1">Fehlkarten</div>
+        <div class="game-phase-2">
+            <div class="phase-badge-2">Fehlkarten</div>
             <p class="small-text">Karten, die keine Trümpfe sind. Hier gilt die Rangfolge: A > 10 > K > 9.</p>
             <div class="suit-grid-horizontal">
                 <div class="rank-item"><span class="suit-item suit-cross">♣</span></div>

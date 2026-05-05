@@ -125,8 +125,8 @@ p {
     display: inline-flex;
     align-items: var(--heading-footer-align);
     justify-content: center;
-    width: 55px;
-    height: 80px;
+    width: 65px;
+    height: 100px;
     background: whitesmoke;
     border-radius: var(--border-radius);
     margin-right: 18px;
@@ -152,11 +152,10 @@ p {
 
 .scoring-grid {
     display: grid;
-    /* Reduziere den minmax-Wert von 100px auf etwa 60px bis 70px */
-    grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
-    /* Der gap-Wert steuert direkt den sichtbaren Abstand */
-    gap: 10px; 
-    justify-items: start; /* Richtet die Kacheln innerhalb der schmaleren Spalten aus */
+    grid-template-columns: repeat(6, auto); /* 6 Spalten für 6 Karten */
+    gap: 20px;
+    justify-content: start;
+    margin-left: 15px;
 }
 
 .scoring-tile {
@@ -312,8 +311,7 @@ p {
 
 .small-text {
     font-size: var(--size-text-small);
-    opacity: 0.7;
-    margin: 0 !important;
+    margin-left: 15px;
 }
 
 /* Solo Hinweis */
@@ -370,7 +368,7 @@ p {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
-    margin-bottom: 25px;
+    margin-left: 15px;
 }
 
 .info-badge {
@@ -378,7 +376,7 @@ p {
     align-items: var(--heading-footer-align);
     gap: 10px;
     background: rgba(255, 255, 255, 0.05);
-    padding: 8px 12px;
+    padding: 0 12px;
     border-radius: 20px;
     border: 1px solid rgba(255, 255, 255, 0.1);
     font-size: var(--size-text);
@@ -401,7 +399,7 @@ p {
 
 
 .suit-item {
-    font-size: 1.9rem;
+    font-size: 2rem;
 }
 
 /* Phasen-Container */
@@ -416,6 +414,7 @@ p {
     border-bottom: none;
 }
 
+.phase-badge-2,
 .phase-badge {
     display: inline-block;
     background: rgba(255, 255, 255, 0.1);
@@ -425,6 +424,10 @@ p {
     font-weight: 800;
     text-transform: uppercase;
     margin-bottom: 10px;
+}
+
+.phase-badge-2 {
+    background: none;
 }
 
 /* Austeilen Schritte */
@@ -576,8 +579,27 @@ p {
     font-style: italic;
 }
 
+.game-phase-2 {
+    background: rgba(20, 1, 18, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    display: flex;
+    padding: 20px 0;
+    width: 100%; 
+    flex-direction: column; 
+    align-items: flex-start;
+    position: relative;
+    margin-bottom: 15px;
+}
 
-
+/* Sorgt dafür, dass das Grid im Inneren ebenfalls die Breite nutzt */
+.game-phase-2 .suit-grid-horizontal {
+    margin-top: 5px; 
+    margin-left: 15px;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap; /* Verhindert Überlaufen auf kleinen Bildschirmen */
+}
 
 /* Responsive Anpassung */
 @media (max-width: 740px) {
@@ -624,7 +646,6 @@ p {
 
 .scoring-grid {
     grid-template-columns: repeat(3, 1fr); /* 3 kleine Spalten nebeneinander */
-    margin-left: 0;    /* Startet ganz links */
 }
 
 .scoring-block {
@@ -643,8 +664,8 @@ p {
 }
     
 .rank-item {
-    width: 50px; /* Karten werden etwas schmaler */
-    height: 72px;
+    width: 55px; /* Karten werden etwas schmaler */
+    height: 90px;
     font-size: 1.85rem; /* Schrift etwas kleiner, damit "10" reinpasst */
     margin-right: 4px;
     border-radius: 6px;
