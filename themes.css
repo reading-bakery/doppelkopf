@@ -50,4 +50,10 @@
 
     /* Transitionen */
     --transition-duration: 0.3s ease;
+    
+	--primary-green: #469b7d; /* Das Grün aus dem Header */
+            --header-text: #ffffff;
+            --row-bg-even: #f2f2f2;   /* Hellgrau für jede zweite Zeile */
+            --text-dark: #333333;
+            --border-color: #e0e0e0;
 }

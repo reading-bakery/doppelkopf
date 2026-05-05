@@ -1,0 +1,125 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background-color: var(--background-body);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; 
+}
+
+.best-container {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 0 15px;
+}
+
+h1 {
+    margin-top: var(--spacing-title);
+    margin-bottom: 0.5rem; 
+    font-size: var(--size-title);
+    color: var(--color-title);
+    text-align: var(--heading-footer-align);
+    font-family: var(--font-title);
+}
+
+h2 {
+    margin-top: var(--spacing-subtitle);
+    font-size: var(--size-subtitle);
+    color: var(--color-pretext);
+    font-family: var(--font-subtitle);
+    text-align: var( --heading-footer-align);
+}
+
+h3 {
+    font-family: var(--font-subtitle);
+    margin-top: 0;
+    text-transform: uppercase;
+    color: var(--color-text);
+}
+
+
+p {
+    font-size: var(--size-text);
+    color: var(--color-text);
+    font-family: var(--font-text);
+    -webkit-hyphens: auto;    /* Für Safari */
+    -ms-hyphens: auto;         /* Für ältere Edge/Internet Explorer */
+    hyphens: auto;             /* Standard für Chrome, Firefox etc. */
+    text-align: justify;   /* Optional: Blocksatz verstärkt den Effekt */
+    word-wrap: break-word;
+    line-height: var(--text-line-height);
+}
+
+table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        thead {
+            background-color: var(--primary-green);
+        }
+
+        th {
+            padding: 18px 25px;
+            color: var(--header-text);
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+
+        td {
+            padding: 16px 25px;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-dark);
+            font-size: 1.1rem;
+        }
+
+        /* Hintergrund für jede zweite Zeile (Zebra-Muster) */
+        tbody tr:nth-child(even) {
+            background-color: var(--row-bg-even);
+        }
+
+        /* Grüne Schrift für eine hervorgehobene Zeile (wie 'Sally' im Bild) */
+        .highlighted-row td {
+            color: var(--primary-green) !important;
+            font-weight: 600;
+        }
+
+/* Responsive Anpassung */
+@media (max-width: 740px) {
+.grid {
+    grid-template-columns: 1fr;
+}
+
+.best-container {
+    padding: 1rem;
+}
+
+h1 {
+    font-size: 2.2rem;
+}
+
+h2 {
+    font-size: 1.2rem;
+}
+
+p {
+  font-size: 12.5pt;
+  line-height: 1.4;
+}
+
+th, td {
+                padding: 12px 15px;
+                font-size: 1rem;
+            }
+
+            
+
+            .col-platz {
+                width: 50px;
+            }
+
+}

@@ -44,13 +44,15 @@
         <div class="rule-content">
             <h3>Was ist Doppelkopf?</h3>
             <p><i>Doppelkopf</i> ist ein absoluter Kartenspiel-Klassiker, der durch seine zahlreichen Twists und taktische Tiefe eine Menge Nervenkitzel verspricht!</p>
+            <p>Gespielt werden meist 20 Runden. 1 Runde besteht aus 4 Spielen (=Blätter), sodass jeder Spieler einmal der Kartengeber ist. Pro Spiel/Blatt können 12 Stiche gewonnen werden.</p>
+              
         </div>
     </section>
 
     <section class="rule-card" id="teams">
         <div class="rule-content">
             <h3>Teams / Spieler</h3>
-            <p>Gespielt wird immer mit 4 Spielern. Wer mit wem ein Team bildet, bleibt bis zum Ausspielen der ♣-Damen in der allerersten Runde geheim.</p> 
+            <p>Gespielt wird immer mit 4 Spielern. Wer mit wem ein Team bildet, bleibt bis zum Ausspielen der ♣-Damen geheim. Die Teams werden mit jedem neuen Blatt neu zusammengestellt.</p> 
             
 
             <div class="team-visualizer">
@@ -99,7 +101,7 @@
 
                     <div class="phase-step-exception">
                         <div class="step-number">2</div>
-                        <p class="small-text"><strong>Einmalig:</strong> Der Kartengeber fragt reihum, ob jemand einen Vorbehalt (z.B. Solo oder Hochzeit) hat. Bei einem <strong>Vorbehalt</strong> spielt 1 Spieler gegen die anderen 3 Spieler. Falls niemand einen Vorbahalt hat, sagt man »gesund« und eine normale Spielrunde beginnt.</p>
+                        <p class="small-text"><strong>Einmalig zum Start eines jeden neuen Blattes:</strong> Der Kartengeber fragt reihum, ob jemand einen Vorbehalt (z.B. Solo oder Hochzeit) hat. Bei einem <strong>Vorbehalt</strong> spielt 1 Spieler gegen die anderen 3 Spieler. Falls niemand einen Vorbahalt hat, sagt man »gesund« und eine normale Runde (2 gegen 2) beginnt.</p>
                     </div>
                 </div>
             </div>
@@ -111,22 +113,22 @@
                     <div class="phase-grid">
                         <div class="phase-step">
                             <div class="step-number">1</div>
-                            <p class="small-text">Der Spieler links vom Kartengeber beginnt und legt eine Karte in die Mitte.</p>
+                            <p class="small-text">Der Spieler links vom Kartengeber beginnt und legt eine Karte in die Mitte. Die anderen Spieler legen anschließend im Uhrzeigersinn nacheinander ebenfalls eine Karte ab.</p>
                         </div>
 
-                        <div class="phase-step">
+                        <div class="phase-step-exception">
                             <div class="step-number">2</div>
                             <p class="small-text"><strong>Bedienpflicht:</strong> Die erste ausgespielte Farbe muss von allen anderen Spielern bedient werden. Wer nicht bedienen kann, darf trumpfen oder eine Fehlfarbe spielen.</p>
                         </div>
 
-                        <div class="phase-step">
+                        <div class="phase-step-exception">
                             <div class="step-number">3</div>
-                            <p class="small-text"><strong>Stechpflicht:</strong> Der Spieler, der die höchste Karte spielt, gewinnt den Stich und die nächste Runde beginnt.</p>
+                            <p class="small-text"><strong>Stechpflicht:</strong> Der Spieler, der die höchste Karte spielt, gewinnt den Stich.</p>
                         </div>
 
                         <div class="phase-step">
                             <div class="step-number">4</div>
-                            <p class="small-text">Der Stichgewinnder darf als erstes eine neue Karte in die Mitte legen und so eine neue Runde starten.</p>
+                            <p class="small-text">Der Stichgewinner darf als erstes eine neue Karte in die Mitte legen. Die anderen Spieler legen im Uhrzeigersinn nach.</p>
                         </div>
 
 
@@ -142,7 +144,7 @@
 
                         <div class="phase-step-exception">
                             <div class="step-number">7</div>
-                            <p class="small-text">Eine <strong>Ansage</strong> muss erfolgen, bevor man seine erste Karte zum zweiten Stich ausspielt (man hat also noch 11 Karten auf der Hand), indem sie ihren Teams entspechend »Re!« oder »Kontra!« sagen, wenn sie glauben, ein gutes Blatt auf der Hand zu haben und das eigene Team stärken wollen. Durch die Ansage verdoppelt sich der Wert des Spiels.</p>
+                            <p class="small-text">Eine <strong>Ansage</strong> ist optional – muss aber erfolgen, bevor man seine erste Karte zum zweiten Stich ausspielt (man hat also noch 11 Karten auf der Hand), indem man seinem Team entspechend »Re!« oder »Kontra!« ruft, wenn man glaubt, ein gutes Blatt auf der Hand zu haben und das eigene Team stärken will. Durch die Ansage verdoppelt sich der Wert der Punkte in dieser Runde.</p>
                     </div>   
                 </div>
             </div>
@@ -159,19 +161,16 @@
         </div>
 
         <!-- 1. Bereich: Farben & Rangfolge und Punktewertung -->
-        <div class="game-phase-2">
-            <div class="phase-badge-2">Farben</div>
-
+        <div class="scoring-block">
+            <span class="line-label">Farben</span>
             <div class="suit-grid-horizontal">
                 <div class="rank-item"><span class="suit-item suit-cross">♣</span></div>
                 <div class="rank-item"><span class="suit-item suit-spade">♠</span></div>
                 <div class="rank-item"><span class="suit-item suit-heart">♥</span></div>
                 <div class="rank-item"><span class="suit-item suit-diamond">♦</span></div>
             </div>
-        </div>
 
-        <div class="game-phase-2">
-            <div class="phase-badge-2">Rangfolge & Punktewertung</div>
+            <span class="line-label">Rangfolge und Punktewertung</span>
             <div class="scoring-grid">
                 <div class="scoring-tile" data-card-tile="a">
                     <span class="tile-card-symbol">A</span>
@@ -251,9 +250,9 @@
 
     <section class="rule-card" id="spielende">
         <div class="rule-content">
-            <h3>Spielende</h3>
+            <h3>Spielende & Auswertung</h3>
 
-            <p>Nach 12 Stichen (Runden) ist das Spiel beendet. Jetzt werden die Punkte aller gewonnenen Stiche pro Team addiert.</p>
+            <p>Nach 12 Stichen ist das Spiel beendet. Jetzt werden die Punkte aller gewonnenen Stiche pro Team addiert.</p>
 
             <div class="winning-threshold">
                 <div class="threshold-label">Insgesamt gibt es <strong>240 Punkte</strong></div>
@@ -289,12 +288,7 @@
         </div>
     </section>
 
-    <section class="rule-card" id="abrechnung">
-            <div class="rule-content">
-                <h3>Abrechnung</h3>
-                <p>fadfdfdf</p>
-            </div>
-    </section>
+  
 
     <section class="rule-card" id="besonderheiten">
             <div class="rule-content">
