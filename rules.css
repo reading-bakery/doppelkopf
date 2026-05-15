@@ -286,18 +286,20 @@ p {
     display: flex;
     align-items: var(--heading-footer-align);
     gap: 10px;
-    font-size: var(--size-text);
+    font-s5ize: var(--size-text);
     background: rgba(20, 1, 18, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: var(--border-radius);
-    padding: 25px;
+    padding: 35px;
     transition: var(--transition-duration);
     height: 15px;
+    padding-left: 10px;
 }
 
 .solo-icon {
     color: #ffd700; /* Gold für Solo */
-    width: 18px;
+    width: 38px;
+    padding-left: -20px;
 }
 
 
