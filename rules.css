@@ -269,6 +269,7 @@ p {
     text-align: var(--heading-footer-align);
 }
 
+.small-text-3,
 .small-text-2,
 .small-text {
     font-size: var(--size-text-small);
@@ -279,6 +280,11 @@ p {
 
 .small-text-2 {
     margin-left: 10px;
+}
+
+.small-text-3 {
+    margin: 0;
+    width: 95%;
 }
 
 /* Solo Hinweis */
@@ -342,6 +348,7 @@ p {
     margin-left: 15px;
 }
 
+.info-badge-2,
 .info-badge {
     display: flex;
     align-items: var(--heading-footer-align);
@@ -351,6 +358,7 @@ p {
     border-radius: 20px;
     border: 1px solid rgba(255, 255, 255, 0.1);
     font-size: var(--size-text);
+    width: 32%;
 }
 
 .special-card {
@@ -513,6 +521,7 @@ p {
     background: white;
     box-shadow: 0 0 10px rgba(255,255,255,0.5);
     z-index: 2;
+    margin-left: 50%;
 }
 
 .marker-text {
@@ -535,15 +544,7 @@ p {
 .result-item {
     display: flex;
     align-items: flex-start;
-    gap: 12px;
-    font-size: 0.95rem;
-}
-
-.win-icon {
-    color: #3b7785;
-    width: 20px;
-    flex-shrink: 0;
-    margin-top: 2px;
+    font-size: var(--font-text);
 }
 
 .scoring-info-box {
@@ -593,6 +594,11 @@ p {
     }
 .info-badge {
     width: 100%;
+    height: 60px;
+}
+
+.info-badge-2 {
+    width: 100%;
 }
 
 .grid {
@@ -618,6 +624,11 @@ p {
   line-height: 1.4;
 }
 
+
+.small-text-3 {
+    margin: 0;
+    width: 93%;
+}
 
 .scoring-grid {
     grid-template-columns: repeat(3, 1fr); /* 3 kleine Spalten nebeneinander */
