@@ -59,7 +59,7 @@
 }
 
 .progress-bar-fill {
-    background-color: var(--background-backtop);
+    background-color: var(--background-body);
     height: 100%;
     border-radius: 50px;
     transition: width 0.5s ease-out;
@@ -67,7 +67,7 @@
 
 /* Weiterspielen-Button innerhalb der Kachel */
 .btn-continue {
-    background-color: var(--background-backtop);
+    background-color: var(--background-body);
     color: var(--color-pretext);
     border: none;
     padding: 10px 15px;
