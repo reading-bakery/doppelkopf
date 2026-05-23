@@ -166,3 +166,44 @@ h2 {
 }
 }
 
+@media (max-width: 480px) {
+    /* Padding radikal kürzen, damit Spalten enger zusammenrücken */
+    .stats-table th, 
+    .stats-table td {
+        padding: 10px 4px !important; 
+        font-size: 13px !important;
+    }
+
+    /* Überschriften extrem kompakt machen */
+    .stats-table th {
+        font-size: 11px !important;
+        letter-spacing: 0px;
+    }
+
+    /* Spielername bekommt eine feste, kleine Maximalbreite */
+    .player-name-cell {
+        font-size: 14px !important;
+        max-width: 75px !important;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis; /* Schneidet lange Namen sauber ab */
+    }
+
+    /* Die Punkte-Zahl (z.B. +210) braucht weniger Platz */
+    .stats-table td[style*="font-family"] {
+        font-size: 12px !important;
+        padding-left: 2px !important;
+        padding-right: 2px !important;
+    }
+    
+    /* Die Kronen-Icons und Positions-Badges kleiner machen */
+    .pos-badge {
+        width: 20px;
+        height: 20px;
+        font-size: 10px;
+    }
+    .crown-icon-pos {
+        width: 16px;
+        height: 16px;
+    }
+}
