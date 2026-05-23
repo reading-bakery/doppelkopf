@@ -41,6 +41,8 @@ h3 {
 }
 
 
+
+
 p {
     font-size: var(--size-text);
     color: var(--color-text);
@@ -53,40 +55,87 @@ p {
     line-height: var(--text-line-height);
 }
 
-table {
-            width: 100%;
-            border-collapse: collapse;
-            text-align: left;
-        }
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    border-radius: 12px;
+    border: 1px solid var(--border-color, rgba(255, 255, 255, 0.1)); 
+    box-shadow: 
+        0 10px 30px rgba(0, 0, 0, 0.4), 
+        0 4px 10px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05); /* Dezentes Highlight an der oberen Innenkante */
+    transform: translateY(-3px); 
+    background-color: var(--card-bg, #222);
+}
 
-        thead {
-            background-color: var(--primary-green);
-        }
+/* Das Tabellen-Styling */
+.stats-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--card-bg, #222);
+    text-align: left;
+    color: #fff;
+    font-size: 16px;
+}
 
-        th {
-            padding: 18px 25px;
-            color: var(--header-text);
-            font-weight: 600;
-            font-size: 1.2rem;
-        }
+/* Header */
+.stats-table th {
+    background-color: rgba(255, 255, 255, 0.05);
+    padding: 15px;
+    font-family: var(--font-subtitle);
+    font-size: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid var(--primary-color, #444);
+    color: whitesmoke;
+}
 
-        td {
-            padding: 16px 25px;
-            border-bottom: 1px solid var(--border-color);
-            color: var(--text-dark);
-            font-size: 1.1rem;
-        }
+/* Zellen */
+.stats-table td {
+    padding: 15px;
+    border-bottom: 1px solid #333;
+    vertical-align: middle;
+}
 
-        /* Hintergrund für jede zweite Zeile (Zebra-Muster) */
-        tbody tr:nth-child(even) {
-            background-color: var(--row-bg-even);
-        }
+/* Zeilen-Wechsel-Farbe für bessere Lesbarkeit */
+.stats-table tbody tr:nth-child(even) {
+    background-color: rgba(255, 255, 255, 0.02);
+}
 
-        /* Grüne Schrift für eine hervorgehobene Zeile (wie 'Sally' im Bild) */
-        .highlighted-row td {
-            color: var(--primary-green) !important;
-            font-weight: 600;
-        }
+.stats-table tbody tr:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Spezifische Zellen-Stylings */
+.player-name-cell {
+    font-family: 'Protest Strike', sans-serif;
+    font-size: 18px;
+    letter-spacing: 0.5px;
+}
+
+.pos-badge {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 26px;
+    height: 26px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    font-size: 12px;
+    font-family: 'Rubik Mono One', sans-serif;
+    color: #ccc;
+}
+
+/* Lade- und Fehlertexte */
+.loading-bestenliste, .no-games, .error-text {
+    text-align: center;
+    font-weight: bold;
+    padding: 20px;
+    color: #666;
+    font-size: 16px;
+}
+
+      
 
 /* Responsive Anpassung */
 @media (max-width: 740px) {
@@ -105,21 +154,5 @@ h1 {
 h2 {
     font-size: 1.2rem;
 }
-
-p {
-  font-size: 12.5pt;
-  line-height: 1.4;
 }
 
-th, td {
-                padding: 12px 15px;
-                font-size: 1rem;
-            }
-
-            
-
-            .col-platz {
-                width: 50px;
-            }
-
-}
