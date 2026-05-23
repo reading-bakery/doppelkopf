@@ -30,27 +30,30 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            // Spalten-Indizes laut deiner Tabellenstruktur
-            const idxSp1 = 3;            // Spalte D (Name Spieler 1)
-            const idxSp2 = 4;            // Spalte E (Name Spieler 2)
-            const idxSp3 = 5;            // Spalte F (Name Spieler 3)
-            const idxSp4 = 6;            // Spalte G (Name Spieler 4)
+            // Exakte Spalten-Indizes laut deiner neuen Struktur
+            const idxSp1 = 4;            // Spalte E (Name Spieler 1)
+            const idxSp2 = 5;            // Spalte F (Name Spieler 2)
+            const idxSp3 = 6;            // Spalte G (Name Spieler 3)
+            const idxSp4 = 7;            // Spalte H (Name Spieler 4)
             
             const idxPunkteSp1 = 8;      // Spalte I (Punkte Spieler 1)
             const idxPunkteSp2 = 9;      // Spalte J (Punkte Spieler 2)
             const idxPunkteSp3 = 10;     // Spalte K (Punkte Spieler 3)
             const idxPunkteSp4 = 11;     // Spalte L (Punkte Spieler 4)
             
-            const idxSolo = 12;          // Spalte M (Solo?)
-            const idxStich = 13;         // Spalte N (Stich)
-            const idxHochzeit = 14;      // Spalte O (Hochzeit) <- Neu angelegt direkt nach Stich
+            const idxStichSp1 = 12;      // Spalte M (Stich Spieler 1)
+            const idxStichSp2 = 13;      // Spalte N (Stich Spieler 2)
+            const idxStichSp3 = 14;      // Spalte O (Stich Spieler 3)
+            const idxStichSp4 = 15;      // Spalte P (Stich Spieler 4)
 
-            // Ein dynamisches Objekt für ALLE Spieler, die jemals mitspielen
+            const idxSolo = 16;          // Spalte Q (Solo?) -> Enthält Namen oder "keins"
+            const idxHochzeit = 17;      // Spalte R (Hochzeiten) -> Enthält Namen oder "keins"
+
             const playerStats = {};
 
             // Helper, um einen Spieler im System zu registrieren
             function ensurePlayerExists(name) {
-                if (!name || name.toLowerCase().startsWith('spieler') || name === "") return null;
+                if (!name || name.toLowerCase().startsWith('spieler') || name === "" || name.toLowerCase() === "keins") return null;
                 if (!playerStats[name]) {
                     playerStats[name] = {
                         name: name,
@@ -67,49 +70,44 @@ document.addEventListener('DOMContentLoaded', () => {
             for (let i = 1; i < lines.length; i++) {
                 const row = parseCSVRow(lines[i]);
                 
-                // Abbruchbedingung auf die neue maximale Spalte angepasst
+                // Abbruch, falls die Zeile unvollständig ist (mindestens bis Spalte Hochzeit)
                 if (row.length < idxHochzeit) continue;
 
-                // Namen auslesen und von Leerzeichen befreien
+                // Namen auslesen und bereinigen
                 const name1 = row[idxSp1] ? row[idxSp1].trim() : "";
                 const name2 = row[idxSp2] ? row[idxSp2].trim() : "";
                 const name3 = row[idxSp3] ? row[idxSp3].trim() : "";
                 const name4 = row[idxSp4] ? row[idxSp4].trim() : "";
 
-                // Spieler dynamisch registrieren
+                // Spieler registrieren
                 ensurePlayerExists(name1);
                 ensurePlayerExists(name2);
                 ensurePlayerExists(name3);
                 ensurePlayerExists(name4);
 
-                // Punkte basierend auf der Position addieren
+                // 1. Punkte addieren
                 if (playerStats[name1]) playerStats[name1].punkte += parseInt(row[idxPunkteSp1]) || 0;
                 if (playerStats[name2]) playerStats[name2].punkte += parseInt(row[idxPunkteSp2]) || 0;
                 if (playerStats[name3]) playerStats[name3].punkte += parseInt(row[idxPunkteSp3]) || 0;
                 if (playerStats[name4]) playerStats[name4].punkte += parseInt(row[idxPunkteSp4]) || 0;
 
-                // Numerische Auswertung (1 = Spieler 1, 2 = Spieler 2, etc.)
-                const soloPosition = parseInt(row[idxSolo]) || 0;
-                const stichPosition = parseInt(row[idxStich]) || 0;
-                const hochzeitPosition = parseInt(row[idxHochzeit]) || 0;
+                // 2. Stiche addieren (Zahl der Stiche aus der jeweiligen Runde addieren)
+                if (playerStats[name1]) playerStats[name1].stiche += parseInt(row[idxStichSp1]) || 0;
+                if (playerStats[name2]) playerStats[name2].stiche += parseInt(row[idxStichSp2]) || 0;
+                if (playerStats[name3]) playerStats[name3].stiche += parseInt(row[idxStichSp3]) || 0;
+                if (playerStats[name4]) playerStats[name4].stiche += parseInt(row[idxStichSp4]) || 0;
 
-                // 1. Solos zuweisen
-                if (soloPosition === 1 && playerStats[name1]) playerStats[name1].solos += 1;
-                if (soloPosition === 2 && playerStats[name2]) playerStats[name2].solos += 1;
-                if (soloPosition === 3 && playerStats[name3]) playerStats[name3].solos += 1;
-                if (soloPosition === 4 && playerStats[name4]) playerStats[name4].solos += 1;
+                // 3. Solos auswerten (Prüfen, ob ein Name in der Solo-Spalte steht)
+                const soloName = row[idxSolo] ? row[idxSolo].trim() : "";
+                if (soloName && soloName.toLowerCase() !== "keins" && playerStats[soloName]) {
+                    playerStats[soloName].solos += 1;
+                }
 
-                // 2. Stiche zuweisen
-                if (stichPosition === 1 && playerStats[name1]) playerStats[name1].stiche += 1;
-                if (stichPosition === 2 && playerStats[name2]) playerStats[name2].stiche += 1;
-                if (stichPosition === 3 && playerStats[name3]) playerStats[name3].stiche += 1;
-                if (stichPosition === 4 && playerStats[name4]) playerStats[name4].stiche += 1;
-
-                // 3. Hochzeiten zuweisen (Neu)
-                if (hochzeitPosition === 1 && playerStats[name1]) playerStats[name1].hochzeiten += 1;
-                if (hochzeitPosition === 2 && playerStats[name2]) playerStats[name2].hochzeiten += 1;
-                if (hochzeitPosition === 3 && playerStats[name3]) playerStats[name3].hochzeiten += 1;
-                if (hochzeitPosition === 4 && playerStats[name4]) playerStats[name4].hochzeiten += 1;
+                // 4. Hochzeiten auswerten (Prüfen, ob ein Name in der Hochzeit-Spalte steht)
+                const hochzeitName = row[idxHochzeit] ? row[idxHochzeit].trim() : "";
+                if (hochzeitName && hochzeitName.toLowerCase() !== "keins" && playerStats[hochzeitName]) {
+                    playerStats[hochzeitName].hochzeiten += 1;
+                }
             }
 
             // Alle Spieler umwandeln und stabil sortieren (Punkte -> Stiche -> Name)
@@ -145,11 +143,11 @@ document.addEventListener('DOMContentLoaded', () => {
             leaderboard.forEach((pData, index) => {
                 const rank = index + 1;
                 
-                // Wunsch-Farblogik für die Punkte (deltaColor)
+                // Farblogik für die Punkte (deltaColor)
                 const scoreColor = pData.punkte === 0 ? "white" : pData.punkte > 0 ? "#13c913" : "#FF4500";
                 const scoreText = pData.punkte > 0 ? `+${pData.punkte}` : pData.punkte;
 
-                // Krone setzen, wenn es Platz 1 ist (und Punkte nicht 0 sind)
+                // Krone setzen für Platz 1 (wenn Punkte nicht 0 sind)
                 let posInhalt = `<span class="pos-badge">${rank}</span>`;
                 if (rank === 1 && pData.punkte !== 0) {
                     posInhalt = `<i data-lucide="crown" class="crown-icon-pos"></i>`;

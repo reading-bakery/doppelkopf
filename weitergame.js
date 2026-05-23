@@ -32,14 +32,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            // Feste Spalten-Indizes zuweisen (Spalte A=0, B=1, C=2, etc.)
+            // Exakte Spalten-Indizes korrigiert laut deiner Tabellenstruktur:
             const idxDatum = 1;          // Spalte B
             const idxRundenGesamt = 2;   // Spalte C
-            const idxSp1 = 3;            // Spalte D
-            const idxSp2 = 4;            // Spalte E
-            const idxSp3 = 5;            // Spalte F
-            const idxSp4 = 6;            // Spalte G
-            const idxAktuelleRunde = 7;  // Spalte H
+            const idxAktuelleRunde = 3;  // Spalte D
+            const idxSp1 = 4;            // Spalte E
+            const idxSp2 = 5;            // Spalte F
+            const idxSp3 = 6;            // Spalte G
+            const idxSp4 = 7;            // Spalte H
 
             const gamesGrouped = {};
 
@@ -47,8 +47,8 @@ document.addEventListener('DOMContentLoaded', () => {
             for (let i = 1; i < lines.length; i++) {
                 const row = parseCSVRow(lines[i]);
                 
-                // Falls die Zeile unvollständig ist, überspringen
-                if (row.length <= idxAktuelleRunde) continue;
+                // Sicherheitsprüfung auf die maximale benötigte Spalte angehoben (idxSp4 = 7)
+                if (row.length <= idxSp4) continue;
 
                 const datum = row[idxDatum];
                 if (!datum || datum === "") continue;
