@@ -166,23 +166,117 @@ h2 {
 }
 }
 
-@media (max-width: 480px) {
-    /* Nimmt dem umschließenden Container den fetten Rand weg, damit mehr Platz für die Tabelle da ist */
-    .best-container {
-        padding: 0 4px !important;
-        margin: 10px auto !important;
+@media (max-width: 580px) {
+    /* Wir blenden den eigentlichen Tabellenkopf komplett aus */
+    .stats-table thead {
+        display: none;
     }
 
-    /* Setzt das Padding der Tabellenzellen radikal runter */
-    .stats-table th, 
-    .stats-table td {
-        padding: 8px 3px !important; 
-        font-size: 12px !important;
+    /* Jede Zeile (tr) wird zu einer eigenständigen Karte */
+    .stats-table tbody tr {
+        display: grid;
+        grid-template-columns: 40px 1fr auto;
+        grid-template-areas: 
+            "pos name score"
+            "stat4 stat5 stat6";
+        margin-bottom: 14px;
+        padding: 16px 14px;
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        background-color: var(--card-bg, #222);
+    }
+    
+    .stats-table tbody tr:last-child {
+        margin-bottom: 0;
     }
 
-    /* Kürze die Namen extrem, damit sie auf winzigen Displays nicht blockieren */
-    .player-name-cell {
-        max-width: 65px !important;
-        font-size: 13px !important;
+    /* Positionierung der Hauptelemente */
+    .stats-table td.pos-cell {
+        grid-area: pos;
+        border: none;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .stats-table td.player-name-cell {
+        grid-area: name;
+        border: none;
+        padding: 0 8px;
+        align-self: center;
+    }
+
+    /* Die Punkte-Zelle ganz rechts */
+    .stats-table td:nth-child(3) {
+        grid-area: score;
+        border: none;
+        padding: 0;
+        text-align: right;
+        align-self: center;
+        font-size: 16px !important;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+    }
+
+    /* Label "Punkte" über der Punktzahl */
+    .stats-table td:nth-child(3)::before {
+        content: "Punkte";
+        font-size: 10px;
+        color: #666;
+        text-transform: uppercase;
+        font-family: var(--font-subtitle), sans-serif;
+        margin-bottom: 2px;
+        letter-spacing: 0.5px;
+    }
+
+    /* Zuweisung der einzelnen Statistik-Zellen in das untere Grid */
+    .stats-table td.center-cell:nth-child(4) { grid-area: stat4; }
+    .stats-table td.center-cell:nth-child(5) { grid-area: stat5; }
+    .stats-table td.center-cell:nth-child(6) { grid-area: stat6; }
+
+    /* Gemeinsames Design für alle 3 Statistik-Zellen unten */
+    .stats-table td.center-cell {
+        border: none;
+        padding: 0;
+        margin-top: 14px;
+        color: #fff;
+        
+        /* Erzwingt die Block-Ausrichtung: Label oben, Wert unten */
+        display: flex !important; 
+        flex-direction: column;
+        align-items: center;
+        
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+        padding-top: 12px;
+    }
+
+    /* Holt sich den Text dynamisch aus dem 'data-label' Attribut */
+    .stats-table td.center-cell::before {
+        content: attr(data-label);
+        font-size: 10px;
+        color: #666;
+        text-transform: uppercase;
+        font-family: var(--font-subtitle), sans-serif;
+        margin-bottom: 4px;
+        letter-spacing: 0.5px;
+    }
+
+    /* Gestaltet die Zahl unter dem Label */
+    .stats-table td.center-cell .stat-value {
+        font-size: 15px !important;
+        font-family: var(--font-text), sans-serif;
+        color: #fff;
+    }
+
+    /* Der umschließende Container zeigt dein Blau im Hintergrund */
+    .table-responsive {
+        border: none;
+        box-shadow: none;
+        background: transparent;
+        overflow-x: visible; 
+        padding: 8px;
+        border-radius: 12px;
     }
 }

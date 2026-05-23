@@ -128,12 +128,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     <table class="stats-table">
                         <thead>
                             <tr>
-                                <th style="text-align: center;">Pos.</th>
+                                <th style="text-align: center;">#</th>
                                 <th>Name</th>
                                 <th>Punkte</th>
-                                <th>Stiche</th>
-                                <th>Solos</th>
-                                <th>Hochzeiten</th>
+                                <th style="text-align: center;">Stiche</th>
+                                <th style="text-align: center;">Solos</th>
+                                <th style="text-align: center;">Hochzeiten</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -158,9 +158,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         <td class="pos-cell">${posInhalt}</td>
                         <td class="player-name-cell">${pData.name}</td>
                         <td style="color: ${scoreColor}; font-weight: normal;">${scoreText}</td>
-                        <td>${pData.stiche}</td>
-                        <td>${pData.solos}</td>
-                        <td>${pData.hochzeiten}</td>
+                        <td class="center-cell" data-label="Stiche"><span class="stat-value">${pData.stiche}</span></td>
+                        <td class="center-cell" data-label="Solos"><span class="stat-value">${pData.solos}</span></td>
+                        <td class="center-cell" data-label="Hochzeiten"><span class="stat-value">${pData.hochzeiten}</span></td>
                     </tr>
                 `;
             });
