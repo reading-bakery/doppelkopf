@@ -157,7 +157,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <tr>
                         <td class="pos-cell">${posInhalt}</td>
                         <td class="player-name-cell">${pData.name}</td>
-                        <td style="color: ${scoreColor}; font-weight: bold; font-family: 'Rubik Mono One', sans-serif;">${scoreText}</td>
+                        <td style="color: ${scoreColor}; font-weight: normal;">${scoreText}</td>
                         <td>${pData.stiche}</td>
                         <td>${pData.solos}</td>
                         <td>${pData.hochzeiten}</td>
