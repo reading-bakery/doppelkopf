@@ -172,25 +172,38 @@ h2 {
         display: none;
     }
 
-    /* Jede Zeile (tr) wird zu einer eigenständigen Karte */
+    /* WICHTIG: Die Tabelle selbst muss transparent sein, damit die Lücken rot werden */
+    .stats-table {
+        background-color: transparent !important;
+    }
+    .stats-table tbody {
+        background-color: transparent !important;
+    }
+
+    /* Jede Zeile (tr) wird zu einer eigenständigen, dunklen Karte */
     .stats-table tbody tr {
         display: grid;
         grid-template-columns: 40px 1fr auto;
         grid-template-areas: 
             "pos name score"
             "stat4 stat5 stat6";
-        margin-bottom: 14px;
+        margin-bottom: 14px; /* Das erzeugt die Lücke, die jetzt rot durchscheint */
         padding: 16px 14px;
         border-radius: 12px;
         border: 1px solid rgba(255, 255, 255, 0.05);
-        background-color: var(--card-bg, #222);
+        background-color: #222 !important; /* Die Karten bleiben verlässlich dunkel */
     }
     
     .stats-table tbody tr:last-child {
         margin-bottom: 0;
     }
 
-    /* Positionierung der Hauptelemente */
+    /* Verhindert, dass der Desktop-Hover-Effekt die Transparenz stört */
+    .stats-table tbody tr:hover {
+        background-color: #2b2b2b !important;
+    }
+
+    /* Positionierung der Hauptelemente auf der Karte */
     .stats-table td.pos-cell {
         grid-area: pos;
         border: none;
@@ -243,7 +256,6 @@ h2 {
         margin-top: 14px;
         color: #fff;
         
-        /* Erzwingt die Block-Ausrichtung: Label oben, Wert unten */
         display: flex !important; 
         flex-direction: column;
         align-items: center;
@@ -252,9 +264,13 @@ h2 {
         padding-top: 12px;
     }
 
-    /* Holt sich den Text dynamisch aus dem 'data-label' Attribut */
+    /* Die Beschriftungen per CSS-Injektion */
+    .stats-table td.center-cell:nth-child(4)::before { content: "Stiche"; }
+    .stats-table td.center-cell:nth-child(5)::before { content: "Solos"; }
+    .stats-table td.center-cell:nth-child(6)::before { content: "Hochzeiten"; }
+
+    /* Gemeinsames Styling für die Handy-Labels */
     .stats-table td.center-cell::before {
-        content: attr(data-label);
         font-size: 10px;
         color: #666;
         text-transform: uppercase;
@@ -263,20 +279,13 @@ h2 {
         letter-spacing: 0.5px;
     }
 
-    /* Gestaltet die Zahl unter dem Label */
-    .stats-table td.center-cell .stat-value {
-        font-size: 15px !important;
-        font-family: var(--font-text), sans-serif;
-        color: #fff;
-    }
-
-    /* Der umschließende Container zeigt dein Blau im Hintergrund */
+    /* Der äußere Container liefert die Hintergrundfarbe für die Zwischenräume */
     .table-responsive {
         border: none;
         box-shadow: none;
-        background: transparent;
         overflow-x: visible; 
-        padding: 8px;
+        background-color: var(--background-body) !important; /* DEIN ROT FÜR DIE ZWISCHENRÄUME */
+        padding: 8px; /* Innerer Abstand, damit auch außen ein roter Rand ist */
         border-radius: 12px;
     }
 }
