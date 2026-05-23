@@ -1,33 +1,48 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const modal = document.getElementById('game-modal');
-    const openBtn = document.getElementById('open-modal-btn');
-    const closeBtn = document.getElementById('close-modal-btn');
+    // Elemente für das Spiel-Formular-Modal
+    const gameModal = document.getElementById('game-modal');
+    const openGameBtn = document.getElementById('open-modal-btn');
+    const closeGameBtn = document.getElementById('close-modal-btn');
     const form = document.getElementById('new-game-form');
 
-    // Sicherheitscheck für die Steuerungselemente des Modals
-    if (!modal || !openBtn || !closeBtn || !form) {
-        console.error("Modal-Elemente im HTML nicht gefunden. Prüfe deine IDs für Modal, Buttons und Form!");
+    // Elemente für das NEUE Erfolgs-Modal
+    const successModal = document.getElementById('success-modal');
+    const closeSuccessBtn = document.getElementById('close-success-btn');
+    const successDoneBtn = document.getElementById('success-done-btn');
+
+    // Sicherheitscheck
+    if (!gameModal || !openGameBtn || !closeGameBtn || !form || !successModal) {
+        console.error("Fehler: Einige Modal-Elemente wurden im HTML nicht gefunden!");
         return;
     }
 
-    // Modal öffnen
-    openBtn.addEventListener('click', () => {
-        modal.classList.add('active');
+    // --- STEUERUNG: FORMULAR-MODAL ---
+    openGameBtn.addEventListener('click', () => {
+        gameModal.classList.add('active');
     });
 
-    // Modal schließen über das X
-    closeBtn.addEventListener('click', () => {
-        modal.classList.remove('active');
+    closeGameBtn.addEventListener('click', () => {
+        gameModal.classList.remove('active');
     });
 
-    // Modal schließen, wenn man außerhalb des Fensters klickt
+    // --- STEUERUNG: ERFOLGS-MODAL SCHLIESSEN ---
+    const closeSuccess = () => {
+        successModal.classList.remove('active');
+    };
+    if (closeSuccessBtn) closeSuccessBtn.addEventListener('click', closeSuccess);
+    if (successDoneBtn) successDoneBtn.addEventListener('click', closeSuccess);
+
+    // Klicks außerhalb der Modals schließt das jeweilige Fenster
     window.addEventListener('click', (e) => {
-        if (e.target === modal) {
-            modal.classList.remove('active');
+        if (e.target === gameModal) {
+            gameModal.classList.remove('active');
+        }
+        if (e.target === successModal) {
+            successModal.classList.remove('active');
         }
     });
 
-    // Formular absenden
+    // --- FORMULAR ABSENDEN ---
     form.addEventListener('submit', (e) => {
         e.preventDefault();
         console.log("Formular-Submit erfolgreich ausgelöst!");
@@ -42,11 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const player4 = htmlData.get('player4');
         const gameRound = htmlData.get('gameRound');
 
-        // Kontroll-Log in der F12-Konsole, um zu sehen was ausgelesen wird
-        console.log("Ausgelesene Daten:", { gameDate, player1, player2, player3, player4, gameRound });
-
-        // Umstellung auf URLSearchParams (das Format, das Google Forms zwingend erwartet)
-        // Hier sind deine echten, geprüften IDs fest hinterlegt!
+        // Umstellung auf URLSearchParams für Google Forms
         const urlEncodedData = new URLSearchParams();
         urlEncodedData.append('entry.824360719', gameDate);      // Datum
         urlEncodedData.append('entry.1406870107', player1);    // Name Spieler 1
@@ -55,23 +66,9 @@ document.addEventListener('DOMContentLoaded', () => {
         urlEncodedData.append('entry.36076733', player4);      // Name Spieler 4
         urlEncodedData.append('entry.955427977', gameRound);    // Runden insgesamt
 
-        /* HINWEIS: Falls du das HTML-Formular später um die restlichen Felder erweiterst,
-           kannst du diese Zeilen einfach aktivieren:
-        urlEncodedData.append('entry.1224263999', htmlData.get('gameSolo'));      // Solo?
-        urlEncodedData.append('entry.957057574', htmlData.get('pointsPlayer1'));  // Punkte Spieler 1
-        urlEncodedData.append('entry.238014956', htmlData.get('pointsPlayer2'));  // Punkte Spieler 2
-        urlEncodedData.append('entry.1952914660', htmlData.get('pointsPlayer3')); // Punkte Spieler 3
-        urlEncodedData.append('entry.1248216577', htmlData.get('pointsPlayer4')); // Punkte Spieler 4
-        urlEncodedData.append('entry.972361183', htmlData.get('currentRound'));   // Aktuelle Runde
-        urlEncodedData.append('entry.1282541600', htmlData.get('gameStich'));     // Stich
-        */
-
-        // WICHTIG: Ersetze 'HIER_DEINE_LANG_1FAIpQLS_ID_EINSETZEN' mit deiner echten Forms-ID!
         const formUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSfayGd2q3Xnxz1-YmMeiuXoNk6yYLZQ_gNO-7Sv_wT4oI4IMw/formResponse';
 
-        console.log("Sende Daten an Google Forms-URL...");
-
-        // Per Fetch im url-encoded Format an Google senden
+        // Per Fetch an Google senden
         fetch(formUrl, {
             method: 'POST',
             mode: 'no-cors',
@@ -81,14 +78,20 @@ document.addEventListener('DOMContentLoaded', () => {
             body: urlEncodedData.toString()
         })
         .then(() => {
-            console.log('Daten wurden erfolgreich im Hintergrund abgeschickt!');
-            alert('Spiel erfolgreich gestartet und in Tabelle eingetragen!');
-            form.reset(); // Setzt das Formular im Modal zurück
-            modal.classList.remove('active'); // Schließt das Modal
+            console.log('Daten erfolgreich an Google übertragen!');
+            
+            // 1. Eingabe-Modal sofort schließen
+            gameModal.classList.remove('active');
+            
+            // 2. Formular zurücksetzen für das nächste Mal
+            form.reset();
+            
+            // 3. Das neue Erfolgs-Modal öffnen!
+            successModal.classList.add('active');
         })
         .catch((error) => {
-            console.error('Kritischer Netzwerkfehler beim Senden:', error);
-            alert('Fehler beim Speichern. Bitte Internetverbindung prüfen.');
+            console.error('Netzwerkfehler:', error);
+            alert('Kritischer Fehler: Die Daten konnten nicht gespeichert werden.');
         });
     });
 });
