@@ -284,7 +284,7 @@ h2 {
         border: none;
         box-shadow: none;
         overflow-x: visible; 
-        background-color: var(--background-body) !important; /* DEIN ROT FÜR DIE ZWISCHENRÄUME */
+        background-color: var(--background-body) !important; /* DEIN GRÜN FÜR DIE ZWISCHENRÄUME */
         border-radius: 12px;
         width: 250px;
         
