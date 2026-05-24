@@ -287,5 +287,6 @@ h2 {
         background-color: var(--background-body) !important; /* DEIN ROT FÜR DIE ZWISCHENRÄUME */
         padding: 8px; /* Innerer Abstand, damit auch außen ein roter Rand ist */
         border-radius: 12px;
+        width: 80vh;
     }
 }
