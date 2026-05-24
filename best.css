@@ -288,5 +288,6 @@ h2 {
         padding: 8px; /* Innerer Abstand, damit auch außen ein roter Rand ist */
         border-radius: 12px;
         width: 80vh;
+        
     }
 }

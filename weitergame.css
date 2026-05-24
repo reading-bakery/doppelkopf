@@ -10,11 +10,11 @@
 
 /* Die Spiele-Kachel */
 .game-card {
-    background-color: var(--card-bg, whitesmoke);
+    background-color:  #222 !important; /* Die Karten bleiben verlässlich dunkel */;
     border: 1px solid var(--primary-color, #333);
     border-radius: 8px;
     padding: 20px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.35);
 }
 
 .game-card-header {
@@ -31,26 +31,26 @@
 .game-date {
     font-family: 'Protest Strike', sans-serif;
     font-size: 18px;
-    color: #333;
+    color: whitesmoke;
 }
 
 /*Runde*/
 .game-progress {
     font-weight: bold;
-    color: var(--color-text);
+    color: whitesmoke;
     font-size: 14px;
 }
 
 .game-players {
     font-size: 18px;
     margin-bottom: 15px;
-    color: #444;
+    color: whitesmoke;
     font-family: var(--font-text);
 }
 
 /* Visueller Fortschrittsbalken */
 .progress-bar-bg {
-    background-color: #e0e0e0;
+    background-color: #4d4a4a;
     border-radius: 50px;
     height: 15px;
     width: 100%;
