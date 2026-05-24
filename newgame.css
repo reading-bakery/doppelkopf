@@ -75,7 +75,7 @@ p {
 
 /* Das eigentliche Modal-Fenster */
 .modal-content {
-    background-color: var(--background-elements); /* Passe das an dein Theme an */
+    background-color: #222; /* Passe das an dein Theme an */
     font-family: var(--font-subtitle);
     color: whitesmoke;
     padding: 30px;
@@ -114,8 +114,8 @@ p {
     font-size: 26px;
     border: none;
     border-radius: 25px;
-    background-color: whitesmoke;
-    color: black;
+    background-color: #222;
+    color: whitesmoke;
     cursor: pointer;
     transition: background-color 0.3s ease;
     font-family: var(--font-text);
@@ -134,6 +134,12 @@ p {
     transition: background-color 0.3s ease;
     font-family: var(--font-text);
 }
+
+.btn-submit:hover {
+    background-color: var(--background-body);
+    color: black;
+}
+
 
 /* Styling speziell für den Inhalt des Erfolgs-Modals */
 .success-content {
