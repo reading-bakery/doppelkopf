@@ -91,7 +91,7 @@ h2 svg.lucide {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: #141414; /* Passt sich dunklen Themes an */
+    background-color: var(--background-body); /* Passt sich dunklen Themes an */
     display: flex;
     justify-content: center;
     align-items: center;

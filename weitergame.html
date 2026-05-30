@@ -38,9 +38,47 @@
 
     <h2>Da weitermachen, wo man aufgehört hat</h2>
   
-    <div class="game-container" id="open-games-list">
+<div class="game-container" id="open-games-list">
         <div class="loading-text">Lade offene Spiele...</div>
     </div>
+
+    <div id="game-modal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="close-modal-btn">&times;</button>
+            
+            <div id="modal-step-1" class="modal-step active">
+                <h3>Spieltyp & Ansage</h3>
+                <p>Wer spielt das Solo / die Hochzeit?</p>
+                <div class="player-options-grid" id="modal-players-list">
+                    </div>
+                <button type="button" class="modal-btn next-step-btn" id="to-step-2">Weiter</button>
+            </div>
+
+            <div id="modal-step-2" class="modal-step">
+                <h3>Ergebnis eintragen</h3>
+                <p id="selected-player-info" style="color: var(--accent-color, #13c913); font-weight: bold;"></p>
+                
+                <div class="input-group">
+                    <label for="modal-points">Erreichte Augen (Punkte):</label>
+                    <input type="number" id="modal-points" min="0" max="240" placeholder="z.B. 142">
+                </div>
+                
+                <div class="input-group">
+                    <label for="modal-tricks">Anzahl Stiche:</label>
+                    <input type="number" id="modal-tricks" min="0" max="12" placeholder="z.B. 8">
+                </div>
+
+                <div class="modal-buttons-row">
+                    <button type="button" class="modal-btn back-btn" id="back-to-step-1">Zurück</button>
+                    <button type="button" class="modal-btn save-btn" id="save-game-score">Speichern</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="topbutton-placeholder"></div>
+    <div id="footer-placeholder"></div>
+</body>
 
     <div id="topbutton-placeholder"></div>
     <div id="footer-placeholder"></div>
