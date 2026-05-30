@@ -286,7 +286,7 @@ h2 {
         overflow-x: visible; 
         background-color: var(--background-body) !important; /* DEIN GRÜN FÜR DIE ZWISCHENRÄUME */
         border-radius: 12px;
-        width: 250px;
+        width: 300px;
         
     }
 }
