@@ -84,6 +84,93 @@ h2 svg.lucide {
     margin-right: 15px;
 }
 
+/* Container für die Animation – legt sich über die ganze Seite */
+.card-intro-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #141414; /* Passt sich dunklen Themes an */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    pointer-events: none; /* Verhindert Klicks während der Animation */
+    animation: fadeOutOverlay 0.5s ease-in-out 2.2s forwards;
+}
+
+/* Gemeinsame Styles für die fliegenden Karten */
+.intro-card {
+    position: absolute;
+    width: 100px;
+    height: 150px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2.5rem;
+    font-weight: bold;
+    font-family: sans-serif;
+    
+    /* Startposition: Unterhalb des Bildschirms */
+    transform: translateY(100vh) rotate(0deg);
+    opacity: 0;
+}
+
+
+/* Farben für die Kartensymbole */
+.card-1, .card-2 { color: #232323; } /* Kreuz und Pik */
+.card-3, .card-4 { color: #e31b23; } /* Herz und Karo */
+
+/* Animations-Zuweisung mit Verzögerung (Delay) für den "Austeil-Effekt" */
+.card-1 { animation: dealCard1 2s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.2s forwards; }
+.card-2 { animation: dealCard2 2s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.4s forwards; }
+.card-3 { animation: dealCard3 2s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.6s forwards; }
+.card-4 { animation: dealCard4 2s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.8s forwards; }
+
+@keyframes dealCard1 {
+    0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+    30% { transform: translateY(0) rotate(0deg); opacity: 1; }
+    50% { transform: translateY(0) rotate(-20deg) translateX(-60px); opacity: 1; }
+    85% { transform: translateY(0) rotate(-20deg) translateX(-60px); opacity: 1; }
+    100% { transform: translateY(-50px) rotate(-20deg) translateX(-60px); opacity: 0; }
+}
+
+@keyframes dealCard2 {
+    0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+    30% { transform: translateY(0) rotate(0deg); opacity: 1; }
+    50% { transform: translateY(0) rotate(-7deg) translateX(-20px); opacity: 1; }
+    85% { transform: translateY(0) rotate(-7deg) translateX(-20px); opacity: 1; }
+    100% { transform: translateY(-50px) rotate(-7deg) translateX(-20px); opacity: 0; }
+}
+
+@keyframes dealCard3 {
+    0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+    30% { transform: translateY(0) rotate(0deg); opacity: 1; }
+    50% { transform: translateY(0) rotate(7deg) translateX(20px); opacity: 1; }
+    85% { transform: translateY(0) rotate(7deg) translateX(20px); opacity: 1; }
+    100% { transform: translateY(-50px) rotate(7deg) translateX(20px); opacity: 0; }
+}
+
+@keyframes dealCard4 {
+    0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+    30% { transform: translateY(0) rotate(0deg); opacity: 1; }
+    50% { transform: translateY(0) rotate(20deg) translateX(60px); opacity: 1; }
+    85% { transform: translateY(0) rotate(20deg) translateX(60px); opacity: 1; }
+    100% { transform: translateY(-50px) rotate(20deg) translateX(60px); opacity: 0; }
+}
+
+/* Hintergrund-Overlay am Ende ausblenden */
+@keyframes fadeOutOverlay {
+    to {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
 @media (max-width: 740px) {
     .grid {
         grid-template-columns: 1fr;
