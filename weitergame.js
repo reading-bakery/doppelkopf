@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const entryIds = {
         spiel_datum: 'entry.824360719',   
-        runden_gesamt: 'entry.1952914660', 
+        runden_gesamt: 'entry.955427977', 
         aktuelle_runde: 'entry.1282541600',
         
         solo: 'entry.1248216577',          
@@ -19,16 +19,16 @@ document.addEventListener('DOMContentLoaded', () => {
         s1_punkte: 'entry.972361183',     
         s1_stiche: 'entry.238014956',     
         
-        s2_name: 'entry.955427977',       
-        s2_punkte: 'entry.1764879843',    
+        s2_name: 'entry.1764879843',       
+        s2_punkte: 'entry.1952914660',    
         s2_stiche: 'entry.505390666',     
         
-        s3_name: 'entry.1224263999',      
-        s3_punkte: 'entry.132908103',      
+        s3_name: 'entry.132908103',      
+        s3_punkte: 'entry.1224263999',      
         s3_stiche: 'entry.693981030',     
         
-        s4_name: 'entry.957057574',       
-        s4_punkte: 'entry.36076733',       
+        s4_name: 'entry.36076733',       
+        s4_punkte: 'entry.957057574',      
         s4_stiche: 'entry.1960997850'      
     };
     // ==========================================
