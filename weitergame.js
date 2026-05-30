@@ -1,6 +1,37 @@
 document.addEventListener('DOMContentLoaded', () => {
     const gamesListContainer = document.getElementById('open-games-list');
     const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQpR0kGrSSxQ_texguYbMzYwGyUBHgBPCeKjk_dL8bgVRp2IaF5X10V-kq-i_BTj0PJPDiiRsqZbby0/pub?gid=1523607497&single=true&output=csv';
+    
+    // ==========================================
+    // DEINE GOOGLE FORMULAR CONFIG (100% KORREKT)
+    // ==========================================
+    const formId = '1FAIpQLSfayGd2q3Xnxz1-YmMeiuXoNk6yYLZQ_gNO-7Sv_wT4oI4IMw'; 
+
+    const entryIds = {
+        spiel_datum: 'entry.824360719',   
+        runden_gesamt: 'entry.1952914660', 
+        aktuelle_runde: 'entry.1282541600',
+        
+        solo: 'entry.1248216577',          
+        hochzeit: 'entry.1745650205',      
+        
+        s1_name: 'entry.1406870107',      
+        s1_punkte: 'entry.972361183',     
+        s1_stiche: 'entry.238014956',     
+        
+        s2_name: 'entry.955427977',       
+        s2_punkte: 'entry.1764879843',    
+        s2_stiche: 'entry.505390666',     
+        
+        s3_name: 'entry.1224263999',      
+        s3_punkte: 'entry.132908103',      
+        s3_stiche: 'entry.693981030',     
+        
+        s4_name: 'entry.957057574',       
+        s4_punkte: 'entry.36076733',       
+        s4_stiche: 'entry.1960997850'      
+    };
+    // ==========================================
 
     // Modal Haupt-Elemente
     const modal = document.getElementById("game-modal");
@@ -8,7 +39,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const superBtn = document.getElementById("super-btn");
     const finalSaveBtn = document.getElementById("final-save-btn");
 
+    // Globale Variablen für das aktuell geöffnete Spiel
     let aktuellesSpielerArray = [];
+    let aktuelleGesamtRunden = 0;   
+    let aktuelleRundenNummer = 0;   
     let aktuellerSchritt = 1;
 
     if (!gamesListContainer) return;
@@ -26,32 +60,31 @@ document.addEventListener('DOMContentLoaded', () => {
         return r;
     }
 
-    // Modal initialisieren und alle Schritte vorbereiten
-    function openModal(spielerArray) {
+    function openModal(spielerArray, rundenGesamt, aktuelleRunde) {
         aktuellesSpielerArray = spielerArray;
+        aktuelleGesamtRunden = rundenGesamt; 
+        aktuelleRundenNummer = aktuelleRunde; 
         aktuellerSchritt = 1;
 
-        // 1. Solo-Liste befüllen (Schritt 1)
+        // Solo-Liste mit Standardwert "keins"
         const soloList = document.getElementById("modal-solo-list");
-        soloList.innerHTML = `<div style="grid-column: span 2;"><input type="radio" name="solo-player" id="solo-none" value="Keins" class="player-radio-btn" checked><label for="solo-none" class="player-label">Kein Solo</label></div>`;
+        soloList.innerHTML = `<div style="grid-column: span 2;"><input type="radio" name="solo-player" id="solo-none" value="keins" class="player-radio-btn" checked><label for="solo-none" class="player-label">Kein Solo</label></div>`;
         spielerArray.forEach((s, i) => {
             soloList.innerHTML += `<div><input type="radio" name="solo-player" id="solo-${i}" value="${s}" class="player-radio-btn"><label for="solo-${i}" class="player-label">${s}</label></div>`;
         });
 
-        // 2. Hochzeits-Liste befüllen (Schritt 2)
+        // Hochzeits-Liste mit Standardwert "keins"
         const weddingList = document.getElementById("modal-wedding-list");
-        weddingList.innerHTML = `<div style="grid-column: span 2;"><input type="radio" name="wedding-player" id="wed-none" value="Keine" class="player-radio-btn" checked><label for="wed-none" class="player-label">Keine Hochzeit</label></div>`;
+        weddingList.innerHTML = `<div style="grid-column: span 2;"><input type="radio" name="wedding-player" id="wed-none" value="keins" class="player-radio-btn" checked><label for="wed-none" class="player-label">Keine Hochzeit</label></div>`;
         spielerArray.forEach((s, i) => {
             weddingList.innerHTML += `<div><input type="radio" name="wedding-player" id="wed-${i}" value="${s}" class="player-radio-btn"><label for="wed-${i}" class="player-label">${s}</label></div>`;
         });
 
-        // 3. Namen in die Spieler-Schritte (Schritt 3 bis 6) eintragen
         const spielerSchritte = [3, 4, 5, 6];
         spielerSchritte.forEach((stepNum, index) => {
             const stepEl = document.getElementById(`modal-step-${stepNum}`);
             if (stepEl) {
                 stepEl.querySelector(".step-player-name").textContent = spielerArray[index];
-                // Inputs leeren
                 stepEl.querySelector(".p-points").value = "";
                 stepEl.querySelector(".p-tricks").value = "";
             }
@@ -61,7 +94,6 @@ document.addEventListener('DOMContentLoaded', () => {
         modal.classList.add("open");
     }
 
-    // Wechselt sichtbar zwischen den ID-Schritten
     function showStep(stepNum) {
         document.querySelectorAll(".modal-step").forEach(step => step.classList.remove("active"));
         const targetStep = document.getElementById(`modal-step-${stepNum}`);
@@ -69,10 +101,8 @@ document.addEventListener('DOMContentLoaded', () => {
         aktuellerSchritt = stepNum;
     }
 
-    // Universelle Event-Delegation für "Weiter"- und "Zurück"-Buttons im Modal
     modal.addEventListener("click", (e) => {
         if (e.target.classList.contains("next-step-btn") && !e.target.id.includes("super-btn")) {
-            // Validierung für die Spieler-Eingaben (Schritte 3 bis 6)
             if (aktuellerSchritt >= 3 && aktuellerSchritt <= 6) {
                 const currentStepEl = document.getElementById(`modal-step-${aktuellerSchritt}`);
                 const pts = currentStepEl.querySelector(".p-points").value;
@@ -83,7 +113,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
             
-            // Wenn wir zu Schritt 7 (Zusammenfassung) gehen, bauen wir die Werte kurz zusammen
             if (aktuellerSchritt === 6) {
                 buildSummary();
             }
@@ -96,48 +125,111 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Baut eine kleine Vorschau in Schritt 7 zusammen mit Textfarbe whitesmoke
     function buildSummary() {
         const summaryZone = document.getElementById("summary-cards-zone");
         const soloVal = document.querySelector('input[name="solo-player"]:checked').value;
         const wedVal = document.querySelector('input[name="wedding-player"]:checked').value;
         
-        let html = `<p style="font-size:14px; color: whitesmoke;">Ansage: Solo: <b>${soloVal}</b> | Hochzeit: <b>${wedVal}</b></p><hr style="border-color: whitesmoke;">`;
+        let html = `<p style="font-size:14px; color:#aaa;">Ansage: Solo: <b>${soloVal}</b> | Hochzeit: <b>${wedVal}</b></p><hr style="border-color:#333;">`;
         
         [3, 4, 5, 6].forEach((stepNum, i) => {
             const stepEl = document.getElementById(`modal-step-${stepNum}`);
             const pts = stepEl.querySelector(".p-points").value;
             const trk = stepEl.querySelector(".p-tricks").value;
-            // Hier wurde color: whitesmoke direkt im Style-Attribut hinterlegt
             html += `<p style="font-size:15px; margin: 5px 0; color: whitesmoke;"><b>${aktuellesSpielerArray[i]}:</b> ${pts} Punkte, ${trk} Stiche</p>`;
         });
         summaryZone.innerHTML = html;
     }
 
-    // Schritt 7 -> Speichern Event
+    // DIREKTE ÜBERMITTLUNG ALLER DATEN AN GOOGLE FORMS PER URL-ENCODED PARAMETERS
     finalSaveBtn.addEventListener("click", () => {
-        // Hier sammelst du die Daten für deine DB / Google Sheets
-        console.log("Daten werden an Google Sheets übermittelt...");
+        finalSaveBtn.textContent = "Wird gespeichert...";
+        finalSaveBtn.disabled = true;
+
+        const soloVal = document.querySelector('input[name="solo-player"]:checked').value;
+        const wedVal = document.querySelector('input[name="wedding-player"]:checked').value;
+
+        const s1 = document.getElementById("modal-step-3");
+        const s2 = document.getElementById("modal-step-4");
+        const s3 = document.getElementById("modal-step-5");
+        const s4 = document.getElementById("modal-step-6");
+
+        // Holt das Kartendatum aus dem UI (z.B. "23.05.2026")
+        const gameDateEl = document.querySelector('.game-date');
+        let gameDateVal = gameDateEl ? gameDateEl.textContent : '';
+
+        // Konvertiert "DD.MM.YYYY" zu "YYYY-MM-DD", damit Google Forms das Datum schluckt
+        if (gameDateVal && gameDateVal.includes('.')) {
+            const parts = gameDateVal.split('.');
+            if (parts.length === 3) {
+                gameDateVal = `${parts[2]}-${parts[1]}-${parts[0]}`; 
+            }
+        } else {
+            gameDateVal = new Date().toISOString().split('T')[0];
+        }
+
+        // Umstellung auf URLSearchParams (Inhaltstyp für Google Forms)
+        const params = new URLSearchParams();
         
-        // Weiter zu Schritt 8 (Erfolgsmeldung)
-        showStep(8);
+        // Spieldaten & Modi
+        params.append(entryIds.spiel_datum, gameDateVal);
+        params.append(entryIds.runden_gesamt, aktuelleGesamtRunden);
+        params.append(entryIds.aktuelle_runde, aktuelleRundenNummer); 
+        params.append(entryIds.solo, soloVal);
+        params.append(entryIds.hochzeit, wedVal);
+        
+        // Spieler 1
+        params.append(entryIds.s1_name, aktuellesSpielerArray[0]);
+        params.append(entryIds.s1_punkte, s1.querySelector(".p-points").value);
+        params.append(entryIds.s1_stiche, s1.querySelector(".p-tricks").value);
+        
+        // Spieler 2
+        params.append(entryIds.s2_name, aktuellesSpielerArray[1]);
+        params.append(entryIds.s2_punkte, s2.querySelector(".p-points").value);
+        params.append(entryIds.s2_stiche, s2.querySelector(".p-tricks").value);
+        
+        // Spieler 3
+        params.append(entryIds.s3_name, aktuellesSpielerArray[2]);
+        params.append(entryIds.s3_punkte, s3.querySelector(".p-points").value);
+        params.append(entryIds.s3_stiche, s3.querySelector(".p-tricks").value);
+        
+        // Spieler 4
+        params.append(entryIds.s4_name, aktuellesSpielerArray[3]);
+        params.append(entryIds.s4_punkte, s4.querySelector(".p-points").value);
+        params.append(entryIds.s4_stiche, s4.querySelector(".p-tricks").value);
+
+        const targetUrl = `https://docs.google.com/forms/d/e/${formId}/formResponse`;
+
+        fetch(targetUrl, {
+            method: "POST",
+            mode: "no-cors", 
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: params.toString() 
+        })
+        .then(() => {
+            finalSaveBtn.textContent = "Runde Speichern";
+            finalSaveBtn.disabled = false;
+            showStep(8); 
+        })
+        .catch(error => {
+            console.error("Fehler beim Absenden des Formulars:", error);
+            alert("Fehler beim Übertragen der Daten.");
+            finalSaveBtn.textContent = "Runde Speichern";
+            finalSaveBtn.disabled = false;
+        });
     });
 
-    // Schritt 8 -> Super Button schließt das Modal endgültig
     superBtn.addEventListener("click", () => {
         modal.classList.remove("open");
     });
 
-    // Modal Schließen bei 'X' oder Klick ins Dunkle
     closeX.addEventListener("click", () => modal.classList.remove("open"));
     window.addEventListener("click", (e) => { if (e.target === modal) modal.classList.remove("open"); });
 
-    // CSV Laden & Kacheln generieren
     fetch(csvUrl)
-        .then(response => {
-            if (!response.ok) throw new Error('Netzwerkfehler.');
-            return response.text();
-        })
+        .then(response => response.text())
         .then(csvText => {
             const lines = csvText.split('\n').map(line => line.trim()).filter(line => line.length > 0);
             if (lines.length <= 1) return;
@@ -190,7 +282,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="game-card-footer"><button class="btn-continue">Weiter spielen</button></div>
                 `;
 
-                card.querySelector('.btn-continue').addEventListener('click', () => openModal(game.spielerArray));
+                card.querySelector('.btn-continue').addEventListener('click', () => openModal(game.spielerArray, game.rundenGesamt, game.aktuelleRunde));
                 gamesListContainer.appendChild(card);
             });
 
