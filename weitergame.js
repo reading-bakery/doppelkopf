@@ -239,6 +239,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const idxDatum = 1, idxRundenGesamt = 2, idxAktuelleRunde = 3;
             const idxSp1 = 4, idxSp2 = 5, idxSp3 = 6, idxSp4 = 7;
+            
+            // Indizes für die Punkte der Spieler im Google Sheet (Name steht in Spalte, Punkte folgend)
+            // Passe diese Zahlen an, wenn die Punktestand-Spalten anders verschoben sind!
+            const idxSp1Pkt = 8, idxSp2Pkt = 9, idxSp3Pkt = 10, idxSp4Pkt = 11; 
+
             const gamesGrouped = {};
 
             for (let i = 1; i < lines.length; i++) {
@@ -251,13 +256,33 @@ document.addEventListener('DOMContentLoaded', () => {
                 const aktuelleRunde = parseInt(row[idxAktuelleRunde]) || 0;
                 const spielerListe = [row[idxSp1], row[idxSp2], row[idxSp3], row[idxSp4]].filter(Boolean);
 
-                // Sucht automatisch nach der höchsten Zahl bei der aktuellen Runde für dieses Datum
-                if (!gamesGrouped[datum] || aktuelleRunde > gamesGrouped[datum].aktuelleRunde) {
+                // Punkte aus dieser Zeile auslesen (0 falls leer)
+                const p1 = parseInt(row[idxSp1Pkt]) || 0;
+                const p2 = parseInt(row[idxSp2Pkt]) || 0;
+                const p3 = parseInt(row[idxSp3Pkt]) || 0;
+                const p4 = parseInt(row[idxSp4Pkt]) || 0;
+
+                if (!gamesGrouped[datum]) {
                     gamesGrouped[datum] = {
                         datum, rundenGesamt, aktuelleRunde,
                         spielerString: spielerListe.join(', '),
-                        spielerArray: spielerListe
+                        spielerArray: spielerListe,
+                        punkte: [0, 0, 0, 0] // Start bei 0 Punkten
                     };
+                }
+
+                // Alle Rundenpunkte für dieses Datum aufsummieren
+                gamesGrouped[datum].punkte[0] += p1;
+                gamesGrouped[datum].punkte[1] += p2;
+                gamesGrouped[datum].punkte[2] += p3;
+                gamesGrouped[datum].punkte[3] += p4;
+
+                // Sucht automatisch nach der höchsten Zahl bei der aktuellen Runde für dieses Datum
+                if (aktuelleRunde > gamesGrouped[datum].aktuelleRunde) {
+                    gamesGrouped[datum].aktuelleRunde = aktuelleRunde;
+                    gamesGrouped[datum].rundenGesamt = rundenGesamt;
+                    gamesGrouped[datum].spielerString = spielerListe.join(', ');
+                    gamesGrouped[datum].spielerArray = spielerListe;
                 }
             }
 
@@ -272,6 +297,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 const prozent = game.rundenGesamt > 0 ? (game.aktuelleRunde / game.rundenGesamt) * 100 : 0;
 
+                // Erstellt die HTML-Zeilen für die Namensliste mit Punktestand
+                let punkteHtml = '<div class="game-scores" style="margin-top: 12px; font-size: 14px; color: #ccc; border-top: 1px solid #333; padding-top: 8px;">';
+                game.spielerArray.forEach((name, idx) => {
+                    punkteHtml += `<div style="display: flex; justify-content: space-between; margin-bottom: 2px;">
+                        <span>${name}</span>
+                        <span style="font-weight: bold; color: whitesmoke;">${game.punkte[idx]} Punkte</span>
+                    </div>`;
+                });
+                punkteHtml += '</div>';
+
                 const card = document.createElement('div');
                 card.className = 'game-card';
                 card.innerHTML = `
@@ -282,6 +317,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="game-card-body">
                         <p class="game-players"><i data-lucide="users" class="icon-inline"></i> ${game.spielerString}</p>
                         <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: ${prozent}%"></div></div>
+                        ${punkteHtml}
                     </div>
                     <div class="game-card-footer"><button class="btn-continue">Weiter spielen</button></div>
                 `;
