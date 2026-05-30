@@ -292,7 +292,7 @@ p {
     display: flex;
     align-items: var(--heading-footer-align);
     gap: 10px;
-    font-s5ize: var(--size-text);
+    font-size: var(--size-text);
     background: rgba(20, 1, 18, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: var(--border-radius);
@@ -344,21 +344,30 @@ p {
 .suit-trump-info {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 15px;
     margin-left: 15px;
+    margin-right: 15px; /* Sorgt für symmetrischen Abstand rechts */
+    width: calc(100% - 30px);
+}
+
+.suit-trump-info .info-badge, 
+.suit-trump-info .info-badge-2 {
+    align-items: center;
+    justify-content: center;
 }
 
 .info-badge-2,
 .info-badge {
     display: flex;
-    align-items: var(--heading-footer-align);
+    align-items: center; /* Korrigiert auch das falsch geschriebene var() */
     gap: 10px;
     background: rgba(255, 255, 255, 0.05);
     padding: 12px;
     border-radius: 20px;
     border: 1px solid rgba(255, 255, 255, 0.1);
     font-size: var(--size-text);
-    width: 32%;
+    flex: 1;             /* Macht die Boxen gleich breit */
+    min-width: 200px;
 }
 
 .special-card {
@@ -650,8 +659,8 @@ p {
 }
     
 .rank-item {
-    width: 55px; /* Karten werden etwas schmaler */
-    height: 90px;
+    width: 50px; /* Karten werden etwas schmaler */
+    height: 80px;
     font-size: 1.85rem; /* Schrift etwas kleiner, damit "10" reinpasst */
     margin-right: 4px;
     border-radius: 6px;

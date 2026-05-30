@@ -31,7 +31,6 @@ document.addEventListener('DOMContentLoaded', () => {
         s4_punkte: 'entry.957057574',      
         s4_stiche: 'entry.1960997850',
         
-        // NEU: Das Feld für den Status "beendet"
         spiel_status: 'entry.1780685435'
     };
     // ==========================================
@@ -74,8 +73,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function openModal(spielerArray, rundenGesamt, aktuelleRunde) {
         aktuellesSpielerArray = spielerArray;
-        aktuelleGesamtRunden = rundenGesamt; 
-        aktuelleRundenNummer = aktuelleRunde; 
+        aktuelleGesamtRunden = Number(rundenGesamt) || 0; 
+        aktuelleRundenNummer = Number(aktuelleRunde) || 0; 
         aktuellerSchritt = 1;
 
         // Solo-Liste
@@ -169,6 +168,7 @@ document.addEventListener('DOMContentLoaded', () => {
         summaryZone.innerHTML = html;
     }
 
+    // Normales Speichern einer Runde
     finalSaveBtn.addEventListener("click", () => {
         finalSaveBtn.textContent = "Wird gespeichert...";
         finalSaveBtn.disabled = true;
@@ -251,7 +251,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.target === confirmModal) confirmModal.classList.remove("open"); 
     });
 
-    // Event Listener für die Buttons des Bestätigungs-Modals (MIT LIVE-SENDEN AN GOOGLE FORMS)
+    // Absenden des "beendet" Status über den Button
     if (confirmNoBtn && confirmYesBtn && confirmModal) {
         confirmNoBtn.addEventListener("click", () => {
             confirmModal.classList.remove("open");
@@ -261,13 +261,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         confirmYesBtn.addEventListener("click", () => {
             if (cardToHide && activeGameData) {
-                // Button sperren während des Sendens
                 confirmYesBtn.textContent = "Wird beendet...";
                 confirmYesBtn.disabled = true;
 
                 const params = new URLSearchParams();
                 params.append(entryIds.spiel_datum, activeGameData.datum);
-                params.append(entryIds.spiel_status, "beendet");
+                params.append(entryIds.runden_gesamt, activeGameData.rundenGesamt);
+                params.append(entryIds.aktuelle_runde, "beendet"); // Schreibt "beendet" dorthin, wo es deine Tabelle erwartet!
 
                 const targetUrl = `https://docs.google.com/forms/d/e/${formId}/formResponse`;
 
@@ -278,7 +278,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     body: params.toString()
                 })
                 .then(() => {
-                    cardToHide.style.display = 'none'; // Versteckt die Card live
+                    cardToHide.style.display = 'none'; 
                     confirmModal.classList.remove("open");
                 })
                 .catch(error => {
@@ -301,38 +301,54 @@ document.addEventListener('DOMContentLoaded', () => {
             const lines = csvText.split('\n').map(line => line.trim()).filter(line => line.length > 0);
             if (lines.length <= 1) return;
 
-            // Spalten-Indizes anpassen (spiel_status liegt am Ende deiner Formular-Tabelle)
             const idxDatum = 1, idxRundenGesamt = 2, idxAktuelleRunde = 3;
             const idxSp1 = 4, idxSp2 = 5, idxSp3 = 6, idxSp4 = 7;
             const idxSp1Pkt = 8, idxSp2Pkt = 9, idxSp3Pkt = 10, idxSp4Pkt = 11;
-            const idxStatus = 14; // Index für deine Statusspalte (entry.1780685435)
 
             const gamesGrouped = {};
-            const terminatedGames = new Set(); // Speichert alle Daten von bereits beendeten Spielen
+            const terminatedDates = new Set(); 
 
+            // SCHRITT 1: FIX - "beendet" wird laut deinen Daten in Spalte 3 (idxAktuelleRunde) gespeichert!
+            for (let i = 1; i < lines.length; i++) {
+                const row = parseCSVRow(lines[i]);
+                if (row.length <= idxAktuelleRunde) continue;
+
+                const datum = row[idxDatum].trim();
+                const aktuelleRundeWert = row[idxAktuelleRunde].trim().toLowerCase();
+                
+                if (!datum) continue;
+
+                if (aktuelleRundeWert === "beendet") {
+                    terminatedDates.add(datum);
+                }
+            }
+
+            // SCHRITT 2: Daten verarbeiten und gruppieren
             for (let i = 1; i < lines.length; i++) {
                 const row = parseCSVRow(lines[i]);
                 if (row.length <= idxSp4) continue;
                 
-                const datum = row[idxDatum];
+                const datum = row[idxDatum].trim();
                 if (!datum) continue;
 
-                // NEU: Wenn in irgendeiner Zeile zu diesem Datum "beendet" steht, merken wir uns das
-                if (row[idxStatus] === "beendet") {
-                    terminatedGames.add(datum);
-                }
+                // Falls der Wert "beendet" ist, überspringen wir diesen Eintrag beim Punkte-Zählen
+                if (row[idxAktuelleRunde].trim().toLowerCase() === "beendet") continue;
 
                 const rundenGesamt = parseInt(row[idxRundenGesamt]) || 0;
                 const aktuelleRunde = parseInt(row[idxAktuelleRunde]) || 0;
                 const spielerListe = [row[idxSp1], row[idxSp2], row[idxSp3], row[idxSp4]].filter(Boolean);
+
+                if (spielerListe.length === 0) continue;
 
                 const p1 = parseInt(row[idxSp1Pkt]) || 0;
                 const p2 = parseInt(row[idxSp2Pkt]) || 0;
                 const p3 = parseInt(row[idxSp3Pkt]) || 0;
                 const p4 = parseInt(row[idxSp4Pkt]) || 0;
 
-                if (!gamesGrouped[datum]) {
-                    gamesGrouped[datum] = {
+                const groupKey = datum;
+
+                if (!gamesGrouped[groupKey]) {
+                    gamesGrouped[groupKey] = {
                         datum, rundenGesamt, aktuelleRunde,
                         spielerString: spielerListe.join(', '),
                         spielerArray: spielerListe,
@@ -340,23 +356,34 @@ document.addEventListener('DOMContentLoaded', () => {
                     };
                 }
 
-                gamesGrouped[datum].punkte[0] += p1;
-                gamesGrouped[datum].punkte[1] += p2;
-                gamesGrouped[datum].punkte[2] += p3;
-                gamesGrouped[datum].punkte[3] += p4;
+                gamesGrouped[groupKey].punkte[0] += p1;
+                gamesGrouped[groupKey].punkte[1] += p2;
+                gamesGrouped[groupKey].punkte[2] += p3;
+                gamesGrouped[groupKey].punkte[3] += p4;
 
-                if (aktuelleRunde > gamesGrouped[datum].aktuelleRunde) {
-                    gamesGrouped[datum].aktuelleRunde = aktuelleRunde;
-                    gamesGrouped[datum].rundenGesamt = rundenGesamt;
-                    gamesGrouped[datum].spielerString = spielerListe.join(', ');
-                    gamesGrouped[datum].spielerArray = spielerListe;
+                if (aktuelleRunde > gamesGrouped[groupKey].aktuelleRunde) {
+                    gamesGrouped[groupKey].aktuelleRunde = aktuelleRunde;
+                    gamesGrouped[groupKey].rundenGesamt = rundenGesamt;
+                    gamesGrouped[groupKey].spielerString = spielerListe.join(', ');
+                    gamesGrouped[groupKey].spielerArray = spielerListe;
                 }
             }
 
-            // NEU: Filtert sowohl unfertige Spiele ALS AUCH Spiele aus, die NICHT als beendet markiert wurden
-            const openGames = Object.values(gamesGrouped).filter(g => 
-                g.aktuelleRunde < g.rundenGesamt && !terminatedGames.has(g.datum)
-            );
+            // SCHRITT 3: FILTRATION MATCHEN
+            const openGames = Object.values(gamesGrouped).filter(g => {
+                const hatBeendetStatus = terminatedDates.has(g.datum);
+                
+                const aktuelleRundeNum = Number(g.aktuelleRunde);
+                const rundenGesamtNum = Number(g.rundenGesamt);
+                const rundenErreicht = aktuelleRundeNum >= rundenGesamtNum;
+
+                // Nur wenn Max Runden voll UND die beendet-Zeile existiert -> ausblenden
+                if (rundenErreicht && hatBeendetStatus) {
+                    return false;
+                }
+                
+                return true;
+            });
             
             gamesListContainer.innerHTML = '';
 
@@ -381,7 +408,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 sortierteSpielerListe.forEach(spieler => {
                     punkteHtml += `<div style="display: flex; justify-content: space-between; margin-bottom: 2px;">
                         <span>${spieler.name}</span>
-                        <span style="font-weight: bold; color: whitesmoke;">${spieler.punkte} Pkt.</span>
+                        <span style="font-weight: bold; color: whitesmoke;">${spieler.punkte} Punkte</span>
                     </div>`;
                 });
                 punkteHtml += '</div>';
@@ -400,16 +427,18 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                     <div class="game-card-footer buttons-split-row">
                         <button class="btn-continue">Weiter spielen</button>
-                        <button class="btn-terminate">Beenden</button>
+                        <button class="btn-terminate" data-rawdate="${game.datum}" data-totalrounds="${game.rundenGesamt}">Beenden</button>
                     </div>
                 `;
 
                 card.querySelector('.btn-continue').addEventListener('click', () => openModal(game.spielerArray, game.rundenGesamt, game.aktuelleRunde));
                 
-                // Beim Klick merken wir uns die Karte UND das dazugehörige Spielobjekt
-                card.querySelector('.btn-terminate').addEventListener('click', () => {
+                card.querySelector('.btn-terminate').addEventListener('click', (e) => {
                     cardToHide = card; 
-                    activeGameData = game; 
+                    activeGameData = { 
+                        datum: e.currentTarget.getAttribute('data-rawdate'),
+                        rundenGesamt: e.currentTarget.getAttribute('data-totalrounds')
+                    }; 
                     if (confirmModal) {
                         confirmModal.classList.add("open");
                     }
