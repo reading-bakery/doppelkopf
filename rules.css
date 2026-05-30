@@ -124,7 +124,7 @@ p {
     box-shadow: var(--shadow-card);
     border: 1px solid #ddd;
     transition: var(--transition-duration);
-    font-size: 4rem;
+    font-size: 3.75rem;
 }
 
 .suit-heart, .suit-diamond {
@@ -387,7 +387,7 @@ p {
 
 
 .suit-item {
-    font-size: 4rem;
+    font-size: 3.75rem;
 }
 
 .suit-item-2 {
