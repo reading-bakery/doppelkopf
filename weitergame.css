@@ -131,8 +131,7 @@ p {
 }
 
 .btn-continue:hover {
-    background-color: var(--background-elements);
-    color: whitesmoke;
+    background-color: var(--color-doppelkopf);
 }
 
 /* Status-Texte */
@@ -158,31 +157,23 @@ p {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.75); /* Abgedunkelter Hintergrund */
-    
-    /* ERST das Webkit-Präfix für Safari (iOS/Mac) */
-    -webkit-backdrop-filter: blur(4px); 
-    /* DANN der Standard-Befehl für Chrome, Firefox & Edge */
+    background-color: rgba(0, 0, 0, 0.75);
+    -webkit-backdrop-filter: blur(4px); /* Fix für Safari/iOS! */
     backdrop-filter: blur(4px);
-    
-    display: flex;
+    display: none; 
     justify-content: center;
     align-items: center;
     z-index: 1000;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
 /* Aktiv-Zustand für das gesamte Modal */
 .modal-overlay.open {
-    opacity: 1;
-    visibility: visible;
+    display: flex;
 }
 
 /* Das eigentliche Modal-Fenster */
 .modal-content {
-    background-color: #222; 
+    background-color: #222; /* Passe das an dein Theme an */
     font-family: var(--font-subtitle);
     color: whitesmoke;
     padding: 30px;
@@ -206,6 +197,7 @@ p {
     color: #aaa;
     line-height: 1;
     transition: color 0.2s;
+    font-family: var(--font-subtitle);
 }
 
 .close-modal-btn:hover {
@@ -247,8 +239,7 @@ p {
 }
 
 .player-radio-btn:checked + .player-label {
-    background: #223a22;
-    border-color: #13c913; /* Nutzt dein Grün aus den Favoriten */
+    background: var(--background-body);
 }
 
 /* Formular-Styling für Inputs (Schritt 2) */
@@ -269,7 +260,7 @@ p {
     background: #2a2a2a;
     border: 1px solid #444;
     border-radius: 6px;
-    color: white;
+    color: whitesmoke;
     font-size: 1rem;
     box-sizing: border-box;
 }
@@ -288,17 +279,18 @@ p {
 }
 
 .next-step-btn, .save-btn { 
-    background: #13c913; 
+    background: var(--background-backtop); 
+    font-family: var(--font-subtitle);
     color: black; 
 }
 
 .next-step-btn:hover, .save-btn:hover {
-    background-color: #0fb00f;
+    background-color: var(--color-doppelkopf);
 }
 
 .back-btn { 
     background: #444; 
-    color: white; 
+    color: whitesmoke; 
 }
 
 .back-btn:hover {

@@ -84,6 +84,7 @@ p {
     max-width: 450px;
     position: relative;
     box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    border: 1px solid #333;
 }
 
 /* Schließen-Button (X) oben rechts */
