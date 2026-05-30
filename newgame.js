@@ -60,11 +60,12 @@ document.addEventListener('DOMContentLoaded', () => {
         // Umstellung auf URLSearchParams für Google Forms
         const urlEncodedData = new URLSearchParams();
         urlEncodedData.append('entry.824360719', gameDate);      // Datum
-        urlEncodedData.append('entry.1406870107', player1);    // Name Spieler 1
-        urlEncodedData.append('entry.1764879843', player2);    // Name Spieler 2
-        urlEncodedData.append('entry.132908103', player3);     // Name Spieler 3
-        urlEncodedData.append('entry.36076733', player4);      // Name Spieler 4
+        urlEncodedData.append('entry.1406870107', player1);     // Name Spieler 1
+        urlEncodedData.append('entry.1764879843', player2);     // Name Spieler 2
+        urlEncodedData.append('entry.132908103', player3);      // Name Spieler 3
+        urlEncodedData.append('entry.36076733', player4);       // Name Spieler 4
         urlEncodedData.append('entry.955427977', gameRound);    // Runden insgesamt
+        urlEncodedData.append('entry.1282541600', '0');         // Aktuelle Runde
 
         const formUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSfayGd2q3Xnxz1-YmMeiuXoNk6yYLZQ_gNO-7Sv_wT4oI4IMw/formResponse';
 

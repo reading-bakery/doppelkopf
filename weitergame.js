@@ -168,13 +168,16 @@ document.addEventListener('DOMContentLoaded', () => {
             gameDateVal = new Date().toISOString().split('T')[0];
         }
 
+        // BERECHNUNG: Neue Rundennummer ermitteln (Bestehende Runde + 1)
+        const neueRundenNummer = aktuelleRundenNummer + 1;
+
         // Umstellung auf URLSearchParams (Inhaltstyp für Google Forms)
         const params = new URLSearchParams();
         
         // Spieldaten & Modi
         params.append(entryIds.spiel_datum, gameDateVal);
         params.append(entryIds.runden_gesamt, aktuelleGesamtRunden);
-        params.append(entryIds.aktuelle_runde, aktuelleRundenNummer); 
+        params.append(entryIds.aktuelle_runde, neueRundenNummer); // Schickt jetzt automatisch die erhöhte Zahl (z.B. 0+1=1, oder 2+1=3)
         params.append(entryIds.solo, soloVal);
         params.append(entryIds.hochzeit, wedVal);
         
@@ -248,6 +251,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const aktuelleRunde = parseInt(row[idxAktuelleRunde]) || 0;
                 const spielerListe = [row[idxSp1], row[idxSp2], row[idxSp3], row[idxSp4]].filter(Boolean);
 
+                // Sucht automatisch nach der höchsten Zahl bei der aktuellen Runde für dieses Datum
                 if (!gamesGrouped[datum] || aktuelleRunde > gamesGrouped[datum].aktuelleRunde) {
                     gamesGrouped[datum] = {
                         datum, rundenGesamt, aktuelleRunde,
