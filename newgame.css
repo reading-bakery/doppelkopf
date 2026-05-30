@@ -62,7 +62,7 @@ p {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.6); /* Abgedunkelter Hintergrund */
+    background-color: rgba(0, 0, 0, 0.75); /* Abgedunkelter Hintergrund */
     z-index: 1000;
     justify-content: center;
     align-items: center;
@@ -97,7 +97,7 @@ p {
     color: #aaa;
 }
 .modal-close:hover {
-    color: #fff;
+    color: whitesmoke;
 }
 
 /* Einfaches Formular-Styling */
@@ -119,8 +119,13 @@ p {
     color: whitesmoke;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    font-family: var(--font-text);
-    font-weight: bolder;
+    font-family: var(--font-subtitle);
+    font-weight: normal;
+}
+
+#open-modal-btn:hover {
+    background-color: var(--background-backtop);
+    color: var(--color-pretext);
 }
 
 
@@ -130,15 +135,16 @@ p {
     border: none;
     border-radius: 25px;
     background-color: white;
-    color: black;
+    color: var(--color-pretext);
     cursor: pointer;
     transition: background-color 0.3s ease;
-    font-family: var(--font-text);
+    font-family: var(--font-subtitle);
+    background-color: var(--background-body);
 }
 
 .btn-submit:hover {
-    background-color: var(--background-body);
-    color: black;
+    background-color: var(--background-backtop);
+    color: var(--color-pretext);
 }
 
 

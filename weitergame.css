@@ -131,7 +131,7 @@ p {
 }
 
 .btn-continue:hover {
-    background-color: var(--color-doppelkopf);
+    background-color: var(--background-backtop);
 }
 
 /* Status-Texte */
@@ -201,7 +201,7 @@ p {
 }
 
 .close-modal-btn:hover {
-    color: #fff;
+    color: whitesmoke;
 }
 
 /* Schritte logisch verstecken/anzeigen */
@@ -238,8 +238,18 @@ p {
     color: whitesmoke;
 }
 
-.player-radio-btn:checked + .player-label {
+.player-label:hover {
     background: var(--background-body);
+    color: var(--color-pretext);
+}
+
+.player-radio-btn:checked + .player-label {
+    background: #2a2a2a;
+}
+
+.player-radio-btn:checked + .player-label:hover {
+    background: var(--background-body);
+    color: var(--color-pretext);
 }
 
 /* Formular-Styling für Inputs (Schritt 2) */
@@ -278,19 +288,30 @@ p {
     transition: background-color 0.3s ease;
 }
 
+.modal-text {
+    margin-bottom: 20px;
+    color: whitesmoke;
+    font-size: 1.1rem;
+}
+
+.summary-cards-zone {
+    color: whitesmoke;
+}
+
 .next-step-btn, .save-btn { 
-    background: var(--background-backtop); 
+    background: var(--background-body); 
     font-family: var(--font-subtitle);
-    color: black; 
+    color: var(--color-pretext);
 }
 
 .next-step-btn:hover, .save-btn:hover {
-    background-color: var(--color-doppelkopf);
+    background-color: var(--background-backtop);
 }
 
 .back-btn { 
     background: #444; 
     color: whitesmoke; 
+    font-family: var(--font-subtitle);
 }
 
 .back-btn:hover {
@@ -302,6 +323,8 @@ p {
     grid-template-columns: 1fr 2fr;
     gap: 10px;
 }
+
+
 
 /* ==========================================
    4. ERFOLGS-MODAL STYLING (OPTIONAL)
@@ -315,7 +338,7 @@ p {
     width: 60px;
     height: 60px;
     background-color: var(--background-backtop);
-    color: white;
+    color: whitesmoke;
     border-radius: 50%;
     display: flex;
     align-items: center;

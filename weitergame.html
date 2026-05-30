@@ -48,14 +48,14 @@
         
         <div id="modal-step-1" class="modal-step active">
             <h3>Schritt 1: Solo</h3>
-            <p>Wer spielt ein Solo?</p>
+            <p class="modal-text">Wer spielt ein Solo?</p>
             <div class="player-options-grid" id="modal-solo-list"></div>
             <button type="button" class="modal-btn next-step-btn">Weiter</button>
         </div>
 
         <div id="modal-step-2" class="modal-step">
             <h3>Schritt 2: Hochzeit</h3>
-            <p>Wer hat die Hochzeit?</p>
+            <p class="modal-text">Wer spielt eine Hochzeit?</p>
             <div class="player-options-grid" id="modal-wedding-list"></div>
             <div class="modal-buttons-row">
                 <button type="button" class="modal-btn back-btn">Zurück</button>
@@ -65,10 +65,10 @@
 
         <div id="modal-step-3" class="modal-step">
             <h3 class="step-player-name">Spieler 1</h3>
-            <p>Punkte und Stiche eingeben:</p>
+            <p class="modal-text">Punkte und Stiche eingeben</p>
             <div class="input-group">
-                <label>Erreichte Augen (Punkte):</label>
-                <input type="number" class="p-points" min="0" max="240" placeholder="Augen">
+                <label>Punkte</label>
+                <input type="number" class="p-points" min="0" max="240" placeholder="Punkte">
             </div>
             <div class="input-group">
                 <label>Anzahl Stiche:</label>
@@ -82,10 +82,10 @@
 
         <div id="modal-step-4" class="modal-step">
             <h3 class="step-player-name">Spieler 2</h3>
-            <p>Punkte und Stiche eingeben:</p>
+            <p class="modal-text">Punkte und Stiche eingeben</p>
             <div class="input-group">
-                <label>Erreichte Augen (Punkte):</label>
-                <input type="number" class="p-points" min="0" max="240" placeholder="Augen">
+                <label>Punkte</label>
+                <input type="number" class="p-points" min="0" max="240" placeholder="Punkte">
             </div>
             <div class="input-group">
                 <label>Anzahl Stiche:</label>
@@ -99,10 +99,10 @@
 
         <div id="modal-step-5" class="modal-step">
             <h3 class="step-player-name">Spieler 3</h3>
-            <p>Punkte und Stiche eingeben:</p>
+            <p class="modal-text">Punkte und Stiche eingeben</p>
             <div class="input-group">
-                <label>Erreichte Augen (Punkte):</label>
-                <input type="number" class="p-points" min="0" max="240" placeholder="Augen">
+                <label>Punkte</label>
+                <input type="number" class="p-points" min="0" max="240" placeholder="Punkte">
             </div>
             <div class="input-group">
                 <label>Anzahl Stiche:</label>
@@ -116,10 +116,10 @@
 
         <div id="modal-step-6" class="modal-step">
             <h3 class="step-player-name">Spieler 4</h3>
-            <p>Punkte und Stiche eingeben:</p>
+            <p class="modal-text">Punkte und Stiche eingeben</p>
             <div class="input-group">
-                <label>Erreichte Augen (Punkte):</label>
-                <input type="number" class="p-points" min="0" max="240" placeholder="Augen">
+                <label>Punkte</label>
+                <input type="number" class="p-points" min="0" max="240" placeholder="Punkte">
             </div>
             <div class="input-group">
                 <label>Anzahl Stiche:</label>
@@ -133,7 +133,6 @@
 
         <div id="modal-step-7" class="modal-step">
             <h3 class="step-player-name">Zusammenfassung</h3>
-            <p>Überprüfe deine Eingaben, bevor du die Runde speicherst.</p>
             <div id="summary-cards-zone"></div>
             <div class="modal-buttons-row">
                 <button type="button" class="modal-btn back-btn">Zurück</button>
@@ -145,7 +144,7 @@
             <div class="success-icon">✓</div>
             <h3>Erfolgreich!</h3>
             <p>Die Punkte wurden erfolgreich eingetragen und berechnet.</p>
-            <button type="button" class="modal-btn next-step-btn" id="super-btn" style="background: #13c913; color: black;">Super!</button>
+            <button type="button" class="modal-btn next-step-btn" id="super-btn" style="background: var(--background-body); color: var(--color-pretext);">Super!</button>
         </div>
 
     </div>

@@ -96,19 +96,20 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Baut eine kleine Vorschau in Schritt 7 zusammen
+    // Baut eine kleine Vorschau in Schritt 7 zusammen mit Textfarbe whitesmoke
     function buildSummary() {
         const summaryZone = document.getElementById("summary-cards-zone");
         const soloVal = document.querySelector('input[name="solo-player"]:checked').value;
         const wedVal = document.querySelector('input[name="wedding-player"]:checked').value;
         
-        let html = `<p style="font-size:14px; color:#aaa;">Ansage: Solo: <b>${soloVal}</b> | Hochzeit: <b>${wedVal}</b></p><hr style="border-color:#333;">`;
+        let html = `<p style="font-size:14px; color: whitesmoke;">Ansage: Solo: <b>${soloVal}</b> | Hochzeit: <b>${wedVal}</b></p><hr style="border-color: whitesmoke;">`;
         
         [3, 4, 5, 6].forEach((stepNum, i) => {
             const stepEl = document.getElementById(`modal-step-${stepNum}`);
             const pts = stepEl.querySelector(".p-points").value;
             const trk = stepEl.querySelector(".p-tricks").value;
-            html += `<p style="font-size:15px; margin: 5px 0;"><b>${aktuellesSpielerArray[i]}:</b> ${pts} Punkte, ${trk} Stiche</p>`;
+            // Hier wurde color: whitesmoke direkt im Style-Attribut hinterlegt
+            html += `<p style="font-size:15px; margin: 5px 0; color: whitesmoke;"><b>${aktuellesSpielerArray[i]}:</b> ${pts} Punkte, ${trk} Stiche</p>`;
         });
         summaryZone.innerHTML = html;
     }
@@ -190,7 +191,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 `;
 
                 card.querySelector('.btn-continue').addEventListener('click', () => openModal(game.spielerArray));
-                gamesListContainer.appendChild(game.card || card);
+                gamesListContainer.appendChild(card);
             });
 
             if (window.lucide) lucide.createIcons();
