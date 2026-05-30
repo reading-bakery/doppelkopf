@@ -141,7 +141,6 @@ document.addEventListener('DOMContentLoaded', () => {
         summaryZone.innerHTML = html;
     }
 
-    // DIREKTE ÜBERMITTLUNG ALLER DATEN AN GOOGLE FORMS PER URL-ENCODED PARAMETERS
     finalSaveBtn.addEventListener("click", () => {
         finalSaveBtn.textContent = "Wird gespeichert...";
         finalSaveBtn.disabled = true;
@@ -154,11 +153,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const s3 = document.getElementById("modal-step-5");
         const s4 = document.getElementById("modal-step-6");
 
-        // Holt das Kartendatum aus dem UI (z.B. "23.05.2026")
         const gameDateEl = document.querySelector('.game-date');
         let gameDateVal = gameDateEl ? gameDateEl.textContent : '';
 
-        // Konvertiert "DD.MM.YYYY" zu "YYYY-MM-DD", damit Google Forms das Datum schluckt
         if (gameDateVal && gameDateVal.includes('.')) {
             const parts = gameDateVal.split('.');
             if (parts.length === 3) {
@@ -168,35 +165,27 @@ document.addEventListener('DOMContentLoaded', () => {
             gameDateVal = new Date().toISOString().split('T')[0];
         }
 
-        // BERECHNUNG: Neue Rundennummer ermitteln (Bestehende Runde + 1)
         const neueRundenNummer = aktuelleRundenNummer + 1;
-
-        // Umstellung auf URLSearchParams (Inhaltstyp für Google Forms)
         const params = new URLSearchParams();
         
-        // Spieldaten & Modi
         params.append(entryIds.spiel_datum, gameDateVal);
         params.append(entryIds.runden_gesamt, aktuelleGesamtRunden);
-        params.append(entryIds.aktuelle_runde, neueRundenNummer); // Schickt jetzt automatisch die erhöhte Zahl (z.B. 0+1=1, oder 2+1=3)
+        params.append(entryIds.aktuelle_runde, neueRundenNummer); 
         params.append(entryIds.solo, soloVal);
         params.append(entryIds.hochzeit, wedVal);
         
-        // Spieler 1
         params.append(entryIds.s1_name, aktuellesSpielerArray[0]);
         params.append(entryIds.s1_punkte, s1.querySelector(".p-points").value);
         params.append(entryIds.s1_stiche, s1.querySelector(".p-tricks").value);
         
-        // Spieler 2
         params.append(entryIds.s2_name, aktuellesSpielerArray[1]);
         params.append(entryIds.s2_punkte, s2.querySelector(".p-points").value);
         params.append(entryIds.s2_stiche, s2.querySelector(".p-tricks").value);
         
-        // Spieler 3
         params.append(entryIds.s3_name, aktuellesSpielerArray[2]);
         params.append(entryIds.s3_punkte, s3.querySelector(".p-points").value);
         params.append(entryIds.s3_stiche, s3.querySelector(".p-tricks").value);
         
-        // Spieler 4
         params.append(entryIds.s4_name, aktuellesSpielerArray[3]);
         params.append(entryIds.s4_punkte, s4.querySelector(".p-points").value);
         params.append(entryIds.s4_stiche, s4.querySelector(".p-tricks").value);
@@ -239,9 +228,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const idxDatum = 1, idxRundenGesamt = 2, idxAktuelleRunde = 3;
             const idxSp1 = 4, idxSp2 = 5, idxSp3 = 6, idxSp4 = 7;
-            
-            // Indizes für die Punkte der Spieler im Google Sheet (Name steht in Spalte, Punkte folgend)
-            // Passe diese Zahlen an, wenn die Punktestand-Spalten anders verschoben sind!
             const idxSp1Pkt = 8, idxSp2Pkt = 9, idxSp3Pkt = 10, idxSp4Pkt = 11; 
 
             const gamesGrouped = {};
@@ -256,7 +242,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 const aktuelleRunde = parseInt(row[idxAktuelleRunde]) || 0;
                 const spielerListe = [row[idxSp1], row[idxSp2], row[idxSp3], row[idxSp4]].filter(Boolean);
 
-                // Punkte aus dieser Zeile auslesen (0 falls leer)
                 const p1 = parseInt(row[idxSp1Pkt]) || 0;
                 const p2 = parseInt(row[idxSp2Pkt]) || 0;
                 const p3 = parseInt(row[idxSp3Pkt]) || 0;
@@ -267,17 +252,15 @@ document.addEventListener('DOMContentLoaded', () => {
                         datum, rundenGesamt, aktuelleRunde,
                         spielerString: spielerListe.join(', '),
                         spielerArray: spielerListe,
-                        punkte: [0, 0, 0, 0] // Start bei 0 Punkten
+                        punkte: [0, 0, 0, 0] 
                     };
                 }
 
-                // Alle Rundenpunkte für dieses Datum aufsummieren
                 gamesGrouped[datum].punkte[0] += p1;
                 gamesGrouped[datum].punkte[1] += p2;
                 gamesGrouped[datum].punkte[2] += p3;
                 gamesGrouped[datum].punkte[3] += p4;
 
-                // Sucht automatisch nach der höchsten Zahl bei der aktuellen Runde für dieses Datum
                 if (aktuelleRunde > gamesGrouped[datum].aktuelleRunde) {
                     gamesGrouped[datum].aktuelleRunde = aktuelleRunde;
                     gamesGrouped[datum].rundenGesamt = rundenGesamt;
@@ -297,12 +280,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 const prozent = game.rundenGesamt > 0 ? (game.aktuelleRunde / game.rundenGesamt) * 100 : 0;
 
-                // Erstellt die HTML-Zeilen für die Namensliste mit Punktestand
+                // NEU: Spieler und Punkte in ein temporäres Array mappen und sortieren
+                const sortierteSpielerListe = game.spielerArray.map((name, idx) => {
+                    return { name: name, punkte: game.punkte[idx] };
+                }).sort((a, b) => b.punkte - a.punkte); // Absteigend sortieren (Höchste Punktzahl zuerst)
+
+                // Erstellt die sortierten HTML-Zeilen für die Card
                 let punkteHtml = '<div class="game-scores" style="margin-top: 12px; font-size: 14px; color: #ccc; border-top: 1px solid #333; padding-top: 8px;">';
-                game.spielerArray.forEach((name, idx) => {
+                sortierteSpielerListe.forEach(spieler => {
                     punkteHtml += `<div style="display: flex; justify-content: space-between; margin-bottom: 2px;">
-                        <span>${name}</span>
-                        <span style="font-weight: bold; color: whitesmoke;">${game.punkte[idx]} Punkte</span>
+                        <span>${spieler.name}</span>
+                        <span style="font-weight: bold; color: whitesmoke;">${spieler.punkte} Pkt.</span>
                     </div>`;
                 });
                 punkteHtml += '</div>';
