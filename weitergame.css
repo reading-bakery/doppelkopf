@@ -50,6 +50,11 @@ p {
     line-height: var(--text-line-height);
 }
 
+/* Hilfsklasse für Textzentrierung */
+.text-center {
+    text-align: center !important;
+}
+
 /* ==========================================
    2. GAME CARDS & KACHELN (OFFENE SPIELE)
    ========================================== */
@@ -115,6 +120,13 @@ p {
     transition: width 0.5s ease-out;
 }
 
+/* Flexbox-Row für zwei Buttons nebeneinander */
+.buttons-split-row {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
 /* Weiterspielen-Button innerhalb der Kachel */
 .btn-continue {
     background-color: var(--background-body);
@@ -124,15 +136,34 @@ p {
     border-radius: 20px;
     cursor: pointer;
     font-weight: normal;
-    width: 100%;
+    flex: 2; /* Nimmt mehr Platz ein */
     transition: background 0.2s;
     font-family: var(--font-subtitle);
     font-size: 16px;
-    margin-top: 10px;
 }
 
 .btn-continue:hover {
     background-color: var(--background-backtop);
+}
+
+/* Beenden-Button Design */
+.btn-terminate {
+    background-color: #333;
+    color: #aaa;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: normal;
+    flex: 1; /* Etwas schmaler als der Weiter-Button */
+    transition: all 0.2s ease;
+    font-family: var(--font-subtitle);
+    font-size: 16px;
+}
+
+.btn-terminate:hover {
+    background-color: #8b0000; /* Dunkelrot bei Hover */
+    color: whitesmoke;
 }
 
 /* Status-Texte */
@@ -222,6 +253,12 @@ p {
     margin: 20px 0;
 }
 
+/* Container für das Radio-Button-Paar */
+.radio-wrapper {
+    position: relative;
+    display: block;
+}
+
 .player-radio-btn {
     display: none; /* Standard-Radio verstecken */
 }
@@ -239,18 +276,24 @@ p {
     color: whitesmoke;
 }
 
+/* Hover-Effekt */
 .player-label:hover {
     background: var(--background-body);
     color: var(--color-pretext);
 }
 
+/* Wenn ausgewählt, bleibt das Label farbig unterlegt (Nutzt deine Variablen) */
 .player-radio-btn:checked + .player-label {
-    background: #2a2a2a;
+    background: var(--background-body) !important;
+    color: var(--color-pretext) !important;
+    border-color: var(--color-pretext);
+    font-weight: bold;
 }
 
+/* Verhindert Flackern bei erneutem Hover über ein bereits aktives Element */
 .player-radio-btn:checked + .player-label:hover {
-    background: var(--background-body);
-    color: var(--color-pretext);
+    background: var(--background-body) !important;
+    color: var(--color-pretext) !important;
 }
 
 /* Formular-Styling für Inputs (Schritt 2) */
@@ -321,11 +364,9 @@ p {
 
 .modal-buttons-row {
     display: grid;
-    grid-template-columns: 1fr 2fr;
+    grid-template-columns: 1fr 1fr;
     gap: 10px;
 }
-
-
 
 /* ==========================================
    4. ERFOLGS-MODAL STYLING (OPTIONAL)

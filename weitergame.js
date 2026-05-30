@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQpR0kGrSSxQ_texguYbMzYwGyUBHgBPCeKjk_dL8bgVRp2IaF5X10V-kq-i_BTj0PJPDiiRsqZbby0/pub?gid=1523607497&single=true&output=csv';
     
     // ==========================================
-    // DEINE GOOGLE FORMULAR CONFIG (100% KORREKT)
+    // DEINE GOOGLE FORMULAR CONFIG
     // ==========================================
     const formId = '1FAIpQLSfayGd2q3Xnxz1-YmMeiuXoNk6yYLZQ_gNO-7Sv_wT4oI4IMw'; 
 
@@ -29,7 +29,10 @@ document.addEventListener('DOMContentLoaded', () => {
         
         s4_name: 'entry.36076733',       
         s4_punkte: 'entry.957057574',      
-        s4_stiche: 'entry.1960997850'      
+        s4_stiche: 'entry.1960997850',
+        
+        // NEU: Das Feld für den Status "beendet"
+        spiel_status: 'entry.1780685435'
     };
     // ==========================================
 
@@ -38,6 +41,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeX = document.getElementById("close-modal-x");
     const superBtn = document.getElementById("super-btn");
     const finalSaveBtn = document.getElementById("final-save-btn");
+
+    // Bestätigungs-Modal Elemente
+    const confirmModal = document.getElementById("confirm-modal");
+    const confirmYesBtn = document.getElementById("confirm-yes-btn");
+    const confirmNoBtn = document.getElementById("confirm-no-btn");
+    
+    // Temporärer Speicher für die zu löschende Karte und deren Spieldaten
+    let cardToHide = null; 
+    let activeGameData = null;
 
     // Globale Variablen für das aktuell geöffnete Spiel
     let aktuellesSpielerArray = [];
@@ -66,18 +78,34 @@ document.addEventListener('DOMContentLoaded', () => {
         aktuelleRundenNummer = aktuelleRunde; 
         aktuellerSchritt = 1;
 
-        // Solo-Liste mit Standardwert "keins"
+        // Solo-Liste
         const soloList = document.getElementById("modal-solo-list");
-        soloList.innerHTML = `<div style="grid-column: span 2;"><input type="radio" name="solo-player" id="solo-none" value="keins" class="player-radio-btn" checked><label for="solo-none" class="player-label">Kein Solo</label></div>`;
+        soloList.innerHTML = `
+            <div style="grid-column: span 2;" class="radio-wrapper">
+                <input type="radio" name="solo-player" id="solo-none" value="keins" class="player-radio-btn" checked>
+                <label for="solo-none" class="player-label">Kein Solo</label>
+            </div>`;
         spielerArray.forEach((s, i) => {
-            soloList.innerHTML += `<div><input type="radio" name="solo-player" id="solo-${i}" value="${s}" class="player-radio-btn"><label for="solo-${i}" class="player-label">${s}</label></div>`;
+            soloList.innerHTML += `
+                <div class="radio-wrapper">
+                    <input type="radio" name="solo-player" id="solo-${i}" value="${s}" class="player-radio-btn">
+                    <label for="solo-${i}" class="player-label">${s}</label>
+                </div>`;
         });
 
-        // Hochzeits-Liste mit Standardwert "keins"
+        // Hochzeits-Liste
         const weddingList = document.getElementById("modal-wedding-list");
-        weddingList.innerHTML = `<div style="grid-column: span 2;"><input type="radio" name="wedding-player" id="wed-none" value="keins" class="player-radio-btn" checked><label for="wed-none" class="player-label">Keine Hochzeit</label></div>`;
+        weddingList.innerHTML = `
+            <div style="grid-column: span 2;" class="radio-wrapper">
+                <input type="radio" name="wedding-player" id="wed-none" value="keins" class="player-radio-btn" checked>
+                <label for="wed-none" class="player-label">Keine Hochzeit</label>
+            </div>`;
         spielerArray.forEach((s, i) => {
-            weddingList.innerHTML += `<div><input type="radio" name="wedding-player" id="wed-${i}" value="${s}" class="player-radio-btn"><label for="wed-${i}" class="player-label">${s}</label></div>`;
+            weddingList.innerHTML += `
+                <div class="radio-wrapper">
+                    <input type="radio" name="wedding-player" id="wed-${i}" value="${s}" class="player-radio-btn">
+                    <label for="wed-${i}" class="player-label">${s}</label>
+                </div>`;
         });
 
         const spielerSchritte = [3, 4, 5, 6];
@@ -218,7 +246,54 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     closeX.addEventListener("click", () => modal.classList.remove("open"));
-    window.addEventListener("click", (e) => { if (e.target === modal) modal.classList.remove("open"); });
+    window.addEventListener("click", (e) => { 
+        if (e.target === modal) modal.classList.remove("open"); 
+        if (e.target === confirmModal) confirmModal.classList.remove("open"); 
+    });
+
+    // Event Listener für die Buttons des Bestätigungs-Modals (MIT LIVE-SENDEN AN GOOGLE FORMS)
+    if (confirmNoBtn && confirmYesBtn && confirmModal) {
+        confirmNoBtn.addEventListener("click", () => {
+            confirmModal.classList.remove("open");
+            cardToHide = null;
+            activeGameData = null;
+        });
+
+        confirmYesBtn.addEventListener("click", () => {
+            if (cardToHide && activeGameData) {
+                // Button sperren während des Sendens
+                confirmYesBtn.textContent = "Wird beendet...";
+                confirmYesBtn.disabled = true;
+
+                const params = new URLSearchParams();
+                params.append(entryIds.spiel_datum, activeGameData.datum);
+                params.append(entryIds.spiel_status, "beendet");
+
+                const targetUrl = `https://docs.google.com/forms/d/e/${formId}/formResponse`;
+
+                fetch(targetUrl, {
+                    method: "POST",
+                    mode: "no-cors",
+                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                    body: params.toString()
+                })
+                .then(() => {
+                    cardToHide.style.display = 'none'; // Versteckt die Card live
+                    confirmModal.classList.remove("open");
+                })
+                .catch(error => {
+                    console.error("Fehler beim Beenden des Spiels:", error);
+                    alert("Es gab ein Problem beim Übermitteln des Status.");
+                })
+                .finally(() => {
+                    confirmYesBtn.textContent = "Ja";
+                    confirmYesBtn.disabled = false;
+                    cardToHide = null;
+                    activeGameData = null;
+                });
+            }
+        });
+    }
 
     fetch(csvUrl)
         .then(response => response.text())
@@ -226,17 +301,26 @@ document.addEventListener('DOMContentLoaded', () => {
             const lines = csvText.split('\n').map(line => line.trim()).filter(line => line.length > 0);
             if (lines.length <= 1) return;
 
+            // Spalten-Indizes anpassen (spiel_status liegt am Ende deiner Formular-Tabelle)
             const idxDatum = 1, idxRundenGesamt = 2, idxAktuelleRunde = 3;
             const idxSp1 = 4, idxSp2 = 5, idxSp3 = 6, idxSp4 = 7;
-            const idxSp1Pkt = 8, idxSp2Pkt = 9, idxSp3Pkt = 10, idxSp4Pkt = 11; 
+            const idxSp1Pkt = 8, idxSp2Pkt = 9, idxSp3Pkt = 10, idxSp4Pkt = 11;
+            const idxStatus = 14; // Index für deine Statusspalte (entry.1780685435)
 
             const gamesGrouped = {};
+            const terminatedGames = new Set(); // Speichert alle Daten von bereits beendeten Spielen
 
             for (let i = 1; i < lines.length; i++) {
                 const row = parseCSVRow(lines[i]);
                 if (row.length <= idxSp4) continue;
+                
                 const datum = row[idxDatum];
                 if (!datum) continue;
+
+                // NEU: Wenn in irgendeiner Zeile zu diesem Datum "beendet" steht, merken wir uns das
+                if (row[idxStatus] === "beendet") {
+                    terminatedGames.add(datum);
+                }
 
                 const rundenGesamt = parseInt(row[idxRundenGesamt]) || 0;
                 const aktuelleRunde = parseInt(row[idxAktuelleRunde]) || 0;
@@ -269,8 +353,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
 
-            const openGames = Object.values(gamesGrouped).filter(g => g.aktuelleRunde < g.rundenGesamt);
+            // NEU: Filtert sowohl unfertige Spiele ALS AUCH Spiele aus, die NICHT als beendet markiert wurden
+            const openGames = Object.values(gamesGrouped).filter(g => 
+                g.aktuelleRunde < g.rundenGesamt && !terminatedGames.has(g.datum)
+            );
+            
             gamesListContainer.innerHTML = '';
+
+            if (openGames.length === 0) {
+                gamesListContainer.innerHTML = '<div class="no-games">Keine offenen Spiele vorhanden.</div>';
+                return;
+            }
 
             openGames.forEach(game => {
                 let formatiertesDatum = game.datum;
@@ -280,12 +373,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 const prozent = game.rundenGesamt > 0 ? (game.aktuelleRunde / game.rundenGesamt) * 100 : 0;
 
-                // NEU: Spieler und Punkte in ein temporäres Array mappen und sortieren
                 const sortierteSpielerListe = game.spielerArray.map((name, idx) => {
                     return { name: name, punkte: game.punkte[idx] };
-                }).sort((a, b) => b.punkte - a.punkte); // Absteigend sortieren (Höchste Punktzahl zuerst)
+                }).sort((a, b) => b.punkte - a.punkte);
 
-                // Erstellt die sortierten HTML-Zeilen für die Card
                 let punkteHtml = '<div class="game-scores" style="margin-top: 12px; font-size: 14px; color: #ccc; border-top: 1px solid #333; padding-top: 8px;">';
                 sortierteSpielerListe.forEach(spieler => {
                     punkteHtml += `<div style="display: flex; justify-content: space-between; margin-bottom: 2px;">
@@ -307,10 +398,23 @@ document.addEventListener('DOMContentLoaded', () => {
                         <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: ${prozent}%"></div></div>
                         ${punkteHtml}
                     </div>
-                    <div class="game-card-footer"><button class="btn-continue">Weiter spielen</button></div>
+                    <div class="game-card-footer buttons-split-row">
+                        <button class="btn-continue">Weiter spielen</button>
+                        <button class="btn-terminate">Beenden</button>
+                    </div>
                 `;
 
                 card.querySelector('.btn-continue').addEventListener('click', () => openModal(game.spielerArray, game.rundenGesamt, game.aktuelleRunde));
+                
+                // Beim Klick merken wir uns die Karte UND das dazugehörige Spielobjekt
+                card.querySelector('.btn-terminate').addEventListener('click', () => {
+                    cardToHide = card; 
+                    activeGameData = game; 
+                    if (confirmModal) {
+                        confirmModal.classList.add("open");
+                    }
+                });
+
                 gamesListContainer.appendChild(card);
             });
 
