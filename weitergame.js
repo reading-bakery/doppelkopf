@@ -92,30 +92,58 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>`;
         });
 
-        // Hochzeits-Liste
-        const weddingList = document.getElementById("modal-wedding-list");
-        weddingList.innerHTML = `
-            <div style="grid-column: span 2;" class="radio-wrapper">
-                <input type="radio" name="wedding-player" id="wed-none" value="keins" class="player-radio-btn" checked>
-                <label for="wed-none" class="player-label">Keine Hochzeit</label>
-            </div>`;
-        spielerArray.forEach((s, i) => {
-            weddingList.innerHTML += `
-                <div class="radio-wrapper">
-                    <input type="radio" name="wedding-player" id="wed-${i}" value="${s}" class="player-radio-btn">
-                    <label for="wed-${i}" class="player-label">${s}</label>
-                </div>`;
-        });
+        // Team-Liste (RE)
+// Team RE Liste
+const teamList = document.getElementById("modal-team-list");
 
-        const spielerSchritte = [3, 4, 5, 6];
-        spielerSchritte.forEach((stepNum, index) => {
-            const stepEl = document.getElementById(`modal-step-${stepNum}`);
-            if (stepEl) {
-                stepEl.querySelector(".step-player-name").textContent = spielerArray[index];
-                stepEl.querySelector(".p-points").value = "";
-                stepEl.querySelector(".p-tricks").value = "";
-            }
-        });
+teamList.innerHTML = "";
+
+spielerArray.forEach((s, i) => {
+    teamList.innerHTML += `
+        <div class="radio-wrapper">
+            <input
+                type="checkbox"
+                id="team-${i}"
+                value="${s}"
+                class="player-radio-btn team-player">
+
+            <label for="team-${i}" class="player-label">
+                ${s}
+            </label>
+        </div>
+    `;
+});
+
+// Maximal 2 Spieler auswählbar
+teamList.querySelectorAll(".team-player").forEach(cb => {
+    cb.addEventListener("change", () => {
+
+        const checked =
+            teamList.querySelectorAll(".team-player:checked");
+
+        if (checked.length >= 2) {
+
+            teamList.querySelectorAll(".team-player").forEach(input => {
+                if (!input.checked) {
+                    input.disabled = true;
+                }
+            });
+
+        } else {
+
+            teamList.querySelectorAll(".team-player").forEach(input => {
+                input.disabled = false;
+            });
+
+        }
+    });
+});
+
+        // Zusammenfassung zurücksetzen
+const summaryZone = document.getElementById("summary-cards-zone");
+if (summaryZone) {
+    summaryZone.innerHTML = "";
+}
 
         showStep(1);
         modal.classList.add("open");

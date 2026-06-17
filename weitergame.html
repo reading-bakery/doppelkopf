@@ -47,16 +47,20 @@
         <button class="close-modal-btn" id="close-modal-x">&times;</button>
         
         <div id="modal-step-1" class="modal-step active">
-            <h3>Schritt 1: Solo</h3>
-            <p class="modal-text">Wer spielt ein Solo?</p>
-            <div class="player-options-grid" id="modal-solo-list"></div>
-            <button type="button" class="modal-btn next-step-btn">Weiter</button>
+            <h3>Schritt 1: Punkte definieren</h3>
+            <p class="modal-text">Um wie viele Punkte geht es?</p>
+            <div class="input-group">
+                <label>Punkte</label>
+                <input type="number" id="modal-points-input" min="0" max="1000" placeholder="Punkte">  
+                <button type="button" class="modal-btn next-step-btn">Weiter</button>
+            </div>  
         </div>
 
-        <div id="modal-step-2" class="modal-step">
-            <h3>Schritt 2: Hochzeit</h3>
-            <p class="modal-text">Wer spielt eine Hochzeit?</p>
-            <div class="player-options-grid" id="modal-wedding-list"></div>
+
+        <div id="modal-step-2" class="modal-step active">
+            <h3>Schritt 2: Solo</h3>
+            <p class="modal-text">Wer spielt ein Solo?</p>
+            <div class="player-options-grid" id="modal-solo-list"></div>
             <div class="modal-buttons-row">
                 <button type="button" class="modal-btn back-btn">Zurück</button>
                 <button type="button" class="modal-btn next-step-btn">Weiter</button>
@@ -64,16 +68,9 @@
         </div>
 
         <div id="modal-step-3" class="modal-step">
-            <h3 class="step-player-name">Spieler 1</h3>
-            <p class="modal-text">Punkte und Stiche eingeben</p>
-            <div class="input-group">
-                <label>Punkte</label>
-                <input type="number" class="p-points" min="0" max="240" placeholder="Punkte">
-            </div>
-            <div class="input-group">
-                <label>Anzahl Stiche:</label>
-                <input type="number" class="p-tricks" min="0" max="12" placeholder="Stiche">
-            </div>
+            <h3>Schritt 3: Teams</h3>
+            <p class="modal-text">Wer spielt im Team RE?</p>
+            <div class="player-options-grid" id="modal-team-list"></div>
             <div class="modal-buttons-row">
                 <button type="button" class="modal-btn back-btn">Zurück</button>
                 <button type="button" class="modal-btn next-step-btn">Weiter</button>
@@ -81,16 +78,9 @@
         </div>
 
         <div id="modal-step-4" class="modal-step">
-            <h3 class="step-player-name">Spieler 2</h3>
-            <p class="modal-text">Punkte und Stiche eingeben</p>
-            <div class="input-group">
-                <label>Punkte</label>
-                <input type="number" class="p-points" min="0" max="240" placeholder="Punkte">
-            </div>
-            <div class="input-group">
-                <label>Anzahl Stiche:</label>
-                <input type="number" class="p-tricks" min="0" max="12" placeholder="Stiche">
-            </div>
+            <h3>Schritt 4: Abschluss</h3>
+            <p class="modal-text">Welches Team hat gewonnen?</p>
+            <div class="player-options-grid" id="modal-wedding-list"></div>
             <div class="modal-buttons-row">
                 <button type="button" class="modal-btn back-btn">Zurück</button>
                 <button type="button" class="modal-btn next-step-btn">Weiter</button>
@@ -98,40 +88,6 @@
         </div>
 
         <div id="modal-step-5" class="modal-step">
-            <h3 class="step-player-name">Spieler 3</h3>
-            <p class="modal-text">Punkte und Stiche eingeben</p>
-            <div class="input-group">
-                <label>Punkte</label>
-                <input type="number" class="p-points" min="0" max="240" placeholder="Punkte">
-            </div>
-            <div class="input-group">
-                <label>Anzahl Stiche:</label>
-                <input type="number" class="p-tricks" min="0" max="12" placeholder="Stiche">
-            </div>
-            <div class="modal-buttons-row">
-                <button type="button" class="modal-btn back-btn">Zurück</button>
-                <button type="button" class="modal-btn next-step-btn">Weiter</button>
-            </div>
-        </div>
-
-        <div id="modal-step-6" class="modal-step">
-            <h3 class="step-player-name">Spieler 4</h3>
-            <p class="modal-text">Punkte und Stiche eingeben</p>
-            <div class="input-group">
-                <label>Punkte</label>
-                <input type="number" class="p-points" min="0" max="240" placeholder="Punkte">
-            </div>
-            <div class="input-group">
-                <label>Anzahl Stiche:</label>
-                <input type="number" class="p-tricks" min="0" max="12" placeholder="Stiche">
-            </div>
-            <div class="modal-buttons-row">
-                <button type="button" class="modal-btn back-btn">Zurück</button>
-                <button type="button" class="modal-btn next-step-btn">Weiter</button>
-            </div>
-        </div>
-
-        <div id="modal-step-7" class="modal-step">
             <h3 class="step-player-name">Zusammenfassung</h3>
             <div id="summary-cards-zone"></div>
             <div class="modal-buttons-row">
@@ -140,7 +96,7 @@
             </div>
         </div>
 
-        <div id="modal-step-8" class="modal-step success-content">
+        <div id="modal-step-6" class="modal-step success-content">
             <div class="success-icon">✓</div>
             <h3>Erfolgreich!</h3>
             <p>Die Punkte wurden erfolgreich eingetragen und berechnet.</p>
