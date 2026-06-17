@@ -418,7 +418,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 card.innerHTML = `
                     <div class="game-card-header">
                         <span class="game-date">${formatiertesDatum}</span>
-                        <span class="game-progress">Runde ${game.aktuelleRunde} / ${game.rundenGesamt}</span>
+                        <span class="game-progress">Runde ${game.aktuelleRunde}</span>
                     </div>
                     <div class="game-card-body">
                         <p class="game-players"><i data-lucide="users" class="icon-inline"></i> ${game.spielerString}</p>

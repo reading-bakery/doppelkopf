@@ -103,22 +103,8 @@ p {
     font-family: var(--font-text);
 }
 
-/* Visueller Fortschrittsbalken */
-.progress-bar-bg {
-    background-color: #4d4a4a;
-    border-radius: 50px;
-    height: 15px;
-    width: 100%;
-    overflow: hidden;
-    margin-bottom: 15px;
-}
 
-.progress-bar-fill {
-    background-color: var(--background-body);
-    height: 100%;
-    border-radius: 50px;
-    transition: width 0.5s ease-out;
-}
+
 
 /* Flexbox-Row für zwei Buttons nebeneinander */
 .buttons-split-row {
