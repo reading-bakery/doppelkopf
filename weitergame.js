@@ -1,4 +1,3 @@
-
 document.addEventListener('DOMContentLoaded', () => {
     const gamesListContainer = document.getElementById('open-games-list');
     const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQpR0kGrSSxQ_texguYbMzYwGyUBHgBPCeKjk_dL8bgVRp2IaF5X10V-kq-i_BTj0PJPDiiRsqZbby0/pub?gid=1523607497&single=true&output=csv';
