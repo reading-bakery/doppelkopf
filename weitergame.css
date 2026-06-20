@@ -386,6 +386,30 @@ p {
     font-size: 15px;
 }
 
+.radio-wrapper {
+    cursor: pointer;
+}
+
+.radio-wrapper input {
+    display: none;
+}
+
+.radio-wrapper .player-label {
+    display: block;
+    padding: 10px 14px;
+    border: 1px solid #333;
+    border-radius: 8px;
+    transition: 0.2s ease;
+    background: #2a2a2a;
+    color: whitesmoke;
+}
+
+/* AKTIV / SELECTED STATE */
+.radio-wrapper input:checked + .player-label {
+    background: var(--background-body);
+    color: var(--color-pretext);
+}
+
 /* ==========================================
    5. RESPONSIVE ANPASSUNGEN (MEDIA QUERIES)
    ========================================== */

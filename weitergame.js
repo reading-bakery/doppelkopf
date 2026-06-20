@@ -1,3 +1,4 @@
+
 document.addEventListener('DOMContentLoaded', () => {
     const gamesListContainer = document.getElementById('open-games-list');
     const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQpR0kGrSSxQ_texguYbMzYwGyUBHgBPCeKjk_dL8bgVRp2IaF5X10V-kq-i_BTj0PJPDiiRsqZbby0/pub?gid=1523607497&single=true&output=csv';
@@ -9,27 +10,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const entryIds = {
         spiel_datum: 'entry.824360719',   
-        runden_gesamt: 'entry.955427977', 
+        punkte_gesamt: 'entry.955427977', 
         aktuelle_runde: 'entry.1282541600',
         
         solo: 'entry.1248216577',          
-        hochzeit: 'entry.1745650205',      
+        faktor: 'entry.1745650205',      
         
         s1_name: 'entry.1406870107',      
         s1_punkte: 'entry.972361183',     
-        s1_stiche: 'entry.238014956',     
+        s1_team: 'entry.238014956',     
         
         s2_name: 'entry.1764879843',       
         s2_punkte: 'entry.1952914660',    
-        s2_stiche: 'entry.505390666',     
+        s2_team: 'entry.505390666',     
         
         s3_name: 'entry.132908103',      
         s3_punkte: 'entry.1224263999',      
-        s3_stiche: 'entry.693981030',     
+        s3_team: 'entry.693981030',     
         
         s4_name: 'entry.36076733',       
         s4_punkte: 'entry.957057574',      
-        s4_stiche: 'entry.1960997850',
+        s4_team: 'entry.1960997850',
         
         spiel_status: 'entry.1780685435'
     };
@@ -52,7 +53,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Globale Variablen für das aktuell geöffnete Spiel
     let aktuellesSpielerArray = [];
-    let aktuelleGesamtRunden = 0;   
     let aktuelleRundenNummer = 0;   
     let aktuellerSchritt = 1;
 
@@ -71,9 +71,9 @@ document.addEventListener('DOMContentLoaded', () => {
         return r;
     }
 
-    function openModal(spielerArray, rundenGesamt, aktuelleRunde) {
+    function openModal(spielerArray, punkteGesamt, aktuelleRunde) {
         aktuellesSpielerArray = spielerArray;
-        aktuelleGesamtRunden = Number(rundenGesamt) || 0; 
+        aktuelleGesamtRunden = Number(punkteGesamt) || 0; 
         aktuelleRundenNummer = Number(aktuelleRunde) || 0; 
         aktuellerSchritt = 1;
 
@@ -92,7 +92,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>`;
         });
 
-        // Team-Liste (RE)
 // Team RE Liste
 const teamList = document.getElementById("modal-team-list");
 
@@ -139,6 +138,7 @@ teamList.querySelectorAll(".team-player").forEach(cb => {
     });
 });
 
+
         // Zusammenfassung zurücksetzen
 const summaryZone = document.getElementById("summary-cards-zone");
 if (summaryZone) {
@@ -158,17 +158,22 @@ if (summaryZone) {
 
     modal.addEventListener("click", (e) => {
         if (e.target.classList.contains("next-step-btn") && !e.target.id.includes("super-btn")) {
-            if (aktuellerSchritt >= 3 && aktuellerSchritt <= 6) {
-                const currentStepEl = document.getElementById(`modal-step-${aktuellerSchritt}`);
-                const pts = currentStepEl.querySelector(".p-points").value;
-                const trk = currentStepEl.querySelector(".p-tricks").value;
-                if (!pts || !trk) {
-                    alert("Bitte Punkte und Stiche ausfüllen!");
-                    return;
-                }
-            }
+            modal.addEventListener("click", (e) => {
+    if (e.target.classList.contains("next-step-btn") && !e.target.id.includes("super-btn")) {
+
+        if (aktuellerSchritt === 6) {
+            buildSummary();
+        }
+
+        showStep(aktuellerSchritt + 1);
+    }
+
+    if (e.target.classList.contains("back-btn")) {
+        showStep(aktuellerSchritt - 1);
+    }
+});
             
-            if (aktuellerSchritt === 6) {
+            if (aktuellerSchritt === 4) {
                 buildSummary();
             }
 
@@ -182,10 +187,14 @@ if (summaryZone) {
 
     function buildSummary() {
         const summaryZone = document.getElementById("summary-cards-zone");
-        const soloVal = document.querySelector('input[name="solo-player"]:checked').value;
-        const wedVal = document.querySelector('input[name="wedding-player"]:checked').value;
+        const soloEl = document.querySelector('input[name="solo-player"]:checked');
+        const soloVal = soloEl ? soloEl.value : '';
+
+        const winEl = document.querySelector('input[name="winning-team"]:checked');
+        const winningTeam = winEl ? winEl.value : '';
+        params.append(entryIds.faktor, winningTeam);
         
-        let html = `<p style="font-size:14px; color:#aaa;">Ansage: Solo: <b>${soloVal}</b> | Hochzeit: <b>${wedVal}</b></p><hr style="border-color:#333;">`;
+        let html = `<p style="font-size:14px; color:#aaa;">Ansage: Solo: <b>${soloVal}</b> | Hochzeit: <b>${windVal}</b></p><hr style="border-color:#333;">`;
         
         [3, 4, 5, 6].forEach((stepNum, i) => {
             const stepEl = document.getElementById(`modal-step-${stepNum}`);
@@ -202,8 +211,7 @@ if (summaryZone) {
         finalSaveBtn.disabled = true;
 
         const soloVal = document.querySelector('input[name="solo-player"]:checked').value;
-        const wedVal = document.querySelector('input[name="wedding-player"]:checked').value;
-
+        const winEl = document.querySelector('input[name="winning-team"]:checked');
         const s1 = document.getElementById("modal-step-3");
         const s2 = document.getElementById("modal-step-4");
         const s3 = document.getElementById("modal-step-5");
@@ -225,26 +233,26 @@ if (summaryZone) {
         const params = new URLSearchParams();
         
         params.append(entryIds.spiel_datum, gameDateVal);
-        params.append(entryIds.runden_gesamt, aktuelleGesamtRunden);
+        params.append(entryIds.punkte_gesamt, aktuelleGesamtRunden);
         params.append(entryIds.aktuelle_runde, neueRundenNummer); 
         params.append(entryIds.solo, soloVal);
-        params.append(entryIds.hochzeit, wedVal);
+        params.append(entryIds.faktor, winningTeam);
         
         params.append(entryIds.s1_name, aktuellesSpielerArray[0]);
         params.append(entryIds.s1_punkte, s1.querySelector(".p-points").value);
-        params.append(entryIds.s1_stiche, s1.querySelector(".p-tricks").value);
+        params.append(entryIds.s1_team, s1.querySelector(".p-tricks").value);
         
         params.append(entryIds.s2_name, aktuellesSpielerArray[1]);
         params.append(entryIds.s2_punkte, s2.querySelector(".p-points").value);
-        params.append(entryIds.s2_stiche, s2.querySelector(".p-tricks").value);
+        params.append(entryIds.s2_team, s2.querySelector(".p-tricks").value);
         
         params.append(entryIds.s3_name, aktuellesSpielerArray[2]);
         params.append(entryIds.s3_punkte, s3.querySelector(".p-points").value);
-        params.append(entryIds.s3_stiche, s3.querySelector(".p-tricks").value);
+        params.append(entryIds.s3_team, s3.querySelector(".p-tricks").value);
         
         params.append(entryIds.s4_name, aktuellesSpielerArray[3]);
         params.append(entryIds.s4_punkte, s4.querySelector(".p-points").value);
-        params.append(entryIds.s4_stiche, s4.querySelector(".p-tricks").value);
+        params.append(entryIds.s4_team, s4.querySelector(".p-tricks").value);
 
         const targetUrl = `https://docs.google.com/forms/d/e/${formId}/formResponse`;
 
@@ -294,10 +302,11 @@ if (summaryZone) {
 
                 const params = new URLSearchParams();
                 params.append(entryIds.spiel_datum, activeGameData.datum);
-                params.append(entryIds.runden_gesamt, activeGameData.rundenGesamt);
+                params.append(entryIds.punkte_gesamt, activeGameData.punkteGesamt);
                 params.append(entryIds.aktuelle_runde, "beendet"); // Schreibt "beendet" dorthin, wo es deine Tabelle erwartet!
 
                 const targetUrl = `https://docs.google.com/forms/d/e/${formId}/formResponse`;
+
 
                 fetch(targetUrl, {
                     method: "POST",
@@ -478,3 +487,5 @@ if (summaryZone) {
             if (window.lucide) lucide.createIcons();
         });
 });
+
+
