@@ -487,4 +487,3 @@ if (summaryZone) {
         });
 });
 
-
