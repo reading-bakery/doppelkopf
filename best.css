@@ -172,7 +172,7 @@ h2 {
         display: none;
     }
 
-    /* WICHTIG: Die Tabelle selbst muss transparent sein, damit die Lücken rot werden */
+    /* Tabelle transparent machen */
     .stats-table {
         background-color: transparent !important;
     }
@@ -180,60 +180,81 @@ h2 {
         background-color: transparent !important;
     }
 
-    /* Jede Zeile (tr) wird zu einer eigenständigen, dunklen Karte */
+    /* Jede Zeile (tr) wird zu einer eigenständigen Karte */
     .stats-table tbody tr {
         display: grid;
-        grid-template-columns: 40px 1fr auto;
+        /* Layout: Pos (40px), Name (Rest), Solo (auto), Punkte (auto) */
+        grid-template-columns: 40px 1fr auto auto;
         grid-template-areas: 
-            "pos name score"
-            "stat4 stat5 stat6";
-        margin-bottom: 14px; /* Das erzeugt die Lücke, die jetzt rot durchscheint */
+            "pos name solo score";
+        margin-bottom: 14px;
         padding: 16px 14px;
         border-radius: 12px;
         border: 1px solid rgba(255, 255, 255, 0.05);
-        background-color: #222 !important; /* Die Karten bleiben verlässlich dunkel */
+        background-color: #222 !important;
+        align-items: center;
+        gap: 10px;
     }
     
     .stats-table tbody tr:last-child {
         margin-bottom: 0;
     }
 
-    /* Verhindert, dass der Desktop-Hover-Effekt die Transparenz stört */
     .stats-table tbody tr:hover {
         background-color: #2b2b2b !important;
     }
 
-    /* Positionierung der Hauptelemente auf der Karte */
-    .stats-table td.pos-cell {
-        grid-area: pos;
-        border: none;
-        padding: 0;
-        display: flex;
+    /* Positionierung der Elemente */
+    .stats-table td.pos-cell { 
+        grid-area: pos; 
+        border: none; 
+        padding: 0; 
+        display: flex; 
+        align-items: center; 
+        justify-content: center; 
+    }
+
+    .stats-table td.player-name-cell { 
+        grid-area: name; 
+        border: none; 
+        padding: 0; 
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    /* Solo-Spalte: Jetzt direkt in der Zeile */
+    .stats-table td.center-cell:nth-child(4) { 
+        grid-area: solo; 
+        border: none; 
+        padding: 0; 
+        display: flex !important; 
+        flex-direction: column; 
         align-items: center;
-        justify-content: center;
     }
 
-    .stats-table td.player-name-cell {
-        grid-area: name;
-        border: none;
-        padding: 0 8px;
-        align-self: center;
+    /* Label für Solo */
+    .stats-table td.center-cell:nth-child(4)::before { 
+        content: "Solo"; 
+        font-size: 10px; 
+        color: #666; 
+        text-transform: uppercase; 
+        font-family: var(--font-subtitle), sans-serif;
+        margin-bottom: 2px;
     }
 
-    /* Die Punkte-Zelle ganz rechts */
+    /* Punkte-Spalte */
     .stats-table td:nth-child(3) {
         grid-area: score;
         border: none;
         padding: 0;
         text-align: right;
-        align-self: center;
-        font-size: 16px !important;
         display: flex;
         flex-direction: column;
         align-items: flex-end;
     }
 
-    /* Label "Punkte" über der Punktzahl */
+    /* Label für Punkte */
     .stats-table td:nth-child(3)::before {
         content: "Punkte";
         font-size: 10px;
@@ -241,52 +262,15 @@ h2 {
         text-transform: uppercase;
         font-family: var(--font-subtitle), sans-serif;
         margin-bottom: 2px;
-        letter-spacing: 0.5px;
     }
 
-    /* Zuweisung der einzelnen Statistik-Zellen in das untere Grid */
-    .stats-table td.center-cell:nth-child(4) { grid-area: stat4; }
-    .stats-table td.center-cell:nth-child(5) { grid-area: stat5; }
-    .stats-table td.center-cell:nth-child(6) { grid-area: stat6; }
-
-    /* Gemeinsames Design für alle 3 Statistik-Zellen unten */
-    .stats-table td.center-cell {
-        border: none;
-        padding: 0;
-        margin-top: 14px;
-        color: #fff;
-        
-        display: flex !important; 
-        flex-direction: column;
-        align-items: center;
-        
-        border-top: 1px solid rgba(255, 255, 255, 0.05);
-        padding-top: 12px;
-    }
-
-    /* Die Beschriftungen per CSS-Injektion */
-    .stats-table td.center-cell:nth-child(4)::before { content: "Stiche"; }
-    .stats-table td.center-cell:nth-child(5)::before { content: "Solos"; }
-    .stats-table td.center-cell:nth-child(6)::before { content: "Hochzeiten"; }
-
-    /* Gemeinsames Styling für die Handy-Labels */
-    .stats-table td.center-cell::before {
-        font-size: 10px;
-        color: #666;
-        text-transform: uppercase;
-        font-family: var(--font-subtitle), sans-serif;
-        margin-bottom: 4px;
-        letter-spacing: 0.5px;
-    }
-
-    /* Der äußere Container liefert die Hintergrundfarbe für die Zwischenräume */
+    /* Der äußere Container */
     .table-responsive {
         border: none;
         box-shadow: none;
         overflow-x: visible; 
-        background-color: var(--background-body) !important; /* DEIN GRÜN FÜR DIE ZWISCHENRÄUME */
+        background-color: var(--background-body) !important;
         border-radius: 12px;
-        width: 300px;
-        
+        width: 100%; /* Auf 100% gesetzt, damit es im Container passt */
     }
 }

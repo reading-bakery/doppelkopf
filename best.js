@@ -125,7 +125,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     <tr>
                         <td class="pos-cell">${posInhalt}</td>
                         <td class="player-name-cell">${pData.name}</td>
-                        <td style="color: ${scoreColor}; font-weight: normal;">${scoreText}</td>
+                        <td class="points-cell" style="color: ${scoreColor}; font-weight: normal;">
+                            ${scoreText}
+                        </td>
                         <td class="center-cell" data-label="Solos"><span class="stat-value">${pData.solos}</span></td>
                     </tr>
                 `;
