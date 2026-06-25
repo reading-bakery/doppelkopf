@@ -79,7 +79,6 @@ p {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid #333; /* Dunklerer Trenner passend zur Karte */
     padding-bottom: 10px;
     margin-bottom: 15px;
 }
@@ -98,7 +97,6 @@ p {
 
 .game-players {
     font-size: 18px;
-    margin-bottom: 15px;
     color: whitesmoke;
     font-family: var(--font-text);
 }
