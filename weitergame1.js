@@ -48,6 +48,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }).then(() => {
             cardElement.style.display = 'none';
             modal.classList.remove('open');
+            // Prüfen, ob noch Karten da sind
+            if (document.querySelectorAll('.game-card:not([style*="display: none"])').length === 0) {
+                gamesListContainer.innerHTML = '<p class="no-games-message">Keine offenen Spiele</p>';
+            }
         }).catch(err => alert("Fehler: " + err));
     });
 
@@ -87,52 +91,56 @@ document.addEventListener('DOMContentLoaded', () => {
                 gamesGrouped[datum].aktuelleRunde = Math.max(gamesGrouped[datum].aktuelleRunde, parseInt(row[3]) || 0);
             }
 
-            gamesListContainer.innerHTML = '';
-            Object.values(gamesGrouped).forEach(game => {
-                if (terminatedDates.has(game.datum)) return;
+            const activeGames = Object.values(gamesGrouped).filter(game => !terminatedDates.has(game.datum));
 
-                const card = document.createElement('div');
-                card.className = 'game-card';
-                card.style.color = 'whitesmoke';
-                
-                card.innerHTML = `
-                    <div class="game-card-header" style="margin-bottom: 5px;">
-                        <span style="font-family: 'Rubik Mono One'; letter-spacing: -2px;">${game.displayDate}</span>
-                        <span>Runde ${game.aktuelleRunde}</span>
-                    </div>
+            gamesListContainer.innerHTML = '';
+            
+            if (activeGames.length === 0) {
+                gamesListContainer.innerHTML = '<p class="no-games-message">Keine offenen Spiele</p>';
+            } else {
+                activeGames.forEach(game => {
+                    const card = document.createElement('div');
+                    card.className = 'game-card';
                     
-                    <hr style="border: 0; border-top: 1px solid #444; margin: 0 0 5px 0;">
-                    
-                    <div class="game-card-body">
-                        <p class="game-players" style="margin-bottom: 5px;">
-                            <i data-lucide="users" class="icon-inline"></i> ${game.spielerArray.join(', ')}
-                        </p>
+                    card.innerHTML = `
+                        <div class="game-card-header" style="margin-bottom: 5px;">
+                            <span style="font-family: 'Rubik Mono One'; letter-spacing: -2px;">${game.displayDate}</span>
+                            <span>Runde ${game.aktuelleRunde} / ${game.rundenGesamt}</span>
+                        </div>
                         
                         <hr style="border: 0; border-top: 1px solid #444; margin: 0 0 5px 0;">
                         
-                        <div class="game-scores" style="margin-top: 5px; margin-bottom: 15px;">
-                            ${game.spielerArray.map((name, i) => `
-                                <div style="display: flex; justify-content: space-between; padding: 2px 0;">
-                                    <span>${name}</span>
-                                    <span><b>${game.punkte[i]} Punkte</b></span>
-                                </div>
-                            `).join('')}
+                        <div class="game-card-body">
+                            <p class="game-players" style="margin-bottom: 5px;">
+                                <i data-lucide="users" class="icon-inline"></i> ${game.spielerArray.join(', ')}
+                            </p>
+                            
+                            <hr style="border: 0; border-top: 1px solid #444; margin: 0 0 5px 0;">
+                            
+                            <div class="game-scores" style="margin-top: 5px; margin-bottom: 15px;">
+                                ${game.spielerArray.map((name, i) => `
+                                    <div style="display: flex; justify-content: space-between; padding: 2px 0;">
+                                        <span>${name}</span>
+                                        <span><b>${game.punkte[i]} Punkte</b></span>
+                                    </div>
+                                `).join('')}
+                            </div>
                         </div>
-                    </div>
-                    
-                    <div class="game-card-footer" style="margin-top: 20px; display: flex; gap: 15px; padding-top: 10px; border-top: 1px solid #333;">
-                        <button class="btn-continue" style="flex: 2; padding: 12px 0;">Weiterspielen</button>
-                        <button class="btn-terminate" style="flex: 1; padding: 12px 0;">Beenden</button>
-                    </div>
-                `;
+                        
+                        <div class="game-card-footer" style="margin-top: 20px; display: flex; gap: 15px; padding-top: 10px; border-top: 1px solid #333;">
+                            <button class="btn-continue" style="flex: 2; padding: 12px 0;">Weiterspielen</button>
+                            <button class="btn-terminate" style="flex: 1; padding: 12px 0;">Beenden</button>
+                        </div>
+                    `;
 
-                card.querySelector('.btn-terminate').addEventListener('click', () => {
-                    activeGameData = { datum: game.datum, rundenGesamt: game.rundenGesamt, cardElement: card };
-                    modal.classList.add('open');
+                    card.querySelector('.btn-terminate').addEventListener('click', () => {
+                        activeGameData = { datum: game.datum, rundenGesamt: game.rundenGesamt, cardElement: card };
+                        modal.classList.add('open');
+                    });
+
+                    gamesListContainer.appendChild(card);
                 });
-
-                gamesListContainer.appendChild(card);
-            });
+            }
 
             if (window.lucide) lucide.createIcons();
         });
