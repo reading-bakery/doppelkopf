@@ -1,7 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
     const gamesListContainer = document.getElementById('open-games-list');
+    const modal = document.getElementById('confirm-modal');
+    const btnYes = document.getElementById('confirm-yes-btn');
+    const btnNo = document.getElementById('confirm-no-btn');
+    let activeGameData = null;
+
     const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQpR0kGrSSxQ_texguYbMzYwGyUBHgBPCeKjk_dL8bgVRp2IaF5X10V-kq-i_BTj0PJPDiiRsqZbby0/pub?gid=1523607497&single=true&output=csv';
-    
     const formId = '1FAIpQLSfayGd2q3Xnxz1-YmMeiuXoNk6yYLZQ_gNO-7Sv_wT4oI4IMw'; 
     const entryIds = {
         spiel_datum: 'entry.824360719',
@@ -21,6 +25,31 @@ document.addEventListener('DOMContentLoaded', () => {
         r.push(p.trim());
         return r;
     }
+
+    // Modal Events
+    btnNo.addEventListener('click', () => {
+        modal.classList.remove('open');
+        activeGameData = null;
+    });
+
+    btnYes.addEventListener('click', () => {
+        if (!activeGameData) return;
+        const { datum, rundenGesamt, cardElement } = activeGameData;
+        const params = new URLSearchParams();
+        params.append(entryIds.spiel_datum, datum);
+        params.append(entryIds.punkte_gesamt, rundenGesamt);
+        params.append(entryIds.aktuelle_runde, "beendet");
+
+        fetch(`https://docs.google.com/forms/d/e/${formId}/formResponse`, {
+            method: "POST",
+            mode: "no-cors",
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: params.toString()
+        }).then(() => {
+            cardElement.style.display = 'none';
+            modal.classList.remove('open');
+        }).catch(err => alert("Fehler: " + err));
+    });
 
     fetch(csvUrl)
         .then(response => response.text())
@@ -98,21 +127,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 `;
 
                 card.querySelector('.btn-terminate').addEventListener('click', () => {
-                    if (!confirm(`Spiel vom ${game.displayDate} wirklich beenden?`)) return;
-
-                    const params = new URLSearchParams();
-                    params.append(entryIds.spiel_datum, game.datum);
-                    params.append(entryIds.punkte_gesamt, game.rundenGesamt);
-                    params.append(entryIds.aktuelle_runde, "beendet");
-
-                    fetch(`https://docs.google.com/forms/d/e/${formId}/formResponse`, {
-                        method: "POST",
-                        mode: "no-cors",
-                        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                        body: params.toString()
-                    }).then(() => {
-                        card.style.display = 'none';
-                    }).catch(err => alert("Fehler: " + err));
+                    activeGameData = { datum: game.datum, rundenGesamt: game.rundenGesamt, cardElement: card };
+                    modal.classList.add('open');
                 });
 
                 gamesListContainer.appendChild(card);
