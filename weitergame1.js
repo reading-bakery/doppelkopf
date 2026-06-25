@@ -104,8 +104,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     
                     card.innerHTML = `
                         <div class="game-card-header" style="margin-bottom: 5px;">
-                            <span style="font-family: 'Rubik Mono One'; letter-spacing: -2px;">${game.displayDate}</span>
-                            <span>Runde ${game.aktuelleRunde} / ${game.rundenGesamt}</span>
+                            <span style="font-family: 'Rubik Mono One'; color: whitesmoke; letter-spacing: -2px;">${game.displayDate}</span>
+                            <span style="color: whitesmoke;">Runde ${game.aktuelleRunde}</span>
                         </div>
                         
                         <hr style="border: 0; border-top: 1px solid #444; margin: 0 0 5px 0;">
@@ -120,8 +120,8 @@ document.addEventListener('DOMContentLoaded', () => {
                             <div class="game-scores" style="margin-top: 5px; margin-bottom: 15px;">
                                 ${game.spielerArray.map((name, i) => `
                                     <div style="display: flex; justify-content: space-between; padding: 2px 0;">
-                                        <span>${name}</span>
-                                        <span><b>${game.punkte[i]} Punkte</b></span>
+                                        <span style="color: whitesmoke;">${name}</span>
+                                        <span style="color: whitesmoke;"><b>${game.punkte[i]} Punkte</b></span>
                                     </div>
                                 `).join('')}
                             </div>
