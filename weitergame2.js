@@ -85,4 +85,57 @@ document.addEventListener('DOMContentLoaded', () => {
         closeModal(gameModal);
         location.reload(); 
     });
+
+// ... (innerhalb von DOMContentLoaded)
+
+// Hilfsfunktion: Team-Liste generieren
+const renderTeamOptions = (spielerArray) => {
+    const teamList = document.getElementById("modal-team-list");
+    teamList.innerHTML = "";
+
+    spielerArray.forEach((s, i) => {
+        teamList.innerHTML += `
+            <div class="radio-wrapper">
+                <input type="checkbox" id="team-${i}" value="${s}" class="player-radio-btn team-player">
+                <label for="team-${i}" class="player-label">${s}</label>
+            </div>`;
+    });
+
+    // Event-Listener für das Limit hinzufügen
+    teamList.querySelectorAll(".team-player").forEach(cb => {
+        cb.addEventListener("change", () => {
+            const checked = teamList.querySelectorAll(".team-player:checked");
+            teamList.querySelectorAll(".team-player").forEach(input => {
+                input.disabled = (checked.length >= 2 && !input.checked);
+            });
+        });
+    });
+};
+
+// ... (In der Event-Delegation beim Öffnen)
+gamesList.addEventListener('click', (e) => {
+    if (e.target.classList.contains('btn-continue')) {
+        const card = e.target.closest('.game-card');
+        window.activeGameForContinue = JSON.parse(card.dataset.gameInfo);
+
+        // Beide Listen rendern
+        renderSoloOptions(window.activeGameForContinue.spielerArray);
+        renderTeamOptions(window.activeGameForContinue.spielerArray); 
+
+        gameModal.classList.add('open');
+        document.querySelectorAll('.modal-step').forEach(s => s.classList.remove('active'));
+        document.getElementById('modal-step-1').classList.add('active');
+    }
+});
+
+// ... (Im WEITER-Button Block innerhalb des Modals)
+if (currentStep.id === 'modal-step-3') {
+    const selectedTeam = Array.from(document.querySelectorAll('.team-player:checked'))
+                              .map(cb => cb.value);
+    
+    // Validierung: Wenn z.B. genau 2 Spieler gewählt werden müssen
+    if (selectedTeam.length === 0) return alert("Wähle bitte Spieler aus!");
+    window.activeGameForContinue.teamRe = selectedTeam;
+}
+
 });
