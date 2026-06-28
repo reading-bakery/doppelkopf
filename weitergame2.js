@@ -58,7 +58,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.target.classList.contains('btn-continue')) {
             const card = e.target.closest('.game-card');
             window.activeGameForContinue = JSON.parse(card.dataset.gameInfo);
-            // Runde aus der Karte laden (als Zahl)
             window.activeGameForContinue.aktuelleRunde = Number(window.activeGameForContinue.aktuelleRunde);
             
             renderSoloOptions(window.activeGameForContinue.spielerArray);
@@ -70,21 +69,31 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     gameModal.addEventListener('click', (e) => {
+        // Vorwärts-Logik
         if (e.target.classList.contains('next-step-btn')) {
             const currentStep = e.target.closest('.modal-step');
             const nextStep = document.getElementById('modal-step-' + (parseInt(currentStep.id.split('-')[2]) + 1));
             if (nextStep) { currentStep.classList.remove('active'); nextStep.classList.add('active'); }
         }
 
+        // Zurück-Logik
+        if (e.target.classList.contains('back-btn')) {
+            const currentStep = e.target.closest('.modal-step');
+            const prevStepId = parseInt(currentStep.id.split('-')[2]) - 1;
+            const prevStep = document.getElementById('modal-step-' + prevStepId);
+            if (prevStep) {
+                currentStep.classList.remove('active');
+                prevStep.classList.add('active');
+            }
+        }
+
+        // Speichern-Logik
         if (e.target.id === 'final-save-btn') {
             const { ergebnisse, faktor, gewinnerTeam, teamRe, soloPlayer } = berechnePunkte();
             const game = window.activeGameForContinue;
-            
-            // Runde erhöhen
             const neueRunde = game.aktuelleRunde + 1;
 
             let bodyParts = [];
-            // Reihenfolge EXAKT nach Tabelle:
             bodyParts.push(`${entryIds.spiel_datum}=${encodeURIComponent(game.datum)}`);
             bodyParts.push(`${entryIds.punkte_gesamt}=${encodeURIComponent(document.getElementById('modal-points-input').value)}`);
             bodyParts.push(`${entryIds.aktuelle_runde}=${encodeURIComponent(neueRunde)}`);
