@@ -1,21 +1,39 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Elemente referenzieren
     const gameModal = document.getElementById("game-modal");
     const closeX = document.getElementById("close-modal-x");
     const superBtn = document.getElementById("super-btn");
-    const confirmModal = document.getElementById("confirm-modal");
     const gamesList = document.getElementById('open-games-list');
+    const soloList = document.getElementById("modal-solo-list");
 
-    // Funktion zum Schließen aller Modals
     const closeModal = (modalElement) => {
         modalElement.classList.remove('open');
     };
 
-    // 2. Event-Delegation für die Spielliste (Öffnen)
+    // Hilfsfunktion: Solo-Liste generieren
+    const renderSoloOptions = (spielerArray) => {
+        soloList.innerHTML = `
+            <div style="grid-column: span 2;" class="radio-wrapper">
+                <input type="radio" name="solo-player" id="solo-none" value="keins" class="player-radio-btn" checked>
+                <label for="solo-none" class="player-label">Kein Solo</label>
+            </div>`;
+        
+        spielerArray.forEach((s, i) => {
+            soloList.innerHTML += `
+                <div class="radio-wrapper">
+                    <input type="radio" name="solo-player" id="solo-${i}" value="${s}" class="player-radio-btn">
+                    <label for="solo-${i}" class="player-label">${s}</label>
+                </div>`;
+        });
+    };
+
+    // 2. Klick auf "Weiterspielen" (Öffnen)
     gamesList.addEventListener('click', (e) => {
         if (e.target.classList.contains('btn-continue')) {
             const card = e.target.closest('.game-card');
             window.activeGameForContinue = JSON.parse(card.dataset.gameInfo);
+
+            // Liste für Solo-Auswahl füllen
+            renderSoloOptions(window.activeGameForContinue.spielerArray);
 
             gameModal.classList.add('open');
             document.querySelectorAll('.modal-step').forEach(s => s.classList.remove('active'));
@@ -23,29 +41,34 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // 3. Navigation innerhalb des Modals (Weiter, Zurück)
+    // 3. Navigation innerhalb des Modals
     gameModal.addEventListener('click', (e) => {
-        // ZURÜCK-Button Logik
+        // ZURÜCK-Button
         if (e.target.classList.contains('back-btn')) {
             const currentStep = e.target.closest('.modal-step');
             const prevStepId = parseInt(currentStep.id.split('-')[2]) - 1;
             const prevStep = document.getElementById('modal-step-' + prevStepId);
-            
             if (prevStep) {
                 currentStep.classList.remove('active');
                 prevStep.classList.add('active');
             }
         }
 
-        // WEITER-Button Logik
+        // WEITER-Button
         if (e.target.classList.contains('next-step-btn')) {
             const currentStep = e.target.closest('.modal-step');
             
-            // Validierung für Schritt 1 (Punkte)
+            // Schritt 1 Validierung
             if (currentStep.id === 'modal-step-1') {
                 const punkte = document.getElementById('modal-points-input').value;
                 if (!punkte) return alert("Punkte eingeben!");
                 window.activeGameForContinue.neuePunkte = punkte;
+            }
+
+            // Schritt 2 Speicherung (Solo Auswahl)
+            if (currentStep.id === 'modal-step-2') {
+                const selectedSolo = document.querySelector('input[name="solo-player"]:checked');
+                window.activeGameForContinue.soloPlayer = selectedSolo ? selectedSolo.value : "keins";
             }
 
             const nextStepId = parseInt(currentStep.id.split('-')[2]) + 1;
@@ -57,12 +80,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // 4. Close & Super Button (Abschluss)
     closeX.addEventListener('click', () => closeModal(gameModal));
-    
     superBtn.addEventListener('click', () => {
         closeModal(gameModal);
-        // Optional: Hier die Seite neu laden oder Karte aktualisieren
         location.reload(); 
     });
 });
