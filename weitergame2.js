@@ -6,11 +6,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const gamesList = document.getElementById('open-games-list');
     const soloList = document.getElementById("modal-solo-list");
     const teamList = document.getElementById("modal-team-list");
+    
     const formId = '1FAIpQLSfayGd2q3Xnxz1-YmMeiuXoNk6yYLZQ_gNO-7Sv_wT4oI4IMw';
 
     const entryIds = {
-        spiel_datum: 'entry.824360719', punkte_gesamt: 'entry.955427977', aktuelle_runde: 'entry.1282541600',
-        solo: 'entry.1248216577', faktor: 'entry.1745650205',
+        spiel_datum: 'entry.824360719', 
+        punkte_gesamt: 'entry.955427977', 
+        aktuelle_runde: 'entry.1282541600',
+        solo: 'entry.1248216577', 
+        faktor: 'entry.1745650205',
         s1_name: 'entry.1406870107', s1_punkte: 'entry.972361183', s1_team: 'entry.238014956',
         s2_name: 'entry.1764879843', s2_punkte: 'entry.1952914660', s2_team: 'entry.505390666',
         s3_name: 'entry.132908103', s3_punkte: 'entry.1224263999', s3_team: 'entry.693981030',
@@ -20,36 +24,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const closeModal = (m) => m.classList.remove('open');
 
-    // Hilfsfunktion: Solo-Optionen rendern
+    // --- Hilfsfunktionen ---
     const renderSoloOptions = (spielerArray) => {
-        soloList.innerHTML = `<div style="grid-column: span 2;" class="radio-wrapper">
-            <input type="radio" name="solo-player" id="solo-none" value="keins" class="player-radio-btn" checked>
-            <label for="solo-none" class="player-label">Kein Solo</label></div>`;
+        soloList.innerHTML = `<div style="grid-column: span 2;" class="radio-wrapper"><input type="radio" name="solo-player" id="solo-none" value="keins" class="player-radio-btn" checked><label for="solo-none" class="player-label">Kein Solo</label></div>`;
         spielerArray.forEach((s, i) => {
-            soloList.innerHTML += `<div class="radio-wrapper"><input type="radio" name="solo-player" id="solo-${i}" value="${s}" class="player-radio-btn">
-                <label for="solo-${i}" class="player-label">${s}</label></div>`;
+            soloList.innerHTML += `<div class="radio-wrapper"><input type="radio" name="solo-player" id="solo-${i}" value="${s}" class="player-radio-btn"><label for="solo-${i}" class="player-label">${s}</label></div>`;
         });
     };
 
-    // Hilfsfunktion: Team-Optionen rendern
     const renderTeamOptions = (spielerArray) => {
         teamList.innerHTML = "";
         spielerArray.forEach((s, i) => {
-            teamList.innerHTML += `<div class="radio-wrapper">
-                <input type="checkbox" id="team-${i}" value="${s}" class="player-radio-btn team-player">
-                <label for="team-${i}" class="player-label">${s}</label></div>`;
+            teamList.innerHTML += `<div class="radio-wrapper"><input type="checkbox" id="team-${i}" value="${s}" class="player-radio-btn team-player"><label for="team-${i}" class="player-label">${s}</label></div>`;
         });
         teamList.querySelectorAll(".team-player").forEach(cb => {
             cb.addEventListener("change", () => {
                 const checked = teamList.querySelectorAll(".team-player:checked");
-                teamList.querySelectorAll(".team-player").forEach(input => {
-                    input.disabled = (checked.length >= 2 && !input.checked);
-                });
+                teamList.querySelectorAll(".team-player").forEach(input => input.disabled = (checked.length >= 2 && !input.checked));
             });
         });
     };
 
-    // Spiel-Logik (Punkte berechnen)
     const berechnePunkte = () => {
         const game = window.activeGameForContinue;
         const inputPunkte = parseInt(game.neuePunkte);
@@ -67,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return { ergebnisse, faktor, gewinnerTeam, teamRe, soloPlayer };
     };
 
-    // 2. Events: Klick auf "Weiterspielen"
+    // --- Events ---
     gamesList.addEventListener('click', (e) => {
         if (e.target.classList.contains('btn-continue')) {
             const card = e.target.closest('.game-card');
@@ -80,7 +75,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // 3. Navigation & Speichern
     gameModal.addEventListener('click', (e) => {
         if (e.target.classList.contains('back-btn')) {
             const currentStep = e.target.closest('.modal-step');
@@ -99,23 +93,32 @@ document.addEventListener('DOMContentLoaded', () => {
             if (nextStep) { currentStep.classList.remove('active'); nextStep.classList.add('active'); }
         }
 
-        // Finaler Speichervorgang
         if (e.target.id === 'final-save-btn') {
             const { ergebnisse, faktor, gewinnerTeam, teamRe, soloPlayer } = berechnePunkte();
             const game = window.activeGameForContinue;
-            const params = new URLSearchParams();
-            params.append(entryIds.spiel_datum, game.datum);
-            params.append(entryIds.punkte_gesamt, game.neuePunkte);
-            params.append(entryIds.solo, soloPlayer);
-            params.append(entryIds.faktor, faktor);
-            game.spielerArray.forEach((name, i) => {
-                params.append(entryIds[`s${i+1}_name`], name);
-                params.append(entryIds[`s${i+1}_punkte`], ergebnisse[name]);
-                params.append(entryIds[`s${i+1}_team`], teamRe.includes(name) ? "Re" : "Kontra");
-            });
+            
+            // Automatische Runden-Erhöhung
+            const aktuelleRunde = parseInt(game.runde || 0);
+            const neueRunde = aktuelleRunde + 1;
+
+            let bodyParts = [];
+
+            // REIHENFOLGE: Exakt nach Tabellenstruktur
+            bodyParts.push(`${entryIds.spiel_datum}=${encodeURIComponent(game.datum)}`);
+            bodyParts.push(`${entryIds.punkte_gesamt}=${encodeURIComponent(game.neuePunkte)}`);
+            bodyParts.push(`${entryIds.aktuelle_runde}=${encodeURIComponent(neueRunde)}`);
+            
+            game.spielerArray.forEach((name, i) => bodyParts.push(`${entryIds[`s${i+1}_name`]}=${encodeURIComponent(name)}`));
+            game.spielerArray.forEach((name) => bodyParts.push(`${entryIds[`s${Object.keys(ergebnisse).indexOf(name)+1}_punkte`]}=${encodeURIComponent(ergebnisse[name])}`));
+            game.spielerArray.forEach((name, i) => bodyParts.push(`${entryIds[`s${i+1}_team`]}=${encodeURIComponent(teamRe.includes(name) ? "Re" : "Kontra")}`));
+            
+            bodyParts.push(`${entryIds.solo}=${encodeURIComponent(soloPlayer)}`);
+            bodyParts.push(`${entryIds.faktor}=${encodeURIComponent(faktor)}`);
+            bodyParts.push(`${entryIds.spiel_status}=${encodeURIComponent(gewinnerTeam)}`);
 
             fetch(`https://docs.google.com/forms/d/e/${formId}/formResponse`, {
-                method: "POST", mode: "no-cors", body: params.toString()
+                method: "POST", mode: "no-cors", headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: bodyParts.join('&')
             }).then(() => {
                 document.querySelectorAll('.modal-step').forEach(s => s.classList.remove('active'));
                 document.getElementById('modal-step-6').classList.add('active');

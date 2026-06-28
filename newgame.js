@@ -58,7 +58,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Umstellung auf URLSearchParams für Google Forms
         const urlEncodedData = new URLSearchParams();
-        urlEncodedData.append('entry.824360719', gameDate);    // Datum
+        urlEncodedData.append('entry.824360719', gameDate);   // Datum
+        urlEncodedData.append('entry.1282541600', '0');        // Aktuelle Runde (fest auf 0 gesetzt)
         urlEncodedData.append('entry.1406870107', player1);    // Name Spieler 1
         urlEncodedData.append('entry.1764879843', player2);    // Name Spieler 2
         urlEncodedData.append('entry.132908103', player3);     // Name Spieler 3
