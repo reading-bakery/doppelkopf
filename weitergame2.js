@@ -22,8 +22,6 @@ document.addEventListener('DOMContentLoaded', () => {
         spiel_status: 'entry.1780685435'
     };
 
-    const closeModal = (m) => m.classList.remove('open');
-
     // --- Hilfsfunktionen ---
     const renderSoloOptions = (spielerArray) => {
         soloList.innerHTML = `<div style="grid-column: span 2;" class="radio-wrapper"><input type="radio" name="solo-player" id="solo-none" value="keins" class="player-radio-btn" checked><label for="solo-none" class="player-label">Kein Solo</label></div>`;
@@ -37,24 +35,17 @@ document.addEventListener('DOMContentLoaded', () => {
         spielerArray.forEach((s, i) => {
             teamList.innerHTML += `<div class="radio-wrapper"><input type="checkbox" id="team-${i}" value="${s}" class="player-radio-btn team-player"><label for="team-${i}" class="player-label">${s}</label></div>`;
         });
-        teamList.querySelectorAll(".team-player").forEach(cb => {
-            cb.addEventListener("change", () => {
-                const checked = teamList.querySelectorAll(".team-player:checked");
-                teamList.querySelectorAll(".team-player").forEach(input => input.disabled = (checked.length >= 2 && !input.checked));
-            });
-        });
     };
 
     const berechnePunkte = () => {
-        const game = window.activeGameForContinue;
-        const inputPunkte = parseInt(game.neuePunkte);
+        const inputPunkte = parseInt(document.getElementById('modal-points-input').value);
         const soloPlayer = document.querySelector('input[name="solo-player"]:checked')?.value || "keins";
         const teamRe = Array.from(document.querySelectorAll('.team-player:checked')).map(cb => cb.value);
         const gewinnerTeam = document.querySelector('input[name="winning-team"]:checked')?.value;
         const faktor = (soloPlayer !== "keins") ? 3 : 1;
         let ergebnisse = {};
 
-        game.spielerArray.forEach(spieler => {
+        window.activeGameForContinue.spielerArray.forEach(spieler => {
             const inTeamRe = teamRe.includes(spieler);
             const istGewinner = (gewinnerTeam === "Re" && inTeamRe) || (gewinnerTeam === "Kontra" && !inTeamRe);
             ergebnisse[spieler] = istGewinner ? (inputPunkte * faktor) : (-inputPunkte);
@@ -62,11 +53,14 @@ document.addEventListener('DOMContentLoaded', () => {
         return { ergebnisse, faktor, gewinnerTeam, teamRe, soloPlayer };
     };
 
-    // --- Events ---
+    // --- Event Listener ---
     gamesList.addEventListener('click', (e) => {
         if (e.target.classList.contains('btn-continue')) {
             const card = e.target.closest('.game-card');
             window.activeGameForContinue = JSON.parse(card.dataset.gameInfo);
+            // Runde aus der Karte laden (als Zahl)
+            window.activeGameForContinue.aktuelleRunde = Number(window.activeGameForContinue.aktuelleRunde);
+            
             renderSoloOptions(window.activeGameForContinue.spielerArray);
             renderTeamOptions(window.activeGameForContinue.spielerArray);
             gameModal.classList.add('open');
@@ -76,19 +70,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     gameModal.addEventListener('click', (e) => {
-        if (e.target.classList.contains('back-btn')) {
-            const currentStep = e.target.closest('.modal-step');
-            const prevStep = document.getElementById('modal-step-' + (parseInt(currentStep.id.split('-')[2]) - 1));
-            if (prevStep) { currentStep.classList.remove('active'); prevStep.classList.add('active'); }
-        }
-
         if (e.target.classList.contains('next-step-btn')) {
             const currentStep = e.target.closest('.modal-step');
-            if (currentStep.id === 'modal-step-1') {
-                const punkte = document.getElementById('modal-points-input').value;
-                if (!punkte) return alert("Punkte eingeben!");
-                window.activeGameForContinue.neuePunkte = punkte;
-            }
             const nextStep = document.getElementById('modal-step-' + (parseInt(currentStep.id.split('-')[2]) + 1));
             if (nextStep) { currentStep.classList.remove('active'); nextStep.classList.add('active'); }
         }
@@ -97,15 +80,13 @@ document.addEventListener('DOMContentLoaded', () => {
             const { ergebnisse, faktor, gewinnerTeam, teamRe, soloPlayer } = berechnePunkte();
             const game = window.activeGameForContinue;
             
-            // Automatische Runden-Erhöhung
-            const aktuelleRunde = parseInt(game.runde || 0);
-            const neueRunde = aktuelleRunde + 1;
+            // Runde erhöhen
+            const neueRunde = game.aktuelleRunde + 1;
 
             let bodyParts = [];
-
-            // REIHENFOLGE: Exakt nach Tabellenstruktur
+            // Reihenfolge EXAKT nach Tabelle:
             bodyParts.push(`${entryIds.spiel_datum}=${encodeURIComponent(game.datum)}`);
-            bodyParts.push(`${entryIds.punkte_gesamt}=${encodeURIComponent(game.neuePunkte)}`);
+            bodyParts.push(`${entryIds.punkte_gesamt}=${encodeURIComponent(document.getElementById('modal-points-input').value)}`);
             bodyParts.push(`${entryIds.aktuelle_runde}=${encodeURIComponent(neueRunde)}`);
             
             game.spielerArray.forEach((name, i) => bodyParts.push(`${entryIds[`s${i+1}_name`]}=${encodeURIComponent(name)}`));
@@ -126,6 +107,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    closeX.addEventListener('click', () => closeModal(gameModal));
-    superBtn.addEventListener('click', () => { closeModal(gameModal); location.reload(); });
+    closeX.addEventListener('click', () => gameModal.classList.remove('open'));
+    superBtn.addEventListener('click', () => { gameModal.classList.remove('open'); location.reload(); });
 });
