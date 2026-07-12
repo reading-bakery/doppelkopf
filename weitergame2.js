@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const teamList = document.getElementById("modal-team-list");
     
     const formId = '1FAIpQLSfayGd2q3Xnxz1-YmMeiuXoNk6yYLZQ_gNO-7Sv_wT4oI4IMw';
-
+ 
     const entryIds = {
         spiel_datum: 'entry.824360719', 
         punkte_gesamt: 'entry.955427977', 
@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
         s4_name: 'entry.36076733', s4_punkte: 'entry.957057574', s4_team: 'entry.1960997850',
         spiel_status: 'entry.1780685435'
     };
-
+ 
     // --- Hilfsfunktionen ---
     const renderSoloOptions = (spielerArray) => {
         soloList.innerHTML = `<div style="grid-column: span 2;" class="radio-wrapper"><input type="radio" name="solo-player" id="solo-none" value="keins" class="player-radio-btn" checked><label for="solo-none" class="player-label">Kein Solo</label></div>`;
@@ -29,14 +29,14 @@ document.addEventListener('DOMContentLoaded', () => {
             soloList.innerHTML += `<div class="radio-wrapper"><input type="radio" name="solo-player" id="solo-${i}" value="${s}" class="player-radio-btn"><label for="solo-${i}" class="player-label">${s}</label></div>`;
         });
     };
-
+ 
     const renderTeamOptions = (spielerArray) => {
         teamList.innerHTML = "";
         spielerArray.forEach((s, i) => {
             teamList.innerHTML += `<div class="radio-wrapper"><input type="checkbox" id="team-${i}" value="${s}" class="player-radio-btn team-player"><label for="team-${i}" class="player-label">${s}</label></div>`;
         });
     };
-
+ 
     const berechnePunkte = () => {
         const inputPunkte = parseInt(document.getElementById('modal-points-input').value);
         const soloPlayer = document.querySelector('input[name="solo-player"]:checked')?.value || "keins";
@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const gewinnerTeam = document.querySelector('input[name="winning-team"]:checked')?.value;
         const faktor = (soloPlayer !== "keins") ? 3 : 1;
         let ergebnisse = {};
-
+ 
         window.activeGameForContinue.spielerArray.forEach(spieler => {
             const inTeamRe = teamRe.includes(spieler);
             const istGewinner = (gewinnerTeam === "Re" && inTeamRe) || (gewinnerTeam === "Kontra" && !inTeamRe);
@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         return { ergebnisse, faktor, gewinnerTeam, teamRe, soloPlayer };
     };
-
+ 
     // --- Event Listener ---
     gamesList.addEventListener('click', (e) => {
         if (e.target.classList.contains('btn-continue')) {
@@ -67,16 +67,14 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('modal-step-1').classList.add('active');
         }
     });
-
+ 
     gameModal.addEventListener('click', (e) => {
-        // Vorwärts-Logik
         if (e.target.classList.contains('next-step-btn')) {
             const currentStep = e.target.closest('.modal-step');
             const nextStep = document.getElementById('modal-step-' + (parseInt(currentStep.id.split('-')[2]) + 1));
             if (nextStep) { currentStep.classList.remove('active'); nextStep.classList.add('active'); }
         }
-
-        // Zurück-Logik
+ 
         if (e.target.classList.contains('back-btn')) {
             const currentStep = e.target.closest('.modal-step');
             const prevStepId = parseInt(currentStep.id.split('-')[2]) - 1;
@@ -86,13 +84,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 prevStep.classList.add('active');
             }
         }
-
-        // Speichern-Logik
+ 
         if (e.target.id === 'final-save-btn') {
             const { ergebnisse, faktor, gewinnerTeam, teamRe, soloPlayer } = berechnePunkte();
             const game = window.activeGameForContinue;
             const neueRunde = game.aktuelleRunde + 1;
-
+ 
             let bodyParts = [];
             bodyParts.push(`${entryIds.spiel_datum}=${encodeURIComponent(game.datum)}`);
             bodyParts.push(`${entryIds.punkte_gesamt}=${encodeURIComponent(document.getElementById('modal-points-input').value)}`);
@@ -105,17 +102,36 @@ document.addEventListener('DOMContentLoaded', () => {
             bodyParts.push(`${entryIds.solo}=${encodeURIComponent(soloPlayer)}`);
             bodyParts.push(`${entryIds.faktor}=${encodeURIComponent(faktor)}`);
             bodyParts.push(`${entryIds.spiel_status}=${encodeURIComponent(gewinnerTeam)}`);
-
+ 
             fetch(`https://docs.google.com/forms/d/e/${formId}/formResponse`, {
                 method: "POST", mode: "no-cors", headers: { "Content-Type": "application/x-www-form-urlencoded" },
                 body: bodyParts.join('&')
             }).then(() => {
+                const successStep = document.getElementById('modal-step-6');
+                
+                // Zusammenfassung nur einfügen, wenn sie noch nicht existiert
+                if (!successStep.querySelector('#dynamic-summary')) {
+                    successStep.insertAdjacentHTML('beforeend', `
+                        <div id="dynamic-summary" style="text-align: left; margin: 15px 0;">
+                            <p><strong>Solo:</strong> ${soloPlayer === "keins" ? "Kein" : soloPlayer} | <strong>Sieger:</strong> ${gewinnerTeam}</p>
+                            <ul style="list-style: none; padding: 0;">
+                                ${game.spielerArray.map(s => {
+                                    const delta = ergebnisse[s];
+                                    const text = delta === 0 ? "Genau im Plan!" : delta > 0 ? `+${delta}` : `${delta}`;
+                                    const color = delta === 0 ? "white" : delta > 0 ? "#699169" : "#a8583a";
+                                    return `<li style="color:${color}; font-weight:bold;">${s}: ${text}</li>`;
+                                }).join('')}
+                            </ul>
+                        </div>
+                    `);
+                }
+                
                 document.querySelectorAll('.modal-step').forEach(s => s.classList.remove('active'));
-                document.getElementById('modal-step-6').classList.add('active');
+                successStep.classList.add('active');
             }).catch(err => alert("Fehler: " + err));
         }
     });
-
+ 
     closeX.addEventListener('click', () => gameModal.classList.remove('open'));
     superBtn.addEventListener('click', () => { gameModal.classList.remove('open'); location.reload(); });
 });
