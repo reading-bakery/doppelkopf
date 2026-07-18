@@ -37,18 +37,36 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
  
-    const berechnePunkte = () => {
+const berechnePunkte = () => {
         const inputPunkte = parseInt(document.getElementById('modal-points-input').value);
         const soloPlayer = document.querySelector('input[name="solo-player"]:checked')?.value || "keins";
         const teamRe = Array.from(document.querySelectorAll('.team-player:checked')).map(cb => cb.value);
         const gewinnerTeam = document.querySelector('input[name="winning-team"]:checked')?.value;
-        const faktor = (soloPlayer !== "keins") ? 3 : 1;
+        const istSolo = soloPlayer !== "keins";
+        const faktor = istSolo ? 3 : 1;
         let ergebnisse = {};
- 
+
         window.activeGameForContinue.spielerArray.forEach(spieler => {
             const inTeamRe = teamRe.includes(spieler);
             const istGewinner = (gewinnerTeam === "Re" && inTeamRe) || (gewinnerTeam === "Kontra" && !inTeamRe);
-            ergebnisse[spieler] = istGewinner ? (inputPunkte * faktor) : (-inputPunkte);
+            
+            if (istGewinner) {
+                // Sonderfall: Kontra gewinnt ein Solo -> Kontra-Spieler erhalten einfache Punkte
+                if (istSolo && gewinnerTeam === "Kontra") {
+                    ergebnisse[spieler] = inputPunkte;
+                } else {
+                    // Normaler Gewinn (Solo-Spieler gewinnt ODER normales team-basiertes Spiel)
+                    ergebnisse[spieler] = inputPunkte * faktor;
+                }
+            } else {
+                // Sonderfall: Re verliert das Solo -> Solo-Spieler zahlt den dreifachen Satz
+                if (istSolo && gewinnerTeam === "Kontra") {
+                    ergebnisse[spieler] = -(inputPunkte * faktor);
+                } else {
+                    // Normaler Verlust
+                    ergebnisse[spieler] = -inputPunkte;
+                }
+            }
         });
         return { ergebnisse, faktor, gewinnerTeam, teamRe, soloPlayer };
     };
